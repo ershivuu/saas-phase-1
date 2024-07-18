@@ -1,0 +1,141 @@
+.modal {
+  display: block;
+  /* Hide by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* Enable scrolling if needed */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* Center modal on screen */
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 30%;
+  /* Set maximum width */
+  overflow-y: auto;
+  /* Enable vertical scrolling if needed */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.up-del-btn {
+  width: 17px;
+  height: 18px;
+}
+
+#apiTypeInput,
+#roleTypeInput {
+  width: 100%;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+#add-new-btn {
+  /* position: absolute; */
+  /* margin-right: 5%; */
+  right: 0;
+  font-family: "Open Sans", sans-serif;
+float: inline-end;
+  background-color: transparent;
+  padding: 3px 20px 3px 20px;
+  font-weight: 600;
+  border: 2px solid black;
+}
+
+#update-new-btn {
+  position: absolute;
+  margin-right: 5%;
+  right: 0;
+
+  font-family: "Open Sans", sans-serif;
+  margin-top: 75px;
+  background-color: transparent;
+  padding: 3px 20px 3px 20px;
+  font-weight: 600;
+  border: 2px solid black;
+}
+
+#set-btn:hover {
+  background-color: black;
+  color: white;
+  transition: 0.3s ease-in-out;
+}
+
+.submit-btn {
+  margin-top: 30px;
+}
+
+/* Modal container */
+.modal {
+  display: block;
+  /* Ensure modal is visible */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
+  z-index: 999;
+  /* Ensure modal is on top of other content */
+  overflow: auto;
+  /* Enable scrolling if content exceeds viewport */
+}
+
+/* Modal content */
+.modal-content {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 30%;
+  /* Set max-width to desired size */
+  max-height: 80%;
+  /* Set max-height to desired size */
+  overflow: auto;
+  /* Enable scrolling if content exceeds modal size */
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #888;
+}
+
+.close:hover {
+  color: #000;
+}
+/* body{
+  overflow: hidden;
+} */
