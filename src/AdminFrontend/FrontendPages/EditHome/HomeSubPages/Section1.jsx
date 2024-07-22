@@ -118,7 +118,10 @@ function Section1() {
 
   return (
     <>
-      <div className="Faq-heading">
+    <div className="admin-list">
+
+    
+      <div className="SCA-heading">
         <p>Section 1</p>
       </div>
 
@@ -220,7 +223,7 @@ function Section1() {
           </div>
         </Fade>
       </Modal>
-
+      </div>
       <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}

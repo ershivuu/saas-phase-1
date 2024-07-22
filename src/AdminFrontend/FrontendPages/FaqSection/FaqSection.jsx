@@ -171,6 +171,8 @@ export default function FaqSection() {
   };
   return (
     <>
+    <div className="admin-list">
+
       <div className="add-faq-btn">
         <button onClick={() => setOpen(true)}>Add faq</button>
         <Dialog
@@ -179,7 +181,7 @@ export default function FaqSection() {
           PaperProps={{ style: { width: "100%" } }}
         >
           <DialogContent>
-            <div className="Faq-heading">
+            <div className="SCA-heading" >
               <p>ADD FAQ</p>
             </div>
             <form className="form-control" onSubmit={handleSubmit}>
@@ -216,7 +218,7 @@ export default function FaqSection() {
       <div>
         <div >
           <div >
-            <p className="Faq-heading">FAQ</p>
+            <p className="SCA-heading" style={{marginTop:"5%"}}>FAQ</p>
             <div className="table-responsive ">
               <table className="table table-responsive">
                 <thead
@@ -347,6 +349,7 @@ export default function FaqSection() {
         </DialogActions>
       </Dialog>
 
+    </div>
       <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}

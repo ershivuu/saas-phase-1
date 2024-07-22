@@ -144,7 +144,10 @@ const UpdateInterviewForm = () => {
 
   return (
     <>
-      <div className="Faq-heading">
+    <div className="admin-list">
+
+   
+      <div className="SCA-heading">
         <p>Interview Schedule </p>
       </div>
 
@@ -283,6 +286,7 @@ const UpdateInterviewForm = () => {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
       <Notification
         open={notificationOpen}

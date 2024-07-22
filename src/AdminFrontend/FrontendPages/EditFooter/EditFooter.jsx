@@ -154,7 +154,9 @@ function EditFooter() {
 
   return (
     <>
-      <div className="Faq-heading">
+    <div className="admin-list">
+
+      <div className="SCA-heading">
         <p> Footer</p>
       </div>
 
@@ -417,6 +419,7 @@ function EditFooter() {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
       <Notification
         open={notificationOpen}

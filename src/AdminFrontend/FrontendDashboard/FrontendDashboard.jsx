@@ -46,7 +46,7 @@ function FrontendDashboard({ onLogout }) {
             padding: 0,
           }}
         >
-          <div>
+          <div >
             <div className="admin-header fixed-top">
               <div>
                 <img className="admin-logo" src={imageUrl} alt="" />

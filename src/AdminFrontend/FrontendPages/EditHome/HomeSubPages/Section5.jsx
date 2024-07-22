@@ -207,7 +207,9 @@ function Section5() {
 
   return (
     <>
-      <div className="Faq-heading">
+    <div className="admin-list">
+
+      <div className="SCA-heading">
         <p>Section 5</p>
       </div>
 
@@ -350,6 +352,7 @@ function Section5() {
         </div>
       </div>
 
+      </div>
       <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}

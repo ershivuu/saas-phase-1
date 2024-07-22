@@ -160,7 +160,10 @@ function Section2() {
 
   return (
     <>
-      <div className="Faq-heading">
+    <div className="admin-list">
+      
+   
+      <div className="SCA-heading">
         <p>Section 2</p>
       </div>
 
@@ -307,6 +310,7 @@ function Section2() {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
       <Notification
         open={notificationOpen}

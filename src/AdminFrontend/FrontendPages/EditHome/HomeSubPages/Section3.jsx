@@ -137,7 +137,11 @@ function Section3() {
   }
   return (
     <>
-      <div className="Faq-heading">
+
+    <div className="admin-list">
+
+   
+      <div className="SCA-heading">
         <p>Section 3</p>
       </div>
 
@@ -290,7 +294,7 @@ function Section3() {
           </table>
         </div>
       </div>
-
+      </div>
       <Notification
         open={notificationOpen}
         handleClose={() => setNotificationOpen(false)}
