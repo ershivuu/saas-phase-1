@@ -35,29 +35,107 @@ function SideBar() {
                       <p> {userData.fullName}</p>
                       <p>{userData.roleName}</p>
                     </div>
-                  
-                    {/* <Link
-                    to="/admin-dashboard/dashboard"
-                      className="listf-group-item border-end-0 d-inline-block text-truncate set-a"
+
+                    <Link
+                      to="/admin-dashboard/dashboard"
+                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
                     >
                       <img
                         src={dashboard}
                         className="bi bi-bootstrap sidenav-icon"
                         alt="Opening Icon"
                       />
-                      <span> Dashboard</span>
-                    </Link> */}
-                    <Link
-                       to="/admin-dashboard/dashboard"
-                      className="list-group-item border-end-0 d-inline-block text-truncate set-a"
-                    >
-                      <img
-                     src={dashboard}
-                        className="bi bi-bootstrap sidenav-icon"
-                        alt="Opening Icon"
-                      />
-                     <span>Dashboard</span>
+                      <span>Dashboard</span>
                     </Link>
+                    <div className="dropdown show">
+                      <a
+                        className="btn dropdown-toggle set-a"
+                        href="#"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <img
+                          src={superadmin}
+                          className="bi bi-heart sidenav-icon"
+                        ></img>
+                        <span>White Label</span>
+                      </a>
+
+                      <div
+                        className="dropdown-menu master-dd"
+                        aria-labelledby="dropdownMenuLink"
+                      >
+                        <Link
+                          to="/admin-dashboard/EditHeader"
+                          className="dropdown-item "
+                        >
+                          <span>Edit Header</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/EditHomePage"
+                          className="dropdown-item "
+                        >
+                          <span>Edit Home Page</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/Section1"
+                          className="dropdown-item "
+                        >
+                          <span>Home Section 1</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/Section2"
+                          className="dropdown-item "
+                        >
+                          <span>Home Section 2</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/Section3"
+                          className="dropdown-item "
+                        >
+                          <span>Home Section 3</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/Section4"
+                          className="dropdown-item "
+                        >
+                          <span>Home Section 4</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/Section5"
+                          className="dropdown-item "
+                        >
+                          <span>Home Section 5</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/FaqSection"
+                          className="dropdown-item "
+                        >
+                          <span>Edit Faq's</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/EditInterviewSchedule"
+                          className="dropdown-item "
+                        >
+                          <span>Edit Interview Schedule</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/EditContact"
+                          className="dropdown-item "
+                        >
+                          <span>Edit Contact</span>
+                        </Link>
+                        <Link
+                          to="/admin-dashboard/EditFooter"
+                          className="dropdown-item "
+                        >
+                          <span>Edit Footer</span>
+                        </Link>
+                      </div>
+                    </div>
                     <Link
                       to="/admin-dashboard/current-openings"
                       className="list-group-item border-end-0 d-inline-block text-truncate set-a"

@@ -37,7 +37,7 @@ import Section3 from "../AdminFrontend/FrontendPages/EditHome/HomeSubPages/Secti
 import Section4 from "../AdminFrontend/FrontendPages/EditHome/HomeSubPages/Section4.jsx";
 import Section5 from "../AdminFrontend/FrontendPages/EditHome/HomeSubPages/Section5.jsx";
 import FaqSection from "../AdminFrontend/FrontendPages/FaqSection/FaqSection.jsx";
-import EditInterviewSchedule from "../AdminFrontend/FrontendPages/EditInterviewSchedule/EditInterviewSchedule.jsx"
+import EditInterviewSchedule from "../AdminFrontend/FrontendPages/EditInterviewSchedule/EditInterviewSchedule.jsx";
 import EditContact from "../AdminFrontend/FrontendPages/EditHome/HomeSubPages/EditContact.jsx";
 import EditFooter from "../AdminFrontend/FrontendPages/EditFooter/EditFooter.jsx";
 import FrontendDashboard from "../AdminFrontend/FrontendDashboard/FrontendDashboard.jsx";
@@ -49,6 +49,63 @@ const AdminAuthRoutes = [
     path="/admin-dashboard"
     element={<AdminAuthGaurd component={<AdminDashboard />} />}
   >
+    {/* whitelabel routing starts */}
+    <Route
+      key="EditHeader"
+      path="EditHeader"
+      element={<AdminAuthGaurd component={<EditHeader />} />}
+    ></Route>
+    <Route
+      key="EditHome"
+      path="EditHomePage"
+      element={<AdminAuthGaurd component={<EditHome />} />}
+    ></Route>
+    <Route
+      key="Section1"
+      path="Section1"
+      element={<AdminAuthGaurd component={<Section1 />} />}
+    ></Route>
+    <Route
+      key="Section2"
+      path="Section2"
+      element={<AdminAuthGaurd component={<Section2 />} />}
+    ></Route>
+    <Route
+      key="Section3"
+      path="Section3"
+      element={<AdminAuthGaurd component={<Section3 />} />}
+    ></Route>
+    <Route
+      key="Section4"
+      path="Section4"
+      element={<AdminAuthGaurd component={<Section4 />} />}
+    ></Route>
+    <Route
+      key="Section5"
+      path="Section5"
+      element={<AdminAuthGaurd component={<Section5 />} />}
+    ></Route>
+    <Route
+      key="FaqSection"
+      path="FaqSection"
+      element={<AdminAuthGaurd component={<FaqSection />} />}
+    ></Route>
+    <Route
+      key="EditInterviewSchedule"
+      path="EditInterviewSchedule"
+      element={<AdminAuthGaurd component={<EditInterviewSchedule />} />}
+    ></Route>
+    <Route
+      key="EditContact"
+      path="EditContact"
+      element={<AdminAuthGaurd component={<EditContact />} />}
+    ></Route>
+    <Route
+      key="EditFooter"
+      path="EditFooter"
+      element={<AdminAuthGaurd component={<EditFooter />} />}
+    ></Route>
+    {/* whitelabel routing ends */}
     <Route
       key="dashboard"
       path="dashboard"
@@ -74,13 +131,15 @@ const AdminAuthRoutes = [
       path="job-profile"
       element={<AdminAuthGaurd component={<MasterJobProfile />} />}
     /> */}
-
     <Route
       key="job-profile"
       path="job-profile"
       element={<AdminAuthGaurd component={<MasterJobProfile />} />}
     >
-      <Route path="" element={<AdminAuthGaurd component={<MasterJobTable />} />} />
+      <Route
+        path=""
+        element={<AdminAuthGaurd component={<MasterJobTable />} />}
+      />
       <Route
         path="add-jobprofiles"
         element={<AdminAuthGaurd component={<AddForm />} />}
@@ -164,72 +223,71 @@ const AdminAuthRoutes = [
       element={<AdminAuthGaurd component={<VisitorsReports />} />}
     ></Route>
     ,
-    
   </Route>,
-// ---------------------------------------------------
+  // ---------------------------------------------------
 
-   <Route
-   key="FrontendDashboard"
-   path="FrontendDashboard"
-   element={<AdminAuthGaurd component={<FrontendDashboard />} />}
- >
-   <Route
-     key="EditHeader"
-     path="EditHeader"
-     element={<AdminAuthGaurd component={<EditHeader />} />}
-   ></Route>
-   <Route
-     key="EditHome"
-     path="EditHomePage"
-     element={<AdminAuthGaurd component={<EditHome />} />}
-   ></Route>
-   <Route
-     key="Section1"
-     path="Section1"
-     element={<AdminAuthGaurd component={<Section1 />} />}
-   ></Route>
-   <Route
-     key="Section2"
-     path="Section2"
-     element={<AdminAuthGaurd component={<Section2 />} />}
-   ></Route>
-   <Route
-     key="Section3"
-     path="Section3"
-     element={<AdminAuthGaurd component={<Section3 />} />}
-   ></Route>
-   <Route
-     key="Section4"
-     path="Section4"
-     element={<AdminAuthGaurd component={<Section4 />} />}
-   ></Route>
-   <Route
-     key="Section5"
-     path="Section5"
-     element={<AdminAuthGaurd component={<Section5 />} />}
-   ></Route>
-   <Route
-     key="FaqSection"
-     path="FaqSection"
-     element={<AdminAuthGaurd component={<FaqSection />} />}
-   ></Route>
-   <Route
-     key="EditInterviewSchedule"
-     path="EditInterviewSchedule"
-     element={<AdminAuthGaurd component={<EditInterviewSchedule />} />}
-   ></Route>
-   <Route
-     key="EditContact"
-     path="EditContact"
-     element={<AdminAuthGaurd component={<EditContact />} />}
-   ></Route>
-   <Route
-     key="EditFooter"
-     path="EditFooter"
-     element={<AdminAuthGaurd component={<EditFooter />} />}
-   ></Route>
-   ,
- </Route>,
+  //    <Route
+  //    key="FrontendDashboard"
+  //    path="FrontendDashboard"
+  //    element={<AdminAuthGaurd component={<FrontendDashboard />} />}
+  //  >
+  //    <Route
+  //      key="EditHeader"
+  //      path="EditHeader"
+  //      element={<AdminAuthGaurd component={<EditHeader />} />}
+  //    ></Route>
+  //    <Route
+  //      key="EditHome"
+  //      path="EditHomePage"
+  //      element={<AdminAuthGaurd component={<EditHome />} />}
+  //    ></Route>
+  //    <Route
+  //      key="Section1"
+  //      path="Section1"
+  //      element={<AdminAuthGaurd component={<Section1 />} />}
+  //    ></Route>
+  //    <Route
+  //      key="Section2"
+  //      path="Section2"
+  //      element={<AdminAuthGaurd component={<Section2 />} />}
+  //    ></Route>
+  //    <Route
+  //      key="Section3"
+  //      path="Section3"
+  //      element={<AdminAuthGaurd component={<Section3 />} />}
+  //    ></Route>
+  //    <Route
+  //      key="Section4"
+  //      path="Section4"
+  //      element={<AdminAuthGaurd component={<Section4 />} />}
+  //    ></Route>
+  //    <Route
+  //      key="Section5"
+  //      path="Section5"
+  //      element={<AdminAuthGaurd component={<Section5 />} />}
+  //    ></Route>
+  //    <Route
+  //      key="FaqSection"
+  //      path="FaqSection"
+  //      element={<AdminAuthGaurd component={<FaqSection />} />}
+  //    ></Route>
+  //    <Route
+  //      key="EditInterviewSchedule"
+  //      path="EditInterviewSchedule"
+  //      element={<AdminAuthGaurd component={<EditInterviewSchedule />} />}
+  //    ></Route>
+  //    <Route
+  //      key="EditContact"
+  //      path="EditContact"
+  //      element={<AdminAuthGaurd component={<EditContact />} />}
+  //    ></Route>
+  //    <Route
+  //      key="EditFooter"
+  //      path="EditFooter"
+  //      element={<AdminAuthGaurd component={<EditFooter />} />}
+  //    ></Route>
+  //    ,
+  //  </Route>,
 ];
 
 export default AdminAuthRoutes;
