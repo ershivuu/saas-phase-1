@@ -209,8 +209,8 @@ function EditHeader() {
   };
 
   return (
-    <div>
-      <div className="Faq-heading">
+    <div className="admin-list">
+      <div className="SCA-heading">
         <p>Header</p>
       </div>
 

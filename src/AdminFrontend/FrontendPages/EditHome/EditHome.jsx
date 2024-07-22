@@ -166,7 +166,11 @@ setShowImage(row.imageUrl)
 
   return (
     <>
-      <div className="Faq-heading">
+
+      <div className="admin-list">
+
+      
+      <div  className="SCA-heading">
         <p> Home</p>
       </div>
 
@@ -296,6 +300,7 @@ setShowImage(row.imageUrl)
             </tbody>
           </table>
         </div>
+      </div>
       </div>
       <Notification
         open={notificationOpen}

@@ -137,7 +137,9 @@ function EditContact() {
 
   return (
     <>
-      <div className="Faq-heading">
+    <div className="admin-list">
+
+      <div className="SCA-heading">
         <p>Contact Info</p>
       </div>
       <div>
@@ -293,6 +295,8 @@ function EditContact() {
           </tbody>
         </table>
       </div>
+      
+    </div>
       <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}
