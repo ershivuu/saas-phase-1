@@ -6,15 +6,15 @@ import Applylogo from "../.../../../../assets/logos/apply-white.png";
 import Userlogo from "../.../../../../assets/logos/user-white.png";
 import messagelogo from "../.../../../../assets/logos/email-white.png";
 import adminApiService from "../../adminApiService";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+// import {
+//   LineChart,
+//   Line,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+// } from "recharts";
 function Dashboard() {
   const [containerWidth, setContainerWidth] = useState(0);
   useEffect(() => {
@@ -42,20 +42,20 @@ function Dashboard() {
     fetchAllCount();
   }, []);
 
-  const data = [
-    { month: "January", interviews: 10, candidates: 20, visitors: 15 },
-    { month: "February", interviews: 5, candidates: 6, visitors: 25 },
-    { month: "March", interviews: 5, candidates: 10, visitors: 5 },
-    { month: "April", interviews: 50, candidates: 12, visitors: 10 },
-    { month: "May", interviews: 70, candidates: 8, visitors: 12 },
-    { month: "June", interviews: 40, candidates: 9, visitors: 8 },
-    { month: "July", interviews: 20, candidates: 25, visitors: 36 },
-    { month: "August", interviews: 5, candidates: 15, visitors: 16 },
-    { month: "September", interviews: 54, candidates: 18, visitors: 46 },
-    { month: "October", interviews: 4, candidates: 9, visitors: 6 },
-    { month: "November", interviews: 0, candidates: 85, visitors: 46 },
-    { month: "December", interviews: 40, candidates: 5, visitors: 6 },
-  ];
+  // const data = [
+  //   { month: "January", interviews: 10, candidates: 20, visitors: 15 },
+  //   { month: "February", interviews: 5, candidates: 6, visitors: 25 },
+  //   { month: "March", interviews: 5, candidates: 10, visitors: 5 },
+  //   { month: "April", interviews: 50, candidates: 12, visitors: 10 },
+  //   { month: "May", interviews: 70, candidates: 8, visitors: 12 },
+  //   { month: "June", interviews: 40, candidates: 9, visitors: 8 },
+  //   { month: "July", interviews: 20, candidates: 25, visitors: 36 },
+  //   { month: "August", interviews: 5, candidates: 15, visitors: 16 },
+  //   { month: "September", interviews: 54, candidates: 18, visitors: 46 },
+  //   { month: "October", interviews: 4, candidates: 9, visitors: 6 },
+  //   { month: "November", interviews: 0, candidates: 85, visitors: 46 },
+  //   { month: "December", interviews: 40, candidates: 5, visitors: 6 },
+  // ];
 
   return (
     <>
@@ -104,8 +104,8 @@ function Dashboard() {
         className="graphChart"
         style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }}
       >
-        <h2>Interviews and Candidates</h2>
-        <LineChart width={containerWidth} height={350} data={data}>
+        {/* <h2>Interviews and Candidates</h2> */}
+        {/* <LineChart width={containerWidth} height={350} data={data}>
           <XAxis dataKey="month" />
           <YAxis />
           <CartesianGrid strokeWidth={4} stroke="#eee" strokeDasharray="5 5" />
@@ -153,7 +153,7 @@ function Dashboard() {
               </feMerge>
             </filter>
           </defs>
-        </LineChart>
+        </LineChart> */}
       </div>
     </>
   );

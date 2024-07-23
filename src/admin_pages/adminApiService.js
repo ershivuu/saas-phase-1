@@ -20,7 +20,7 @@ const adminApiService = {
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
-    } 
+    }
   },
   DeleteCategory: async (categoryId) => {
     try {
@@ -103,11 +103,7 @@ const adminApiService = {
   },
   updateDegree: async (payload) => {
     try {
-      // const payload = {
-      //   exam_types_master_id: selectedExamId,
-      //   degree_name: updateData.degree_name,
-      //   degreetypes_id: updateData.id,
-      // };
+
       await axios.put(`${ADMIN_BASE_URL}/degreeTypeMaster`, payload, {
         headers: {
           "access-token": getAccessToken(),
@@ -684,7 +680,24 @@ const adminApiService = {
       throw error;
     }
   },
-  getAllInterview: async (currentPage,itemsPerPage) => {
+  downloadExcel: async (selectedCategory, selectedPost) => {
+    try {
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPostExcel?category=${selectedCategory}&appliedPost=${selectedPost}`,
+        {
+          responseType: 'blob', // Important: Ensure the response type is set to 'blob'
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  },
+  getAllInterview: async (currentPage, itemsPerPage) => {
     try {
       const response = await axios.get(
         `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`,
@@ -741,7 +754,7 @@ const adminApiService = {
         formData,
         {
           headers: {
-            "access-token":getAccessToken() ,
+            "access-token": getAccessToken(),
           },
         }
       );
@@ -777,7 +790,7 @@ const adminApiService = {
           headers: {
             "access-token": getAccessToken()
           },
-          data: payloadData 
+          data: payloadData
         }
       );
       console.log("Save Changes Response:", response);
@@ -819,7 +832,7 @@ const adminApiService = {
       throw error;
     }
   },
-  
+
 };
 
 function getAccessToken() {

@@ -4,8 +4,6 @@ import { Button } from "react-bootstrap";
 import adminApiService from "../../adminApiService";
 import "./Reports.css";
 import Notification from "../../../Notification/Notification";
-
-// import updatebtn from "../../../assets/logos/update.png";
 import updatebtn from "../../../assets/logos/view.png";
 import viewbtn from "../../../assets/logos/view-resume.png";
 import {
@@ -14,6 +12,8 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+
+import FileSaver from "file-saver";
 function Reports() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPost, setSelectedPost] = useState("");
@@ -22,10 +22,6 @@ function Reports() {
   const [data, setData] = useState([]);
   const [count, setCount] = useState([]);
   const [page] = useState(1);
-  // const [categories, setCategories] = useState([]);
-  // const [posts, setPosts] = useState([]);
-  // const [subposts, setSubposts] = useState([]);
-  // const [showPdfModal, setShowPdfModal] = useState(false);
   const [showPdfDialog, setShowPdfDialog] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
   const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -33,7 +29,6 @@ function Reports() {
   const [loadingPopup, setLoadingPopup] = useState(true);
   const [jobCategories, setJobCategories] = useState([]);
   const [post, setPost] = useState([]);
-
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationSeverity, setNotificationSeverity] = useState("error");
@@ -52,19 +47,7 @@ function Reports() {
       setData(response.candidateappliedpostData);
       setCount(response);
 
-      // const uniqueCategories = [
-      //   ...new Set(
-      //     response.candidateappliedpostData.map(
-      //       (candidate) => candidate.job_category_master?.category_name
-      //     )
-      //   ),
-      // ];
-      // setCategories(uniqueCategories);
-      // setPosts(
-      //   response.candidateappliedpostData.map(
-      //     (candidate) => candidate.applied_post_master?.post_name
-      //   )
-      // );
+
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -94,24 +77,7 @@ function Reports() {
     fetchJobCategories();
   }, []);
 
-  // const handleCategoryChange = (e) => {
-  //   const selectedCategory = e.target.value;
-  //   setSelectedCategory(selectedCategory);
-
-  //   setSelectedPost('');
-  //   setSelectedSubpost('');
-  // };
-
-  // const handlePostChange = (e) => {
-  //   const selectedPost = e.target.value;
-  //   setSelectedPost(selectedPost);
-  //   setSelectedSubpost('');
-  // };
-
-  // const handleSubpostChange = (e) => {
-  //   setSelectedSubpost(e.target.value);
-  //   setCurrentPage(1);
-  // };
+ 
 
   const handleResumeClick = async (candidateId) => {
     try {
@@ -121,7 +87,7 @@ function Reports() {
       if (resumeData.type === "application/pdf") {
         const url = window.URL.createObjectURL(resumeData);
         setPdfUrl(url);
-        setShowPdfDialog(true); // Open dialog when PDF is fetched
+        setShowPdfDialog(true);
       } else {
         setNotificationMessage("No resume available for this candidate.");
         setNotificationSeverity("error");
@@ -137,66 +103,30 @@ function Reports() {
   };
 
   const handleClosePdfDialog = () => {
-    setShowPdfDialog(false); // Close dialog
+    setShowPdfDialog(false);
   };
 
-  // const handleCandidateInfoClick = (candidate) => {
-  //   console.log("Selected Candidate Data:", candidate);
-  //   setSelectedCandidate(candidate.id);
-  // };
+
 
   const handleCategory = (fieldName, value) => {
     const selectedCategoryData = jobCategories.find(
       (category) => category.category_name === value
     );
     setSelectedCategory(value);
-    // setUpdateField((prevValues) => ({
-    //   ...prevValues,
-    //   [fieldName]: value.toString(),
-    //   job_category_master_id: selectedCategoryData
-    //     ? selectedCategoryData.id
-    //     : "",
-    // }));
-    // setFormValues((prevValues) => ({
-    //   ...prevValues,
-    //   [fieldName]: value,
-    //   job_category_master_id: selectedCategoryData
-    //     ? selectedCategoryData.id
-    //     : "",
-    // }));
     const selectedPostData =
       selectedCategoryData &&
       selectedCategoryData.applied_post_masters.map((post) => post.post_name);
     setPost(selectedPostData || []);
     setSelectedPost("");
-    // setSubPost([]);
   };
 
   const handlePost = (fieldName, value) => {
     if (selectedCategory === "") {
       return;
     }
-
-    // const selectedPostObject = jobCategories
-    //   .find((category) => category.category_name === selectedCategory)
-    //   .applied_post_masters.find((post) => post.post_name === value);
-    // const selectedSubPostData =
-    //   selectedPostObject &&
-    //   selectedPostObject.applied_subpost_masters.map(
-    //     (subpost) => subpost.subpost_name
-    //   );
+ 
     setSelectedPost(value);
-    // setUpdateField((prevValues) => ({
-    //   ...prevValues,
-    //   [fieldName]: value.toString(),
-    //   applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
-    // }));
-    // setFormValues((prevValues) => ({
-    //   ...prevValues,
-    //   [fieldName]: value,
-    //   applied_post_masters_id: selectedPostObject ? selectedPostObject.id : "",
-    // }));
-    // setSubPost(selectedSubPostData || []);
+
   };
 
   const fetchCandidateDetails = async (candidateId, signal) => {
@@ -207,7 +137,6 @@ function Reports() {
         candidateId,
         signal
       );
-
       // console.log("getCandidatesById>>", response.data);
       setSelectedCandidate(response.data);
       setLoadingPopup(false);
@@ -243,9 +172,7 @@ function Reports() {
       setCurrentPage(currentPage - 1);
     }
   };
-  // useEffect(() => {
-  //   console.log("Selected Candidate:", selectedCandidate);
-  // }, [selectedCandidate]);
+
 
   useEffect(() => {
     const controller = new AbortController();
@@ -254,7 +181,7 @@ function Reports() {
       fetchCandidateDetails(selectedCandidate.candidate_id, signal);
     }
     return () => {
-      // Cleanup function to abort the request when the component unmounts
+      
       return controller.abort();
     };
   }, [selectedCandidate]);
@@ -262,6 +189,22 @@ function Reports() {
   const openCandidateDetails = (candidateId) => {
     setSelectedCandidate({ candidate_id: candidateId });
   };
+  const handleDownload = async () => {
+    try {
+      const category = selectedCategory;
+      const post = selectedPost;
+      const response = await adminApiService.downloadExcel(category, post);
+      
+      console.log("handleDownload-clicked");
+      
+      // Create a new Blob using the response data
+      const fileBlob = new Blob([response.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      FileSaver.saveAs(fileBlob, "candidates_" + Date.now() + ".xlsx");
+    } catch (error) {
+      console.error("Error downloading Excel file:", error);
+    }
+  };
+  
 
   return (
     <>
@@ -342,8 +285,13 @@ function Reports() {
                   ))}
                 </select>
               </div>
+              <div className="col-md-2">
+                <Button variant="primary" onClick={()=>handleDownload()}>
+                  Download Excel
+                </Button>
+              </div>
             </div>
-            {/* </div> */}
+
 
             <div className="table-responsive">
               <table className="table table-responsive">
@@ -377,7 +325,7 @@ function Reports() {
                         {candidate.job_category_master?.category_name || "-"}
                       </td>
                       <td>{candidate.candidate.specialization || "-"}</td>
-                      {/* <td onClick={() => fetchCandidateDetails(candidate.candidate_id)} style={{ cursor: 'pointer' }}><img src={updatebtn} className="up-del-btn" alt=""/></td> */}
+                    
                       <td
                         onClick={() =>
                           openCandidateDetails(candidate.candidate_id)
@@ -422,7 +370,7 @@ function Reports() {
               </div>
             </div>
 
-            {/* <Dialog open={selectedCandidate !== null} onClose={() => setSelectedCandidate(null)}> */}
+          
             <Dialog open={!!selectedCandidate}>
               {loadingPopup && (
                 <div className="loaderPopupContainer">
@@ -533,11 +481,7 @@ function Reports() {
               </DialogActions>
             </Dialog>
 
-            {/* <Pagination>
-          <Pagination.Prev onClick={prevPage} />
-          <Pagination.Item>{currentPage}</Pagination.Item>
-          <Pagination.Next onClick={nextPage} />
-        </Pagination> */}
+          
           </div>
         </div>
       </div>
