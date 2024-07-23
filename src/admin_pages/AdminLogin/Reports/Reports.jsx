@@ -288,7 +288,9 @@ function Reports() {
                 value={count?.TotalApplicationCount || ""}
               />
             </div>
-            <p className="SCA-heading" style={{marginTop:"7%"}}>Reports</p>
+            <p className="SCA-heading" style={{ marginTop: "7%" }}>
+              Reports
+            </p>
             <div className="row">
               <div className="col-md-4 ">
                 <label>Select Category:</label>
@@ -350,7 +352,7 @@ function Reports() {
                   className="thead"
                 >
                   <tr>
-                    <th>S.No.</th>
+                    <th>S No.</th>
                     <th>First Name</th>
                     <th>Email</th>
                     <th>Contact</th>
@@ -525,7 +527,7 @@ function Reports() {
                 />
               </DialogContent>
               <DialogActions>
-                <button id="set-btn"  onClick={handleClosePdfDialog} >
+                <button id="set-btn" onClick={handleClosePdfDialog}>
                   Close
                 </button>
               </DialogActions>

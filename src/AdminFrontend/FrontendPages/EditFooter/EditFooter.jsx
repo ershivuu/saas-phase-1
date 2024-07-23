@@ -5,8 +5,8 @@ import Notification from "../../../Notification/Notification";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { formatMs } from "@material-ui/core";
-import updatebtn from "../../../assets/logos/update.png"
+
+import updatebtn from "../../../assets/logos/update.png";
 
 function EditFooter() {
   const options = [
@@ -79,8 +79,8 @@ function EditFooter() {
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     const file = files[0];
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"]; // Allowed file types
-    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"]; 
+    const maxFileSize = 5 * 1024 * 1024; 
 
     if (file && allowedTypes.includes(file.type)) {
       if (file.size <= maxFileSize) {
@@ -89,13 +89,13 @@ function EditFooter() {
           [name]: file,
         }));
       } else {
-        // Show notification for file size exceeded
+       
         setNotificationMessage("File size should be less than 5MB.");
         setNotificationSeverity("error");
         setNotificationOpen(true);
       }
     } else {
-      // Show notification for unsupported file type
+    
       setNotificationMessage("Only JPEG, JPG, and PNG files are allowed.");
       setNotificationSeverity("error");
       setNotificationOpen(true);
@@ -106,7 +106,7 @@ function EditFooter() {
     e.preventDefault();
     try {
       if (selectedOption) {
-        // Check if selectedOption is not empty
+      
         const formDataToSend = new FormData();
         Object.keys(formData).forEach((key) => {
           formDataToSend.append(key, formData[key]);
@@ -115,16 +115,16 @@ function EditFooter() {
         const response = await updateFooter(formDataToSend);
         console.log(response);
 
-        e.target.reset(); // Reset the form after successful submission
-        setFormData({}); // Clear the formData state
-        setSelectedOption(options[0].value); // Reset selectedOption to default
+        e.target.reset(); 
+        setFormData({}); 
+        setSelectedOption(options[0].value); 
         setNotificationMessage(response.message || "Data updated successfully");
         setNotificationSeverity("success");
         setNotificationOpen(true);
       }
       fetchFooterInfo();
     } catch (error) {
-      console.error(error); // Handle error
+      console.error(error); 
       setNotificationMessage("Error updating data. Please try again.");
       setNotificationSeverity("error");
       setNotificationOpen(true);
@@ -135,7 +135,7 @@ function EditFooter() {
     setSelectedOption(e.target.value);
   };
 
-  const showSubmitButton = selectedOption !== ""; // Condition to show submit button
+  const showSubmitButton = selectedOption !== ""; 
   const handleCloseNotification = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -144,8 +144,8 @@ function EditFooter() {
   };
 
   const handleEditClick = (item) => {
-    setFormData(item); // Set the form data with the selected row data
-    setOpenModal(true); // Open the modal
+    setFormData(item); 
+    setOpenModal(true); 
   };
 
   const handleCloseModal = () => {
@@ -154,60 +154,63 @@ function EditFooter() {
 
   return (
     <>
-    <div className="admin-list">
+      <div className="admin-list">
+        <div className="SCA-heading">
+          <p> Footer</p>
+        </div>
 
-      <div className="SCA-heading">
-        <p> Footer</p>
-      </div>
-
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className="modal"
-        open={openModal}
-        onClose={handleCloseModal}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openModal}>
-          <div className="modal-content">
-            <h2 id="transition-modal-title">Edit Section 2</h2>
-            <form className="form-control" onSubmit={handleSubmit}>
-              <div>
-                <label>Select Field:</label>
-                <select
-                  value={selectedOption}
-                  className="form-select"
-                  onChange={handleDropdownChange}
-                >
-                  {options.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {selectedOption && selectedOption !== "" && (
-                <>
-                  {selectedOption === "footer_logo" ||
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className="modal"
+          open={openModal}
+          onClose={handleCloseModal}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={openModal}>
+            <div className="modal-content">
+              <h2 id="transition-modal-title">Edit Section 2</h2>
+              <form className="form-control" onSubmit={handleSubmit}>
+                <div>
+                  <label>Select Field:</label>
+                  <select
+                    value={selectedOption}
+                    className="form-select"
+                    onChange={handleDropdownChange}
+                  >
+                    {options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {selectedOption && selectedOption !== "" && (
+                  <>
+                    {selectedOption === "footer_logo" ||
                     selectedOption === "img_link_1" ||
                     selectedOption === "img_link_2" ||
                     selectedOption === "img_link_3" ||
                     selectedOption === "img_link_4" ? (
-                    <div>
-                      <label>
-                        {options.find((opt) => opt.value === selectedOption)?.label}:
-                      </label>
-                      <input
-                        type="file"
-                        name={selectedOption}
-                        className="form-control"
-                        onChange={handleFileChange}
-                      />
-                      {/* {formData[selectedOption] && (
+                      <div>
+                        <label>
+                          {
+                            options.find((opt) => opt.value === selectedOption)
+                              ?.label
+                          }
+                          :
+                        </label>
+                        <input
+                          type="file"
+                          name={selectedOption}
+                          className="form-control"
+                          onChange={handleFileChange}
+                        />
+                        {/* {formData[selectedOption] && (
 
                         <div>
                           {console.log(formData[selectedOption], "")}
@@ -215,211 +218,221 @@ function EditFooter() {
                           <img src={formData[selectedOption + "_url"]} alt="" style={{ width: "100px", height: "70px" }} />
                         </div>
                       )} */}
-                    </div>
-                  ) : (
-                    <div>
-                      <label>
-                        {options.find((opt) => opt.value === selectedOption)?.label}:
-                      </label>
-                      <input
-                        type={selectedOption.startsWith("img_link") ? "file" : "text"}
-                        name={selectedOption}
-                        className="form-control"
-                        onChange={
-                          selectedOption.startsWith("img_link")
-                            ? handleFileChange
-                            : handleChange
-                        }
-                        value={formData[selectedOption] || ""}
-                        placeholder={
-                          options.find((opt) => opt.value === selectedOption)?.label
-                        }
-                      />
-                    </div>
-                  )}
-
-                  {selectedOption === "footer_col" && (
-                    <div>
-                      <label>Footer Color:</label>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <ChromePicker
-                          color={formData.footer_col || "#000000"}
-                          onChange={(color) =>
-                            setFormData({ ...formData, footer_col: color.hex })
+                      </div>
+                    ) : (
+                      <div>
+                        <label>
+                          {
+                            options.find((opt) => opt.value === selectedOption)
+                              ?.label
+                          }
+                          :
+                        </label>
+                        <input
+                          type={
+                            selectedOption.startsWith("img_link")
+                              ? "file"
+                              : "text"
+                          }
+                          name={selectedOption}
+                          className="form-control"
+                          onChange={
+                            selectedOption.startsWith("img_link")
+                              ? handleFileChange
+                              : handleChange
+                          }
+                          value={formData[selectedOption] || ""}
+                          placeholder={
+                            options.find((opt) => opt.value === selectedOption)
+                              ?.label
                           }
                         />
                       </div>
+                    )}
+
+                    {selectedOption === "footer_col" && (
+                      <div>
+                        <label>Footer Color:</label>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <ChromePicker
+                            color={formData.footer_col || "#000000"}
+                            onChange={(color) =>
+                              setFormData({
+                                ...formData,
+                                footer_col: color.hex,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                <div>
+                  {showSubmitButton && ( 
+                    <div>
+                      <button className="btn btn-success" type="submit">
+                        Submit
+                      </button>
                     </div>
                   )}
-                </>
-              )}
+                </div>
+              </form>
+            </div>
+          </Fade>
+        </Modal>
+        <div>
+          <div className="table-responsive">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <tr>
+                  <th scope="col">S No.</th>
+                  <th scope="col">Footer Color</th>
 
-              <div>
-                {showSubmitButton && ( // Show submit button conditionally
-                  <div>
-                    <button className="btn btn-success" type="submit">
-                      Submit
-                    </button>
-                  </div>
-                )}
-              </div>
-            </form>
-          </div>
-        </Fade>
-      </Modal>
-      <div>
-     
+                  <th scope="col">Footer Logo</th>
+                  <th scope="col">Contact Address</th>
+                  <th scope="col">Contact Email</th>
+                  <th scope="col">Contact 1</th>
+                  <th scope="col">Contact 2</th>
+                  <th scope="col">Image Link 1 URL</th>
+                  <th scope="col">Link 1</th>
 
-        <div className="table-responsive">
-          <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-              <tr>
-                <th scope="col">Box No</th>
-                <th scope="col">Footer Color</th>
+                  <th scope="col">Image Link 2 URL</th>
+                  <th scope="col">Link 2</th>
+                  <th scope="col">Image Link 3 URL</th>
+                  <th scope="col">Link 3</th>
 
-                <th scope="col">Footer Logo</th>
-                <th scope="col">Contact Address</th>
-                <th scope="col">Contact Email</th>
-                <th scope="col">Contact 1</th>
-                <th scope="col">Contact 2</th>
-                <th scope="col">Image Link 1 URL</th>
-                <th scope="col">Link 1</th>
-
-                <th scope="col">Image Link 2 URL</th>
-                <th scope="col">Link 2</th>
-                <th scope="col">Image Link 3 URL</th>
-                <th scope="col">Link 3</th>
-
-                <th scope="col">Image Link 4 URL</th>
-                <th scope="col">Link 4</th>
-                <th scope="col">Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {footerInfo.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.box_no}</td>
-                  <td>{item.footer_col}</td>
-
-                  <td>
-                    {item && item.footer_logo_url && item.footer_col && (
-                      <img
-                        src={item.footer_logo_url}
-                        alt="Footer Logo"
-                        style={{
-                          maxWidth: "100px",
-                          maxHeight: "100px",
-                          backgroundColor: item.footer_col,
-                        }}
-                      />
-                    )}
-                    <br />
-                    {item && item.original_footer_logo_name && (
-                      <span>{item.original_footer_logo_name}</span>
-                    )}
-                  </td>
-                  <td>{item && truncateText(item.contact_address, 3)}</td>
-                  <td>{item.contact_email}</td>
-
-                  <td>{item.contact_1}</td>
-                  <td>{item.contact_2}</td>
-
-                  <td>
-                    {item && item.img_link_1_url && item.footer_col && (
-                      <img
-                        src={item.img_link_1_url}
-                        alt="Image Link 1"
-                        style={{
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          backgroundColor: item.footer_col,
-                        }}
-                      />
-                    )}
-                    <br />
-                    {item && item.original_img_link_1_name && (
-                      <span>{item.original_img_link_1_name}</span>
-                    )}
-                  </td>
-                  <td>{truncateUrl(item.link_1, 20)}</td>
-
-                  <td>
-                    {item && item.img_link_2_url && item.footer_col && (
-                      <img
-                        src={item.img_link_2_url}
-                        alt="Image Link 2"
-                        style={{
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          backgroundColor: item.footer_col,
-                        }}
-                      />
-                    )}
-                    <br />
-                    {item && item.original_img_link_2_name && (
-                      <span>{item.original_img_link_2_name}</span>
-                    )}
-                  </td>
-
-                  <td>{truncateUrl(item.link_2, 20)}</td>
-
-                  <td>
-                    {item && item.img_link_3_url && item.footer_col && (
-                      <img
-                        src={item.img_link_3_url}
-                        alt="Image Link 3"
-                        style={{
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          backgroundColor: item.footer_col,
-                        }}
-                      />
-                    )}
-                    <br />
-                    {item && item.original_img_link_3_name && (
-                      <span>{item.original_img_link_3_name}</span>
-                    )}
-                  </td>
-
-                  <td>{truncateUrl(item.link_3, 20)}</td>
-
-                  <td>
-                    {item && item.img_link_4_url && item.footer_col && (
-                      <img
-                        src={item.img_link_4_url}
-                        alt="Image Link 4"
-                        style={{
-                          maxWidth: "25px",
-                          maxHeight: "25px",
-                          backgroundColor: item.footer_col,
-                        }}
-                      />
-                    )}
-                    <br />
-                    {item && item.original_img_link_4_name && (
-                      <span>{item.original_img_link_4_name}</span>
-                    )}
-                  </td>
-
-                  <td>{truncateUrl(item.link_4, 20)}</td>
-                  <td>
-                    <button
-                   className="edit-button"
-                      onClick={() => handleEditClick(item)}
-                    >
-                      <img
-                            src={updatebtn}
-                            className="update-icon"
-                            alt="Update"
-                          />
-                    </button>
-                  </td>
+                  <th scope="col">Image Link 4 URL</th>
+                  <th scope="col">Link 4</th>
+                  <th scope="col">Edit</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {footerInfo.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.box_no}</td>
+                    <td>{item.footer_col}</td>
+
+                    <td>
+                      {item && item.footer_logo_url && item.footer_col && (
+                        <img
+                          src={item.footer_logo_url}
+                          alt="Footer Logo"
+                          style={{
+                            maxWidth: "100px",
+                            maxHeight: "100px",
+                            backgroundColor: item.footer_col,
+                          }}
+                        />
+                      )}
+                      <br />
+                      {item && item.original_footer_logo_name && (
+                        <span>{item.original_footer_logo_name}</span>
+                      )}
+                    </td>
+                    <td>{item && truncateText(item.contact_address, 3)}</td>
+                    <td>{item.contact_email}</td>
+
+                    <td>{item.contact_1}</td>
+                    <td>{item.contact_2}</td>
+
+                    <td>
+                      {item && item.img_link_1_url && item.footer_col && (
+                        <img
+                          src={item.img_link_1_url}
+                          alt="Image Link 1"
+                          style={{
+                            maxWidth: "25px",
+                            maxHeight: "25px",
+                            backgroundColor: item.footer_col,
+                          }}
+                        />
+                      )}
+                      <br />
+                      {item && item.original_img_link_1_name && (
+                        <span>{item.original_img_link_1_name}</span>
+                      )}
+                    </td>
+                    <td>{truncateUrl(item.link_1, 20)}</td>
+
+                    <td>
+                      {item && item.img_link_2_url && item.footer_col && (
+                        <img
+                          src={item.img_link_2_url}
+                          alt="Image Link 2"
+                          style={{
+                            maxWidth: "25px",
+                            maxHeight: "25px",
+                            backgroundColor: item.footer_col,
+                          }}
+                        />
+                      )}
+                      <br />
+                      {item && item.original_img_link_2_name && (
+                        <span>{item.original_img_link_2_name}</span>
+                      )}
+                    </td>
+
+                    <td>{truncateUrl(item.link_2, 20)}</td>
+
+                    <td>
+                      {item && item.img_link_3_url && item.footer_col && (
+                        <img
+                          src={item.img_link_3_url}
+                          alt="Image Link 3"
+                          style={{
+                            maxWidth: "25px",
+                            maxHeight: "25px",
+                            backgroundColor: item.footer_col,
+                          }}
+                        />
+                      )}
+                      <br />
+                      {item && item.original_img_link_3_name && (
+                        <span>{item.original_img_link_3_name}</span>
+                      )}
+                    </td>
+
+                    <td>{truncateUrl(item.link_3, 20)}</td>
+
+                    <td>
+                      {item && item.img_link_4_url && item.footer_col && (
+                        <img
+                          src={item.img_link_4_url}
+                          alt="Image Link 4"
+                          style={{
+                            maxWidth: "25px",
+                            maxHeight: "25px",
+                            backgroundColor: item.footer_col,
+                          }}
+                        />
+                      )}
+                      <br />
+                      {item && item.original_img_link_4_name && (
+                        <span>{item.original_img_link_4_name}</span>
+                      )}
+                    </td>
+
+                    <td>{truncateUrl(item.link_4, 20)}</td>
+                    <td>
+                      <button
+                        className="edit-button"
+                        onClick={() => handleEditClick(item)}
+                      >
+                        <img
+                          src={updatebtn}
+                          className="update-icon"
+                          alt="Update"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
       </div>
       <Notification
         open={notificationOpen}

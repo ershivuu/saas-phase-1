@@ -6,7 +6,7 @@ import Notification from "../../../../Notification/Notification";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
- import updatebtn from "../../../../assets/logos/update.png"
+import updatebtn from "../../../../assets/logos/update.png";
 
 function EditContact() {
   const g_map_url =
@@ -137,166 +137,154 @@ function EditContact() {
 
   return (
     <>
-    <div className="admin-list">
-
-      <div className="SCA-heading">
-        <p>Contact Info</p>
-      </div>
-      <div>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className="modal"
-          open={openModal}
-          onClose={handleCloseModal}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={openModal}>
-            <div className="modal-content">
-              <h2 id="transition-modal-title">Edit Section 2</h2>
-              {selectedContact && (
-                <form className="form-control" onSubmit={handleSubmit}>
-                  <label htmlFor="">Select Field :</label>
-                  <select
-                    className="form-select"
-                    name="field"
-                    value={formData.field}
-                    onChange={handleFieldSelect}
-                  >
-                    <option value="">Select field</option>
-                    {fieldOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  {formData.field === "box_col" && showInput && (
-                    <div className="color-picker-container">
-                      <label htmlFor="colorPicker">Choose a color:</label>
-                      <ChromePicker
-                        color={color}
-                        onChange={handleColorChange}
-                        id="colorPicker"
-                      />
-                    </div>
-                  )}
-                  {formData.field !== "box_col" && showInput && (
-                    <>
-                      <label htmlFor="value">{formData.field}</label>
-                      <input
-                        type="text"
-                        name="value"
-                        value={formData.value}
-                        onChange={handleChange}
-                        placeholder={`Enter value for ${formData.field}`}
-                      />
-                    </>
-                  )}
-                  {formData.field === "map_url" && (
-                    <div style={{ color: "red", marginTop: "5px" }}>
-                      <p>Note: Steps to update Google Map :</p>
-                      <ol>
-                        <li>
-                          Go to Google Maps.
-                          <button className="gmap">
-                            <a href={g_map_url} target="_blank">
-                              Google Map
-                            </a>
-                          </button>
-                        </li>
-                        <li>
-                          Select the location, press the "Share" button,
-                          generate the embed code, and then copy the URL to the
-                          "src" section.
-                        </li>
-                        <li>Paste the copied "URL" and submit.</li>
-                      </ol>
-                    </div>
-                  )}
-                  {formData.field && showInput && (
-                    <button className="btn btn-success" type="submit">
-                      Submit
-                    </button>
-                  )}
-                </form>
-              )}
-            </div>
-          </Fade>
-        </Modal>
-      </div>
-      <div className="Faq-heading">
-        {/* <p>Current Status</p> */}
-      </div>
-      <div className="table-responsive">
-        <table className="table table-responsive">
-          <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-            <tr>
-              <th scope="col">S No.</th>
-              <th scope="col">Contact 1</th>
-              <th scope="col">Contact 2</th>
-              <th scope="col">Contact 3</th>
-              <th scope="col">Contact 4</th>
-              <th scope="col">Contact Email 1</th>
-              <th scope="col">Contact Email 2</th>
-              <th scope="col">Contact Address</th>
-              <th scope="col">Box Color</th>
-              <th scope="col">Map URL</th>
-              <th scope="col">Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contactInfo.map((contact, index) => (
-              <tr key={contact.id}>
-                <td>{index + 1}</td>
-                <td>{contact.contact_1}</td>
-                <td>{contact.contact_2}</td>
-                <td>{contact.contact_3}</td>
-                <td>{contact.contact_4}</td>
-                <td>{contact && truncateText(contact.contact_email_1, 3)}</td>
-                <td>{contact && truncateText(contact.contact_email_2, 3)}</td>
-                <td>{contact && truncateText(contact.contact_add, 3)}</td>
-                <td
-                  style={{
-                    backgroundColor: contact.box_col,
-                    color: "#fff",
-                  }}
-                >
-                  {contact.box_col}
-                </td>
-                <td>
-                  <iframe src={contact.map_url}></iframe>
-                </td>
-                <td>
-                  <button
-                   className="edit-button"
-                    onClick={() => handleEditClick(contact)}
-                  >
-                        <img
-                            src={updatebtn}
-                        className="update-icon"
-                            alt="Update"
-                          />
-                  </button>
-                </td>
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handleEditClick(contact)}
-                  >
-                    Edit
-                  </button>
-                </td>
+      <div className="admin-list">
+        <div className="SCA-heading">
+          <p>Contact Info</p>
+        </div>
+        <div>
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className="modal"
+            open={openModal}
+            onClose={handleCloseModal}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={openModal}>
+              <div className="modal-content">
+                <h2 id="transition-modal-title">Edit Section 2</h2>
+                {selectedContact && (
+                  <form className="form-control" onSubmit={handleSubmit}>
+                    <label htmlFor="">Select Field :</label>
+                    <select
+                      className="form-select"
+                      name="field"
+                      value={formData.field}
+                      onChange={handleFieldSelect}
+                    >
+                      <option value="">Select field</option>
+                      {fieldOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    {formData.field === "box_col" && showInput && (
+                      <div className="color-picker-container">
+                        <label htmlFor="colorPicker">Choose a color:</label>
+                        <ChromePicker
+                          color={color}
+                          onChange={handleColorChange}
+                          id="colorPicker"
+                        />
+                      </div>
+                    )}
+                    {formData.field !== "box_col" && showInput && (
+                      <>
+                        <label htmlFor="value">{formData.field}</label>
+                        <input
+                          type="text"
+                          name="value"
+                          value={formData.value}
+                          onChange={handleChange}
+                          placeholder={`Enter value for ${formData.field}`}
+                        />
+                      </>
+                    )}
+                    {formData.field === "map_url" && (
+                      <div style={{ color: "red", marginTop: "5px" }}>
+                        <p>Note: Steps to update Google Map :</p>
+                        <ol>
+                          <li>
+                            Go to Google Maps.
+                            <button className="gmap">
+                              <a href={g_map_url} target="_blank">
+                                Google Map
+                              </a>
+                            </button>
+                          </li>
+                          <li>
+                            Select the location, press the "Share" button,
+                            generate the embed code, and then copy the URL to
+                            the "src" section.
+                          </li>
+                          <li>Paste the copied "URL" and submit.</li>
+                        </ol>
+                      </div>
+                    )}
+                    {formData.field && showInput && (
+                      <button className="btn btn-success" type="submit">
+                        Submit
+                      </button>
+                    )}
+                  </form>
+                )}
+              </div>
+            </Fade>
+          </Modal>
+        </div>
+        <div className="Faq-heading">{/* <p>Current Status</p> */}</div>
+        <div className="table-responsive">
+          <table className="table table-responsive">
+            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+              <tr>
+                <th scope="col">S No.</th>
+                <th scope="col">Contact 1</th>
+                <th scope="col">Contact 2</th>
+                <th scope="col">Contact 3</th>
+                <th scope="col">Contact 4</th>
+                <th scope="col">Contact Email 1</th>
+                <th scope="col">Contact Email 2</th>
+                <th scope="col">Contact Address</th>
+                <th scope="col">Box Color</th>
+                <th scope="col">Map URL</th>
+                <th scope="col">Edit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {contactInfo.map((contact, index) => (
+                <tr key={contact.id}>
+                  <td>{index + 1}</td>
+                  <td>{contact.contact_1}</td>
+                  <td>{contact.contact_2}</td>
+                  <td>{contact.contact_3}</td>
+                  <td>{contact.contact_4}</td>
+                  <td>{contact && truncateText(contact.contact_email_1, 3)}</td>
+                  <td>{contact && truncateText(contact.contact_email_2, 3)}</td>
+                  <td>{contact && truncateText(contact.contact_add, 3)}</td>
+                  <td
+                    style={{
+                      backgroundColor: contact.box_col,
+                      color: "#fff",
+                    }}
+                  >
+                    {contact.box_col}
+                  </td>
+                  <td>
+                    <iframe src={contact.map_url}></iframe>
+                  </td>
+                  <td>
+                    <button
+                      className="edit-button"
+                      onClick={() => handleEditClick(contact)}
+                    >
+                      <img
+                        src={updatebtn}
+                        className="update-icon"
+                        alt="Update"
+                      />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      
-    </div>
       <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}

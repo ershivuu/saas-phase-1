@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import updatebtn from "../../../assets/logos/update.png";
 import deletebtn from "../../../assets/logos/delete.png";
 import { delteFaq, getFaqs } from "../../../AdminFrontend/FrontendServices";
-import "./FaqSection.css"
+import "./FaqSection.css";
 
 import {
   Dialog,
@@ -29,9 +29,7 @@ export default function FaqSection() {
 
   const wordLimits = {
     box_heading: 15,
- 
   };
-
 
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -46,7 +44,6 @@ export default function FaqSection() {
     }
   }
 
-
   const fetchFaqs = async () => {
     try {
       const data = await getFaqs();
@@ -60,13 +57,15 @@ export default function FaqSection() {
     fetchFaqs();
   }, []);
 
- const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "box_heading") {
       const wordCount = value.trim().split(/\s+/).length;
       if (wordCount > wordLimits[name]) {
-        setNotificationMessage(`Word limit of ${wordLimits[name]} exceeded for ${name}`);
+        setNotificationMessage(
+          `Word limit of ${wordLimits[name]} exceeded for ${name}`
+        );
         setNotificationSeverity("error");
         setNotificationOpen(true);
         return;
@@ -78,8 +77,7 @@ export default function FaqSection() {
       [name]: value,
     }));
   };
-  
-  
+
   const handleCloseNotification = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -91,31 +89,31 @@ export default function FaqSection() {
     try {
       const response = await addFaq(faqData);
       console.log("FAQ added successfully:", response);
-      // Clear the form fields after successful submission
+
       setFaqData({
         box_heading: "",
         box_content: "",
       });
       fetchFaqs();
-      setNotificationMessage(response.message); // Set the notification message from the API response
+      setNotificationMessage(response.message);
       setNotificationSeverity("success");
       setNotificationOpen(true);
       setOpen(false);
     } catch (error) {
       console.error("Error adding FAQ:", error.message);
-      setNotificationMessage(error.response?.data?.message || error.message); // Set the notification message from the error response
+      setNotificationMessage(error.response?.data?.message || error.message);
       setNotificationSeverity("error");
       setNotificationOpen(true);
     }
   };
 
   const handleUpdate = (faq) => {
-    setId(faq.id); // Set the ID of the selected FAQ
-    setBoxHeading(faq.box_heading); // Set the initial value for the boxHeading input field
-    setBoxContent(faq.box_content); // Set the initial value for the boxContent input field
-    setUpdateModalOpen(true); // Open the update modal
+    setId(faq.id);
+    setBoxHeading(faq.box_heading);
+    setBoxContent(faq.box_content);
+    setUpdateModalOpen(true);
   };
-  
+
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
   };
@@ -130,18 +128,16 @@ export default function FaqSection() {
       box_content: boxContent,
     };
     try {
-      const response = await updateFaq(Id, faqData); // Pass the ID and data here
+      const response = await updateFaq(Id, faqData);
       console.log("FAQ updated successfully:", response);
       fetchFaqs();
       setNotificationMessage(response.message);
       setNotificationSeverity("success");
       setNotificationOpen(true);
       setUpdateModalOpen(false);
-
-      // Handle success (e.g., display a success message, reset form, etc.)
     } catch (error) {
       console.error("Error updating FAQ:", error);
-      setNotificationMessage(error.response?.data?.message || error.message); // Set the notification message from the error response
+      setNotificationMessage(error.response?.data?.message || error.message);
       setNotificationSeverity("error");
       setNotificationOpen(true);
     }
@@ -171,185 +167,185 @@ export default function FaqSection() {
   };
   return (
     <>
-    <div className="admin-list">
-
-      <div className="add-faq-btn">
-        <button onClick={() => setOpen(true)}>Add faq</button>
-        <Dialog
-          open={open}
-          onClose={handleCloseModal}
-          PaperProps={{ style: { width: "100%" } }}
-        >
-          <DialogContent>
-            <div className="SCA-heading" >
-              <p>ADD FAQ</p>
-            </div>
-            <form className="form-control" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="box_heading">FAQ Heading</label>
-                <input
-                  type="text"
-                  id="box_heading"
-                  name="box_heading"
-                  onChange={handleChange}
-                  placeholder="FAQ Heading"
-                  required
-                />
+      <div className="admin-list">
+        <div className="add-faq-btn">
+          <button onClick={() => setOpen(true)}>Add faq</button>
+          <Dialog
+            open={open}
+            onClose={handleCloseModal}
+            PaperProps={{ style: { width: "100%" } }}
+          >
+            <DialogContent>
+              <div className="SCA-heading">
+                <p>ADD FAQ</p>
               </div>
-              <div>
-                <label htmlFor="box_content">FAQ Content</label>
-                <input
-                  type="text"
-                  id="box_content"
-                  name="box_content"
-                  onChange={handleChange}
-                  placeholder="FAQ Content"
-                  required
-                />
-              </div>
-              <button className="btn btn-success" type="submit">
-                Submit
-              </button>
-            </form>
-          </DialogContent>
-        </Dialog>
-      </div>
+              <form className="form-control" onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="box_heading">FAQ Heading</label>
+                  <input
+                    type="text"
+                    id="box_heading"
+                    name="box_heading"
+                    onChange={handleChange}
+                    placeholder="FAQ Heading"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="box_content">FAQ Content</label>
+                  <input
+                    type="text"
+                    id="box_content"
+                    name="box_content"
+                    onChange={handleChange}
+                    placeholder="FAQ Content"
+                    required
+                  />
+                </div>
+                <button className="btn btn-success" type="submit">
+                  Submit
+                </button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
 
-      <div>
-        <div >
-          <div >
-            <p className="SCA-heading" style={{marginTop:"5%"}}>FAQ</p>
-            <div className="table-responsive ">
-              <table className="table table-responsive">
-                <thead
-                  style={{ color: "rgba(0, 0, 0, 0.63)" }}
-                  className="thead"
-                >
-                  <tr>
-                    <th scope="col">S.No.</th>
-                    <th scope="col">Heading</th>
-                    <th scope="col">Content</th>
-                    <th scope="col">UPDATE</th>
-                    <th scope="col">DELETE</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {faqs.map((faq, index) => (
-                    <tr key={faq.id}>
-                      <td>{index + 1}</td>
-                      {/* <td>{faq.box_heading}</td> */}
-                      
-                <td>{faq && truncateText(faq.box_heading, 5)}</td>
-                
-                <td>{faq && truncateText(faq.box_content, 10)}</td>
-                      {/* <td>{faq.box_content}</td> */}
-                      <td>
-                        <button
-                         className="edit-button"
-                          onClick={() => handleUpdate(faq)}
-                        >
-                          <img
-                            src={updatebtn}
-                        className="update-icon"
-                            alt="Update"
-                          />
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          id="table-btns"
-                          onClick={() => handleDelete(faq.id)}
-                        >
-                          <img
-                            src={deletebtn}
-                            className="up-del-btn"
-                            alt="Delete"
-                          />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                  <Dialog
-                    open={updateModalOpen}
-                    onClose={handleCloseUpdateModal}
-                    PaperProps={{ style: { width: "100%" } }}
+        <div>
+          <div>
+            <div>
+              <p className="SCA-heading" style={{ marginTop: "5%" }}>
+                FAQ
+              </p>
+              <div className="table-responsive ">
+                <table className="table table-responsive">
+                  <thead
+                    style={{ color: "rgba(0, 0, 0, 0.63)" }}
+                    className="thead"
                   >
-                    {/* <EditFaq /> */}
-                    <DialogContent>
-                      <div className="Faq-heading">
-                        <p>Edit FAQ</p>
-                      </div>
-                      <form
-                        className="form-control"
-                        onSubmit={handleUpdateForm}
-                      >
-                        <div>
-                          {/* <label htmlFor="faq_id">FAQ ID</label> */}
-                          <input
-                            type="number"
-                            id="faq_id"
-                            name="faq_id"
-                            value={Id}
-                            onChange={(e) => setId(Number(e.target.value))}
-                            placeholder="FAQ ID"
-                            required
-                            style={{display:"none"}}
-                          
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="box_heading">FAQ Heading</label>
-                          <input
-                            type="text"
-                            id="box_heading"
-                            name="box_heading"
-                            value={boxHeading}
-                            onChange={(e) => setBoxHeading(e.target.value)}
-                            placeholder="FAQ Heading"
-                            required
-                            
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="box_content">FAQ Content</label>
+                    <tr>
+                      <th scope="col">S.No.</th>
+                      <th scope="col">Heading</th>
+                      <th scope="col">Content</th>
+                      <th scope="col">UPDATE</th>
+                      <th scope="col">DELETE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {faqs.map((faq, index) => (
+                      <tr key={faq.id}>
+                        <td>{index + 1}</td>
+                        {/* <td>{faq.box_heading}</td> */}
 
-                          <input
-                            type="text"
-                            id="box_content"
-                            name="box_content"
-                            value={boxContent}
-                            onChange={(e) => setBoxContent(e.target.value)}
-                            placeholder="FAQ Content"
-                            required
-                          />
+                        <td>{faq && truncateText(faq.box_heading, 5)}</td>
+
+                        <td>{faq && truncateText(faq.box_content, 10)}</td>
+                        {/* <td>{faq.box_content}</td> */}
+                        <td>
+                          <button
+                            className="edit-button"
+                            onClick={() => handleUpdate(faq)}
+                          >
+                            <img
+                              src={updatebtn}
+                              className="update-icon"
+                              alt="Update"
+                            />
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            id="table-btns"
+                            onClick={() => handleDelete(faq.id)}
+                          >
+                            <img
+                              src={deletebtn}
+                              className="up-del-btn"
+                              alt="Delete"
+                            />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    <Dialog
+                      open={updateModalOpen}
+                      onClose={handleCloseUpdateModal}
+                      PaperProps={{ style: { width: "100%" } }}
+                    >
+                      {/* <EditFaq /> */}
+                      <DialogContent>
+                        <div className="Faq-heading">
+                          <p>Edit FAQ</p>
                         </div>
-                        <button className="btn btn-success" type="submit">
-                          Submit
-                        </button>
-                      </form>
-                    </DialogContent>
-                  </Dialog>
-                </tbody>
-              </table>
+                        <form
+                          className="form-control"
+                          onSubmit={handleUpdateForm}
+                        >
+                          <div>
+                            {/* <label htmlFor="faq_id">FAQ ID</label> */}
+                            <input
+                              type="number"
+                              id="faq_id"
+                              name="faq_id"
+                              value={Id}
+                              onChange={(e) => setId(Number(e.target.value))}
+                              placeholder="FAQ ID"
+                              required
+                              style={{ display: "none" }}
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="box_heading">FAQ Heading</label>
+                            <input
+                              type="text"
+                              id="box_heading"
+                              name="box_heading"
+                              value={boxHeading}
+                              onChange={(e) => setBoxHeading(e.target.value)}
+                              placeholder="FAQ Heading"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="box_content">FAQ Content</label>
+
+                            <input
+                              type="text"
+                              id="box_content"
+                              name="box_content"
+                              value={boxContent}
+                              onChange={(e) => setBoxContent(e.target.value)}
+                              placeholder="FAQ Content"
+                              required
+                            />
+                          </div>
+                          <button className="btn btn-success" type="submit">
+                            Submit
+                          </button>
+                        </form>
+                      </DialogContent>
+                    </Dialog>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
+
+        <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+          <DialogTitle>Delete FAQ</DialogTitle>
+          <DialogContent>
+            Are you sure you want to delete this FAQ?
+          </DialogContent>
+          <DialogActions>
+            <button className="submitbtn" onClick={confirmDelete}>
+              Delete
+            </button>
+            <button onClick={handleCloseDeleteDialog} className="canclebtn">
+              Cancel
+            </button>
+          </DialogActions>
+        </Dialog>
       </div>
-
-      <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>Delete FAQ</DialogTitle>
-        <DialogContent>Are you sure you want to delete this FAQ?</DialogContent>
-        <DialogActions>
-          <button className="submitbtn" onClick={confirmDelete}>
-            Delete
-          </button>
-          <button onClick={handleCloseDeleteDialog} className="canclebtn">
-            Cancel
-          </button>
-        </DialogActions>
-      </Dialog>
-
-    </div>
       <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}

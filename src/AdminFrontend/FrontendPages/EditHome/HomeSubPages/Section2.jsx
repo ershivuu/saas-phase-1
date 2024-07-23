@@ -253,7 +253,7 @@ function Section2() {
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
-                <th scope="col">S NO.</th>
+                <th scope="col">S No.</th>
                 <th scope="col">Heading 1</th>
                 <th scope="col">Heading 2</th>
                 <th scope="col">Box 1 Content</th>

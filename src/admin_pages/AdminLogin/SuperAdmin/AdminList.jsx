@@ -270,7 +270,7 @@ function AdminList() {
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
-                <th scope="col">Sr. No.</th>
+                <th scope="col">S No.</th>
                 <th scope="col">NAME</th>
                 <th scope="col">EMAIL</th>
                 <th scope="col">CONTACT</th>

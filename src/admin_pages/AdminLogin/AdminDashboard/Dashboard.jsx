@@ -22,7 +22,8 @@ function Dashboard() {
       setContainerWidth(document.querySelector(".graphChart").clientWidth);
     };
 
-    handleResize(); // Set initial width
+    handleResize();
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

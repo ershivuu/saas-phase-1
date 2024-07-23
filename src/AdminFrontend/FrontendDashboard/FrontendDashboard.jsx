@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import medilogo from "../../assets/logos/medi-logo.png";
+
 import logout from "../../assets/logos/Logout.png";
 import FrontendSidebar from "../FrontendSidebar/FrontendSidebar";
 import { Outlet} from "react-router-dom";

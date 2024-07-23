@@ -307,7 +307,7 @@ function EditHeader() {
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
-                <th scope="col">S NO.</th>
+                <th scope="col">S No.</th>
                 <th scope="col">Ribbon Content</th>
                 <th scope="col">Ribbon Background Color</th>
                 <th scope="col">Logo</th>
