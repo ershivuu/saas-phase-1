@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import Pagination from "@mui/material/Pagination";
+// import Stack from "@mui/material/Stack";
+import "./CurrentOpening.css";
 import adminApiService from "../adminApiService";
 import Notification from "../../Notification/Notification";
-import "./CurrentOpening.css";
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
 function Academictable() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("info");
+
   const [jobProfiles, setJobProfiles] = useState([]);
-  const [category, setCategory] = useState("");
 
   let tokenFromsessionStorage = sessionStorage.getItem("Token");
   tokenFromsessionStorage = JSON.parse(tokenFromsessionStorage);
+  // const accessToken = tokenFromsessionStorage?.token || "";
 
-  const query = useQuery();
+  // const [token, setToken] = useState(tokenFromsessionStorage || "");
 
   useEffect(() => {
     const fetchJobProfiles = async () => {
       try {
         const response = await adminApiService.getJobProfile();
+        // console.log("fetch response.data", response.data);
         setJobProfiles(response.data);
       } catch (error) {
         console.error("Error fetching job profiles:", error);
@@ -33,12 +31,8 @@ function Academictable() {
     fetchJobProfiles();
   }, []);
 
-  useEffect(() => {
-    const selectedCategory = query.get("category");
-    setCategory(selectedCategory || "");
-  }, [query]);
-
   const handleApply = async (data) => {
+    // console.log("Selected Job Profile:", data);
     const requestData = {
       applied_post_masters_id: data.applied_post_masters_id,
       job_category_master_id: data.job_category_master_id,
@@ -47,11 +41,14 @@ function Academictable() {
     };
 
     try {
-      await adminApiService.addApplied(requestData);
+      await adminApiService.addApplied(requestData); // Use adminApiService
+      // console.log("Response:", response);
+      // alert("Post Applied Successfully");
       setNotificationMessage("Post Applied Successfully");
       setNotificationSeverity("success");
       setShowNotification(true);
     } catch (error) {
+      // alert("you already applied",)
       setNotificationMessage("You already applied");
       setNotificationSeverity("error");
       setShowNotification(true);
@@ -59,28 +56,36 @@ function Academictable() {
     }
   };
 
-  const filteredProfiles = jobProfiles.filter((profile) => {
-    if (!category) {
-      return profile.job_category_master?.category_name !== "non-academic";
-    }
-    return profile.job_category_master?.category_name === category;
-  });
-
-
-  const AcademicTable = filteredProfiles.map((profile) => ({
-    job_profile_master_id: profile.id,
-    applied_post_masters_id: profile.applied_post_masters_id,
-    job_category_master_id: profile.job_category_master_id,
-    department_master_id: profile.department_master_id ?? "N/A",
-    category: profile.job_category_master?.category_name ?? "N/A",
-    post: profile.applied_post_master?.post_name ?? "N/A",
-    department: profile.department_master?.dept_name ?? "N/A",
-    applyLink: "/apply-now",
-    lastDate: profile.last_date_to_apply ?? "N/A",
-  }));
-
   const [page] = useState(1);
+
   const rowsPerPage = 100;
+
+  const AcademicTable = jobProfiles
+
+    .filter((profile) => {
+      // console.log(profile,"<<<<<<")
+      return (
+        profile.publish_to_vacancy &&
+        profile.job_category_master?.category_name !== "non-academic"
+      );
+    })
+    .map((profile) => ({
+      job_profile_master_id: profile.id,
+      applied_post_masters_id: profile.applied_post_masters_id,
+      job_category_master_id: profile.job_category_master_id,
+      department_master_id: profile.department_master_id ?? "N/A",
+      category: profile.job_category_master?.category_name ?? "N/A",
+      post: profile.applied_post_master?.post_name ?? "N/A",
+      department: profile.department_master?.dept_name ?? "N/A",
+      applyLink: "/apply-now",
+      lastDate: profile.last_date_to_apply ?? "N/A",
+    }));
+
+  // console.log("AcademicTable:", AcademicTable);
+
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
   const startIndex = (page - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const AcademicData = AcademicTable.slice(startIndex, endIndex);
@@ -95,7 +100,6 @@ function Academictable() {
     const year = dateObject.getFullYear();
     return `${day}-${month}-${year}`;
   };
-
   return (
     <>
       <Notification
@@ -113,7 +117,7 @@ function Academictable() {
               <tr>
                 <th scope="col">Category</th>
                 <th scope="col">Post</th>
-                <th scope="col">Department</th>
+                <th scope="col">Detartment</th>
                 <th scope="col">Apply</th>
                 <th scope="col">Last Date</th>
               </tr>
@@ -127,6 +131,7 @@ function Academictable() {
                   <td>
                     {!tokenFromsessionStorage && (
                       <button className="apn-btn">
+                        {" "}
                         <a href={data.applyLink}>APPLY NOW</a>
                       </button>
                     )}
@@ -141,11 +146,22 @@ function Academictable() {
                       </button>
                     )}
                   </td>
+
                   <td>{formatDateForInput(data.lastDate)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {/* <div className="pagination">
+            <Stack spacing={2}>
+              <Pagination
+                count={Math.ceil(AcademicTable.length / rowsPerPage)}
+                page={page}
+                onChange={handleChangePage}
+                shape="rounded"
+              />
+            </Stack>
+          </div> */}
         </div>
       </div>
     </>

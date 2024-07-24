@@ -38,7 +38,7 @@ function MasterTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await adminApiService.getAllInterview(
+        const response = await adminApiService.getMasterviewAllInterview(
           currentPage,
           itemsPerPage,
           categoryValue,
@@ -178,7 +178,7 @@ function MasterTable() {
 
       {!isEditFormOpen && (
         <div className="master-table ">
-          <p className="SCA-heading" style={{marginTop:"5%"}}>
+          <p className="SCA-heading" style={{ marginBottom: "15px" }}>
             Current Openings
           </p>
           <div className="row sizeofrow">
