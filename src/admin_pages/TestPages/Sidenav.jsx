@@ -26,7 +26,6 @@ import {
   ExpandMore,
   Logout as LogoutIcon,
 } from "@mui/icons-material";
-// import Logo from "../../assets/logos/medi-logo.png";
 import "./Sidenav.css";
 import { getHeaderInfo } from "../../AdminFrontend/FrontendServices";
 
@@ -55,6 +54,12 @@ const Sidenav = () => {
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleSidebarOpen = () => {
+    if (!sidebarOpen) {
+      setSidebarOpen(true);
+    }
   };
 
   const handleDropdownToggle = (item) => {
@@ -162,13 +167,12 @@ const Sidenav = () => {
               button
               onClick={() => item.subItems && handleDropdownToggle(item.text)}
               component={NavLink}
-              to={
-                item.subItems
-                  ? "#"
-                  : `/${item.text.toLowerCase().replace(" ", "-")}`
-              }
+              to={item.path}
+              exact
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemIcon onClick={handleSidebarOpen}>
+                {item.icon}
+              </ListItemIcon>
               {sidebarOpen && <ListItemText primary={item.text} />}
               {item.subItems ? (
                 openDropdown === item.text ? (
@@ -216,6 +220,7 @@ const Sidenav = () => {
           backgroundColor: "white",
           color: "black",
         }}
+        
       >
         <Toolbar>
           <IconButton
