@@ -38,7 +38,7 @@ function MasterJobTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await adminApiService.getAllInterview(
+        const response = await adminApiService.getMasterviewAllInterview(
           currentPage,
           itemsPerPage,
           categoryValue,

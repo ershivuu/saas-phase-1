@@ -685,7 +685,7 @@ const adminApiService = {
       const response = await axios.get(
         `${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPostExcel?category=${selectedCategory}&appliedPost=${selectedPost}`,
         {
-          responseType: 'blob', // Important: Ensure the response type is set to 'blob'
+          responseType: 'blob',
           headers: {
             "access-token": getAccessToken(),
           },
@@ -697,10 +697,26 @@ const adminApiService = {
       throw error;
     }
   },
-  getAllInterview: async (currentPage, itemsPerPage) => {
+  getAllInterview: async (currentPage, itemsPerPage ) => {
     try {
       const response = await axios.get(
         `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  },
+  getMasterviewAllInterview: async (currentPage,itemsPerPage,categoryValue,departValue,PostValue) => {
+    try {
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}&category_name=${categoryValue}&dept_name=${departValue}&post_name=${PostValue}`,
         {
           headers: {
             "access-token": getAccessToken(),
