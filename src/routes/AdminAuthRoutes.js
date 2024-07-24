@@ -41,6 +41,7 @@ import EditInterviewSchedule from "../AdminFrontend/FrontendPages/EditInterviewS
 import EditContact from "../AdminFrontend/FrontendPages/EditHome/HomeSubPages/EditContact.jsx";
 import EditFooter from "../AdminFrontend/FrontendPages/EditFooter/EditFooter.jsx";
 import FrontendDashboard from "../AdminFrontend/FrontendDashboard/FrontendDashboard.jsx";
+import EmailTemplate from "../admin_pages/AdminLogin/SuperAdmin/EmailTemplate.jsx";
 // console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
@@ -209,6 +210,11 @@ const AdminAuthRoutes = [
       key="role-list"
       path="role-list"
       element={<AdminAuthGaurd component={<GetRole />} />}
+    />
+    <Route
+      key="email-template"
+      path="email-template"
+      element={<AdminAuthGaurd component={<EmailTemplate />} />}
     />
     <Route key="add-openings" path="add-openings" element={<AddOpenings />} />,
     <Route

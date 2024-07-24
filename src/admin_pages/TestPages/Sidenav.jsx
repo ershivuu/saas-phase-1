@@ -18,6 +18,7 @@ import {
   Menu,
   Dashboard as DashboardIcon,
   Poll as PollIcon,
+
   People as PeopleIcon,
   LocationOn as LocationOnIcon,
   Report as ReportIcon,
@@ -26,6 +27,7 @@ import {
   ExpandMore,
   Logout as LogoutIcon,
 } from "@mui/icons-material";
+import ListAltIcon from '@mui/icons-material/ListAlt';
 // import Logo from "../../assets/logos/medi-logo.png";
 import "./Sidenav.css";
 import { getHeaderInfo } from "../../AdminFrontend/FrontendServices";
@@ -125,7 +127,7 @@ const Sidenav = () => {
           },
           {
             text: "Master List",
-            icon: <PollIcon />,
+            icon: <ListAltIcon />,
             subItems: [
               {
                 text: "Post Applied For",
@@ -154,6 +156,7 @@ const Sidenav = () => {
               { text: "Admin list", path: "/admin-dashboard/admin-list" },
               { text: "Rights List", path: "/admin-dashboard/right-list" },
               { text: "Role List", path: "/admin-dashboard/role-list" },
+              { text: "Email Template", path: "/admin-dashboard/email-template" },
             ],
           },
         ].map((item, index) => (
