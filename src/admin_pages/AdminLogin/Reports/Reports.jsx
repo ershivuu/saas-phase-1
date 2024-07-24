@@ -6,14 +6,18 @@ import "./Reports.css";
 import Notification from "../../../Notification/Notification";
 import updatebtn from "../../../assets/logos/view.png";
 import viewbtn from "../../../assets/logos/view-resume.png";
+import DownloadIcon from "../../../assets/logos/download.png";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
 
 import FileSaver from "file-saver";
+import ExcelBtn from "../../../assets/logos/excel.png";
 function Reports() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPost, setSelectedPost] = useState("");
@@ -33,6 +37,7 @@ function Reports() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationSeverity, setNotificationSeverity] = useState("error");
   const [notificationMessage, setNotificationMessage] = useState("");
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const fetchDataFromService = async () => {
     try {
@@ -46,7 +51,6 @@ function Reports() {
       // console.log("check count ", response);
       setData(response.candidateappliedpostData);
       setCount(response);
-
 
       setLoading(false);
     } catch (error) {
@@ -77,8 +81,6 @@ function Reports() {
     fetchJobCategories();
   }, []);
 
- 
-
   const handleResumeClick = async (candidateId) => {
     try {
       const resumeData = await adminApiService.renderCandidateResume(
@@ -106,8 +108,6 @@ function Reports() {
     setShowPdfDialog(false);
   };
 
-
-
   const handleCategory = (fieldName, value) => {
     const selectedCategoryData = jobCategories.find(
       (category) => category.category_name === value
@@ -124,9 +124,8 @@ function Reports() {
     if (selectedCategory === "") {
       return;
     }
- 
-    setSelectedPost(value);
 
+    setSelectedPost(value);
   };
 
   const fetchCandidateDetails = async (candidateId, signal) => {
@@ -173,7 +172,6 @@ function Reports() {
     }
   };
 
-
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -181,7 +179,6 @@ function Reports() {
       fetchCandidateDetails(selectedCandidate.candidate_id, signal);
     }
     return () => {
-      
       return controller.abort();
     };
   }, [selectedCandidate]);
@@ -194,17 +191,28 @@ function Reports() {
       const category = selectedCategory;
       const post = selectedPost;
       const response = await adminApiService.downloadExcel(category, post);
-      
+
       console.log("handleDownload-clicked");
-      
+
       // Create a new Blob using the response data
-      const fileBlob = new Blob([response.data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const fileBlob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
       FileSaver.saveAs(fileBlob, "candidates_" + Date.now() + ".xlsx");
     } catch (error) {
       console.error("Error downloading Excel file:", error);
     }
   };
-  
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
     <>
@@ -234,7 +242,8 @@ function Reports() {
             <p className="SCA-heading" style={{ marginTop: "7%" }}>
               Reports
             </p>
-            <div className="row">
+
+            {/* <div className="row">
               <div className="col-md-4 ">
                 <label>Select Category:</label>
                 <select
@@ -285,15 +294,116 @@ function Reports() {
                   ))}
                 </select>
               </div>
-              <div className="col-md-2">
-                <Button variant="primary" onClick={()=>handleDownload()}>
-                  Download Excel
-                </Button>
+             
+              <div className="col-md-3 excel-btn">
+                <div >
+Download Excel Sheet:
+                </div>
+                <div style={{cursor:"pointer"}}>
+                <img onClick={()=>handleDownload()} style={{marginLeft:"10px"}} src={ExcelBtn} alt="excel"/>
+                </div>
+              
+
+              </div>
+            </div> */}
+
+            <div className="row" style={{ marginBottom: "1rem" }}>
+              <div className="col-md-4">
+                <label>Select Category:</label>
+                <select
+                  name="category_name"
+                  id="categoryDropdown"
+                  value={selectedCategory}
+                  className="form-control"
+                  onChange={(e) =>
+                    handleCategory("category_name", e.target.value)
+                  }
+                >
+                  <option value="">All</option>
+                  {jobCategories.map((category, index) => (
+                    <option key={index} value={category.category_name}>
+                      {category.category_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-md-4">
+                <label>Select Post:</label>
+                <select
+                  id="dropdown"
+                  name="post_name"
+                  className="form-control"
+                  onClick={() => {
+                    if (selectedCategory === "") {
+                      setNotificationMessage("Please select a category first");
+                      setNotificationSeverity("error");
+                      setShowNotification(true);
+                    }
+                  }}
+                  onChange={(e) => handlePost("post_name", e.target.value)}
+                >
+                  <option value="">All</option>
+                  {post.map((post, index) => (
+                    <option key={index} value={post}>
+                      {post}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-md-4">
+                {/* <div className="excel-btn">
+                  <div>Download Excel Sheet:</div>
+                  <div style={{ cursor: "pointer" }}>
+                    <img
+                      onClick={() => handleDownload()}
+                      style={{ marginLeft: "10px" }}
+                      src={ExcelBtn}
+                      alt="excel"
+                    />
+                  </div>
+                </div> */}
+                <div className="excel-btn">
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onMouseEnter={handlePopoverOpen}
+                    onMouseLeave={handlePopoverClose}
+                  >
+                    <img
+                      onClick={() => handleDownload()}
+                      src={ExcelBtn}
+                      alt="excel"
+                    />
+                    <Popover
+                      id="mouse-over-popover"
+                      sx={{
+                        pointerEvents: "none",
+                      }}
+                      open={open}
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
+                      }}
+                      transformOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right",
+                      }}
+                      onClose={handlePopoverClose}
+                      disableRestoreFocus
+                    >
+                      <Typography sx={{ p: 0.5, fontSize: "0.75rem" }}>
+                        Download Excel Sheet
+                        <img src={DownloadIcon} />
+                      </Typography>
+                    </Popover>
+                  </div>
+                </div>
               </div>
             </div>
 
-
-            <div className="table-responsive">
+            <div className="table-responsive ">
               <table className="table table-responsive">
                 <thead
                   style={{ color: "rgba(0, 0, 0, 0.63)" }}
@@ -325,7 +435,7 @@ function Reports() {
                         {candidate.job_category_master?.category_name || "-"}
                       </td>
                       <td>{candidate.candidate.specialization || "-"}</td>
-                    
+
                       <td
                         onClick={() =>
                           openCandidateDetails(candidate.candidate_id)
@@ -370,7 +480,6 @@ function Reports() {
               </div>
             </div>
 
-          
             <Dialog open={!!selectedCandidate}>
               {loadingPopup && (
                 <div className="loaderPopupContainer">
@@ -480,8 +589,6 @@ function Reports() {
                 </button>
               </DialogActions>
             </Dialog>
-
-          
           </div>
         </div>
       </div>
