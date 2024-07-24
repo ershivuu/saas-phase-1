@@ -1,28 +1,17 @@
-import React from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
-import SideBar from "../SideBar/SideBar";
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Sidenav from "../../TestPages/Sidenav";
 import "./AdminDashboard.css";
-// import AdminAuthRoutes from "../../../routes/AdminAuthRoutes";
-// import Sidenav from "../../TestPages/Sidenav";
-import AdminHeader from "../admin_header/AdminHeader";
-import Dashboard from "./Dashboard";
-
-// import { Container, Row, Col, Card } from "react-bootstrap";
 
 function AdminDashboard() {
-  const location = useLocation();
-  const pathnames = location.pathname.split("/").filter((x) => x);
+  // State to manage sidebar visibility
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  // const totalInterviews = 50;
-  // const totalApplies = 200;
-  // const totalProfiles = 1000;
-  // const totalOpenings = 20;
-  // const adminDetails = {
-  //   name: "John Doe",
-  //   email: "admin@example.com",
-  //   role: "Admin",
-  // };
-
+  // Toggle sidebar visibility
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+  
   return (
     <>
       <div
@@ -36,20 +25,6 @@ function AdminDashboard() {
         <div
           style={{
             display: "flex",
-            position: "sticky",
-            top: 0,
-            zIndex: 50,
-            height: "5em",
-            width: "100%",
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          <AdminHeader />
-        </div>
-        <div
-          style={{
-            display: "flex",
             flexGrow: 1,
             position: "relative",
             margin: 0,
@@ -59,50 +34,36 @@ function AdminDashboard() {
         >
           <div
             style={{
-              maxWidth: "30%",
+              maxWidth: isSidebarOpen ? "30%" : "0%",
               flexShrink: 0,
               textAlign: "left",
               overflowY: "auto",
               overflowX: "hidden",
+              transition: "max-width 0.3s ease", // Smooth transition
             }}
           >
-            <SideBar />
+            <Sidenav isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
           </div>
 
-          {/* <div>
-            <main>
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  {pathnames.map((name, index) => {
-                    const routeTo = `/${pathnames
-                      .slice(0, index + 1)
-                      .join("/")}`;
-                    const isLast = index === pathnames.length - 1;
-                    return (
-                      <li
-                        className="breadcrumb-item"
-                        style={{ marginLeft: "15px" }}
-                        key={routeTo}
-                      >
-                        {isLast ? (
-                          <span>{name}</span>
-                        ) : (
-                          <Link to={routeTo}>{name}</Link>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ol>
-              </nav>
-            </main>
-          </div> */}
-
-          <div style={{ flexGrow: 1, overflowY: "auto" }}>
+          <div
+            style={{
+              flexGrow: 1,
+              overflowY: "auto",
+              marginLeft: isSidebarOpen ? "150px" : "0px", // Apply margin based on sidebar state
+              transition: "margin-left 0.3s ease", // Smooth transition
+            }}
+          >
             <Outlet />
           </div>
         </div>
+
+        {/* Button to toggle sidebar visibility */}
+        <button onClick={toggleSidebar}>
+          {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
+        </button>
       </div>
     </>
   );
 }
+
 export default AdminDashboard;
