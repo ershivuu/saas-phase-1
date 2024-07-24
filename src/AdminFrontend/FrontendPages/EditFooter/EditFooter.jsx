@@ -79,8 +79,8 @@ function EditFooter() {
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     const file = files[0];
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"]; 
-    const maxFileSize = 5 * 1024 * 1024; 
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+    const maxFileSize = 5 * 1024 * 1024;
 
     if (file && allowedTypes.includes(file.type)) {
       if (file.size <= maxFileSize) {
@@ -89,13 +89,11 @@ function EditFooter() {
           [name]: file,
         }));
       } else {
-       
         setNotificationMessage("File size should be less than 5MB.");
         setNotificationSeverity("error");
         setNotificationOpen(true);
       }
     } else {
-    
       setNotificationMessage("Only JPEG, JPG, and PNG files are allowed.");
       setNotificationSeverity("error");
       setNotificationOpen(true);
@@ -106,7 +104,6 @@ function EditFooter() {
     e.preventDefault();
     try {
       if (selectedOption) {
-      
         const formDataToSend = new FormData();
         Object.keys(formData).forEach((key) => {
           formDataToSend.append(key, formData[key]);
@@ -115,16 +112,16 @@ function EditFooter() {
         const response = await updateFooter(formDataToSend);
         console.log(response);
 
-        e.target.reset(); 
-        setFormData({}); 
-        setSelectedOption(options[0].value); 
+        e.target.reset();
+        setFormData({});
+        setSelectedOption(options[0].value);
         setNotificationMessage(response.message || "Data updated successfully");
         setNotificationSeverity("success");
         setNotificationOpen(true);
       }
       fetchFooterInfo();
     } catch (error) {
-      console.error(error); 
+      console.error(error);
       setNotificationMessage("Error updating data. Please try again.");
       setNotificationSeverity("error");
       setNotificationOpen(true);
@@ -135,7 +132,7 @@ function EditFooter() {
     setSelectedOption(e.target.value);
   };
 
-  const showSubmitButton = selectedOption !== ""; 
+  const showSubmitButton = selectedOption !== "";
   const handleCloseNotification = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -144,8 +141,8 @@ function EditFooter() {
   };
 
   const handleEditClick = (item) => {
-    setFormData(item); 
-    setOpenModal(true); 
+    setFormData(item);
+    setOpenModal(true);
   };
 
   const handleCloseModal = () => {
@@ -270,7 +267,7 @@ function EditFooter() {
                 )}
 
                 <div>
-                  {showSubmitButton && ( 
+                  {showSubmitButton && (
                     <div>
                       <button className="btn btn-success" type="submit">
                         Submit
@@ -327,9 +324,9 @@ function EditFooter() {
                         />
                       )}
                       <br />
-                      {item && item.original_footer_logo_name && (
+                      {/* {item && item.original_footer_logo_name && (
                         <span>{item.original_footer_logo_name}</span>
-                      )}
+                      )} */}
                     </td>
                     <td>{item && truncateText(item.contact_address, 3)}</td>
                     <td>{item.contact_email}</td>
@@ -350,9 +347,9 @@ function EditFooter() {
                         />
                       )}
                       <br />
-                      {item && item.original_img_link_1_name && (
+                      {/* {item && item.original_img_link_1_name && (
                         <span>{item.original_img_link_1_name}</span>
-                      )}
+                      )} */}
                     </td>
                     <td>{truncateUrl(item.link_1, 20)}</td>
 
@@ -369,9 +366,9 @@ function EditFooter() {
                         />
                       )}
                       <br />
-                      {item && item.original_img_link_2_name && (
+                      {/* {item && item.original_img_link_2_name && (
                         <span>{item.original_img_link_2_name}</span>
-                      )}
+                      )} */}
                     </td>
 
                     <td>{truncateUrl(item.link_2, 20)}</td>
@@ -389,9 +386,9 @@ function EditFooter() {
                         />
                       )}
                       <br />
-                      {item && item.original_img_link_3_name && (
+                      {/* {item && item.original_img_link_3_name && (
                         <span>{item.original_img_link_3_name}</span>
-                      )}
+                      )} */}
                     </td>
 
                     <td>{truncateUrl(item.link_3, 20)}</td>
@@ -409,9 +406,9 @@ function EditFooter() {
                         />
                       )}
                       <br />
-                      {item && item.original_img_link_4_name && (
+                      {/* {item && item.original_img_link_4_name && (
                         <span>{item.original_img_link_4_name}</span>
-                      )}
+                      )}  */}
                     </td>
 
                     <td>{truncateUrl(item.link_4, 20)}</td>

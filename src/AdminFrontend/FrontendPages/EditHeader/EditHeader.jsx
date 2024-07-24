@@ -339,10 +339,10 @@ function EditHeader() {
                       />
                     )}
                     <br />
-                    {headerInfo && headerInfo.original_name && (
+                    {/* {headerInfo && headerInfo.original_name && (
                       // <span>{headerInfo.image_url.split("/").pop()}</span>
                       <span>{headerInfo.original_name}</span>
-                    )}
+                    )} */}
                   </td>
                   <td>
                     <button

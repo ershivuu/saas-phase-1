@@ -264,7 +264,7 @@ function Section3() {
                               style={{ maxWidth: "100px", maxHeight: "100px" }}
                             />
                             <br />
-                            <span>{item.original_name}</span>
+                            {/* <span>{item.original_name}</span> */}
                           </>
                         )}
                       </td>

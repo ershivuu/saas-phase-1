@@ -284,9 +284,9 @@ function EditHome() {
                       />
                     )}
                     <br />
-                    {bannerInfo && bannerInfo.originalName && (
+                    {/* {bannerInfo && bannerInfo.originalName && (
                       <span>{bannerInfo.originalName}</span>
-                    )}
+                    )} */}
                   </td>
                   <td>
                     <button

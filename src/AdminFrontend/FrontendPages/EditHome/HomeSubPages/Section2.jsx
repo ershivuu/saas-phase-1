@@ -290,9 +290,9 @@ function Section2() {
                     />
                   )}
                   <br />
-                  {section2Info && section2Info.section2_Image_path && (
+                  {/* {section2Info && section2Info.section2_Image_path && (
                     <span>{section2Info.original_name}</span>
-                  )}
+                  )} */}
                 </td>
                 <td>
                   <button

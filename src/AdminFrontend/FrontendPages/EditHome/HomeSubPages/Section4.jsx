@@ -313,7 +313,7 @@ function Section4() {
                             />
                             <br />
                             {/* <span>{item.box_img_url.split("/").pop()}</span> */}
-                            <span>{item.original_name}</span>
+                            {/* <span>{item.original_name}</span> */}
                           </>
                         )}
                       </td>
