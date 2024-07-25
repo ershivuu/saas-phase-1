@@ -29,7 +29,7 @@ import {
 import "./Sidenav.css";
 import { getHeaderInfo } from "../../AdminFrontend/FrontendServices";
 
-const Sidenav = () => {
+const Sidenav = ({ isOpen, onToggle }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [openDropdown, setOpenDropdown] = useState("");
@@ -46,20 +46,31 @@ const Sidenav = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!sidebarOpen) {
+      setOpenDropdown(""); // Close all dropdowns when the sidebar is closed
+    }
+  }, [sidebarOpen]);
+
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+    onToggle();
   };
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!sidebarOpen);
+    onToggle();
   };
 
   const handleSidebarOpen = () => {
     if (!sidebarOpen) {
       setSidebarOpen(true);
+      onToggle();
     }
+    
   };
 
   const handleDropdownToggle = (item) => {
@@ -220,8 +231,9 @@ const Sidenav = () => {
           backgroundColor: "white",
           color: "black",
         }}
-        
+        // onClick={onToggle}
       >
+        {isOpen ? "" : ""}
         <Toolbar>
           <IconButton
             color="inherit"
