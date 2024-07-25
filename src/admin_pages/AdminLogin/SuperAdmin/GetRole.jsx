@@ -193,7 +193,7 @@ function GetRole() {
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }}>
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col">S No.</th>
                 <th scope="col">Role Type</th>
                 <th scope="col">UPDATE</th>
                 {/* <th scope="col">DELETE</th> */}

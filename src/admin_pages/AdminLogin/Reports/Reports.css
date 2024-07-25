@@ -149,6 +149,16 @@
   margin: auto;
   color: black;
 }
+
+.excel-btn{
+  display: flex;
+  background: none;
+  margin-top: 8%;
+  margin-right: 1rem;
+    color: black;
+    border: none;
+    float: right;
+}
 @keyframes animloader {
   0% {
     box-shadow: 14px 0 0 -2px, 38px 0 0 -2px, -14px 0 0 -2px, -38px 0 0 -2px;

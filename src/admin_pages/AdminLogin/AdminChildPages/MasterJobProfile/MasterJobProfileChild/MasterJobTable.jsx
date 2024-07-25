@@ -38,7 +38,7 @@ function MasterJobTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await adminApiService.getAllInterview(
+        const response = await adminApiService.getMasterviewAllInterview(
           currentPage,
           itemsPerPage,
           categoryValue,
@@ -238,7 +238,7 @@ function MasterJobTable() {
             <table className="table ">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
-                  <th scope="col">S.No.</th>
+                  <th scope="col">S.No</th>
                   <th scope="col">Department</th>
                   <th scope="col">Designation</th>
                   <th scope="col">Category</th>

@@ -186,7 +186,7 @@ function MasterInterviewSchedule() {
             <table className="table">
               <thead className="thead">
                 <tr>
-                  <th scope="col">S.No&#x2193;</th>
+                  <th scope="col">S No.&#x2193;</th>
                   <th scope="col">Department&#x2193;</th>
                   <th scope="col">Post&#x2193;</th>
                   <th scope="col">Eligibility criteria&#x2193;</th>

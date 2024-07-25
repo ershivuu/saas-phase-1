@@ -209,8 +209,8 @@ function EditHeader() {
   };
 
   return (
-    <div>
-      <div className="Faq-heading">
+    <div className="admin-list">
+      <div className="SCA-heading">
         <p>Header</p>
       </div>
 
@@ -307,7 +307,7 @@ function EditHeader() {
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
-                <th scope="col">S NO.</th>
+                <th scope="col">S No.</th>
                 <th scope="col">Ribbon Content</th>
                 <th scope="col">Ribbon Background Color</th>
                 <th scope="col">Logo</th>
@@ -339,10 +339,10 @@ function EditHeader() {
                       />
                     )}
                     <br />
-                    {headerInfo && headerInfo.original_name && (
+                    {/* {headerInfo && headerInfo.original_name && (
                       // <span>{headerInfo.image_url.split("/").pop()}</span>
                       <span>{headerInfo.original_name}</span>
-                    )}
+                    )} */}
                   </td>
                   <td>
                     <button

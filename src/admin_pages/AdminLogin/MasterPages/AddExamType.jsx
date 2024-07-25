@@ -235,9 +235,9 @@ function AddExamType() {
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
-                  <th scope="col">Sr. No.</th>
-                  <th scope="col">EXAM TYPE</th>
-                  <th scope="col">UPDATE</th>
+                  <th scope="col">S No.</th>
+                  <th scope="col">Exam Type</th>
+                  <th scope="col">Update</th>
                   {/* <th scope="col">DELETE</th> */}
                 </tr>
               </thead>

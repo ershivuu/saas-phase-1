@@ -51,7 +51,7 @@ function EditContact() {
       ...prevData,
       [name]: value,
     }));
-    setShowInput(value !== ""); // Show input field only if a value is selected
+    setShowInput(value !== ""); 
   };
 
   const handleColorChange = (color) => {

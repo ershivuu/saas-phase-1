@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ChromePicker } from "react-color";
-import { updateSection5, getSection5Data } from "../../../FrontendServices"; // Update the import to match your file structure
+import { updateSection5, getSection5Data } from "../../../FrontendServices"; 
 import Notification from "../../../../Notification/Notification";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import updatebtn from "../../../../assets/logos/update.png"
+import updatebtn from "../../../../assets/logos/update.png";
 
 function Section5() {
   const [boxNo, setBoxNo] = useState("");
@@ -49,7 +49,7 @@ function Section5() {
   async function fetchSection5Info() {
     try {
       const data = await getSection5Data();
-      setSection5Info(data || []); // Ensuring section5Info is an array
+      setSection5Info(data || []); 
     } catch (error) {
       console.error("Error fetching Section5 info:", error);
     }
@@ -125,7 +125,6 @@ function Section5() {
       setNotificationSeverity("success");
       setNotificationOpen(true);
 
-      // Reset form values after successful update if needed
       setFormData({
         header_1: "",
         header_2: "",
@@ -207,149 +206,147 @@ function Section5() {
 
   return (
     <>
-      <div className="Faq-heading">
-        <p>Section 5</p>
-      </div>
+      <div className="admin-list">
+        <div className="SCA-heading">
+          <p>Section 5</p>
+        </div>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className="modal"
-        open={openModal}
-        onClose={handleCloseModal}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openModal}>
-          <div className="modal-content">
-            <h2 id="transition-modal-title">Edit Section 5</h2>
-            <form className="form-control" onSubmit={handleSubmit}>
-              <>
-                <label htmlFor="selectedField">Select Field:</label>
-                <select
-                  className="form-select"
-                  id="selectedField"
-                  value={selectedField}
-                  onChange={(e) => handleFieldSelect(e.target.value)}
-                  required
-                >
-                  <option value="">Select Field</option>
-                  {getOptionsForBoxNo(boxNo)}
-                </select>
-              </>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className="modal"
+          open={openModal}
+          onClose={handleCloseModal}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={openModal}>
+            <div className="modal-content">
+              <h2 id="transition-modal-title">Edit Section 5</h2>
+              <form className="form-control" onSubmit={handleSubmit}>
+                <>
+                  <label htmlFor="selectedField">Select Field:</label>
+                  <select
+                    className="form-select"
+                    id="selectedField"
+                    value={selectedField}
+                    onChange={(e) => handleFieldSelect(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Field</option>
+                    {getOptionsForBoxNo(boxNo)}
+                  </select>
+                </>
 
-              {selectedField &&
-                selectedField !== "bg_col" &&
-                selectedField !== "image" && (
+                {selectedField &&
+                  selectedField !== "bg_col" &&
+                  selectedField !== "image" && (
+                    <div>
+                      <label htmlFor={selectedField}>{selectedField}:</label>
+                      <input
+                        type="text"
+                        id={selectedField}
+                        name={selectedField}
+                        value={formData[selectedField]}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  )}
+
+                {selectedField === "bg_col" && (
+                  <div className="color-picker">
+                    <label htmlFor="bg_col">Background Color:</label>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <ChromePicker
+                        color={formData.bg_col}
+                        onChange={(color) =>
+                          setFormData({ ...formData, bg_col: color.hex })
+                        }
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {selectedField === "image" && (
                   <div>
-                    <label htmlFor={selectedField}>{selectedField}:</label>
+                    <label htmlFor="image">Image:</label>
                     <input
-                      type="text"
-                      id={selectedField}
-                      name={selectedField}
-                      value={formData[selectedField]}
-                      onChange={handleInputChange}
+                      type="file"
+                      id="image"
+                      accept="image/*"
+                      className="form-control"
+                      onChange={handleFileChange}
                     />
                   </div>
                 )}
 
-              {selectedField === "bg_col" && (
-                <div className="color-picker">
-                  <label htmlFor="bg_col">Background Color:</label>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <ChromePicker
-                      color={formData.bg_col}
-                      onChange={(color) =>
-                        setFormData({ ...formData, bg_col: color.hex })
-                      }
-                    />
-                  </div>
-                </div>
-              )}
+                {boxNo && (
+                  <button className="btn btn-success" type="submit">
+                    Submit
+                  </button>
+                )}
+              </form>
+            </div>
+          </Fade>
+        </Modal>
 
-              {selectedField === "image" && (
-                <div>
-                  <label htmlFor="image">Image:</label>
-                  <input
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                    className="form-control"
-                    onChange={handleFileChange}
-                  />
-                </div>
-              )}
-
-              {boxNo && (
-                <button className="btn btn-success" type="submit">
-                  Submit
-                </button>
-              )}
-            </form>
-          </div>
-        </Fade>
-      </Modal>
-
-      <div>
         <div>
-          {/* <p className="Faq-heading">Current Status</p> */}
-        </div>
-        <div className="table-responsive">
-          <table className="table table-responsive">
-            <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
-              <tr>
-                <th scope="col">Box No</th>
-                <th scope="col">Header 1</th>
-                <th scope="col">Box Image</th>
-                <th scope="col">Box Content</th>
-                <th scope="col">Background Color</th>
-                <th scope="col">Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {section5Info.map((item) => (
-                <tr key={item.box_no}>
-                  <td>{item.box_no}</td>
-                  <td>{item.header_1}</td>
-                  <td>
-                    {item.box_img_url && (
-                      <>
-                        <img
-                          src={item.box_img_url}
-                          alt={`Box ${item.box_no} Image`}
-                          style={{ maxWidth: "100px", maxHeight: "100px" }}
-                        />
-                        <br />
-                        <span>{item.original_name}</span>
-                      </>
-                    )}
-                  </td>
-                  <td>{item.box_content}</td>
-                  <td style={{ backgroundColor: item.bg_col }}>
-                    {item.bg_col}
-                  </td>
-                  <td>
-                    <button
-                   className="edit-button"
-                      onClick={() => handleEditClick(item)}
-                    >
-                    <img
-                            src={updatebtn}
-                            className="update-icon"
-                            alt="Update"
-                          />
-                    </button>
-                  </td>
+          <div className="table-responsive">
+            <table className="table table-responsive">
+              <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
+                <tr>
+                  <th scope="col">Box No</th>
+                  <th scope="col">Header 1</th>
+                  <th scope="col">Box Image</th>
+                  <th scope="col">Box Content</th>
+                  <th scope="col">Background Color</th>
+                  <th scope="col">Edit</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {section5Info.map((item) => (
+                  <tr key={item.box_no}>
+                    <td>{item.box_no}</td>
+                    <td>{item.header_1}</td>
+                    <td>
+                      {item.box_img_url && (
+                        <>
+                          <img
+                            src={item.box_img_url}
+                            alt={`Box ${item.box_no} Image`}
+                            style={{ maxWidth: "100px", maxHeight: "100px" }}
+                          />
+                          <br />
+                          {/* <span>{item.original_name}</span> */}
+                        </>
+                      )}
+                    </td>
+                    <td>{item.box_content}</td>
+                    <td style={{ backgroundColor: item.bg_col }}>
+                      {item.bg_col}
+                    </td>
+                    <td>
+                      <button
+                        className="edit-button"
+                        onClick={() => handleEditClick(item)}
+                      >
+                        <img
+                          src={updatebtn}
+                          className="update-icon"
+                          alt="Update"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-
       <Notification
         open={notificationOpen}
         handleClose={handleCloseNotification}

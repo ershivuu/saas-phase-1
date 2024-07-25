@@ -270,11 +270,11 @@ function AddSubjects() {
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">SUBJECT NAME</th>
-                  <th scope="col">SUBJECT TYPE</th>
-                  <th scope="col">UPDATE</th>
-                  <th scope="col">DELETE</th>
+                  <th scope="col">S No.</th>
+                  <th scope="col">Subject Name</th>
+                  <th scope="col">Subject Type</th>
+                  <th scope="col">Update</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               <tbody>

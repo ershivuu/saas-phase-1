@@ -245,9 +245,9 @@ function AddCategories() {
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
                   <th scope="col">S No.</th>
-                  <th scope="col">NAME</th>
-                  <th scope="col">UPDATE</th>
-                  <th scope="col">DELETE</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Update</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               <tbody>

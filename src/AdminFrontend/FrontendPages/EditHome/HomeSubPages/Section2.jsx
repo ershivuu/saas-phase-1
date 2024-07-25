@@ -160,7 +160,10 @@ function Section2() {
 
   return (
     <>
-      <div className="Faq-heading">
+    <div className="admin-list">
+      
+   
+      <div className="SCA-heading">
         <p>Section 2</p>
       </div>
 
@@ -250,7 +253,7 @@ function Section2() {
           <table className="table table-responsive">
             <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
               <tr>
-                <th scope="col">S NO.</th>
+                <th scope="col">S No.</th>
                 <th scope="col">Heading 1</th>
                 <th scope="col">Heading 2</th>
                 <th scope="col">Box 1 Content</th>
@@ -287,9 +290,9 @@ function Section2() {
                     />
                   )}
                   <br />
-                  {section2Info && section2Info.section2_Image_path && (
+                  {/* {section2Info && section2Info.section2_Image_path && (
                     <span>{section2Info.original_name}</span>
-                  )}
+                  )} */}
                 </td>
                 <td>
                   <button
@@ -307,6 +310,7 @@ function Section2() {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
       <Notification
         open={notificationOpen}

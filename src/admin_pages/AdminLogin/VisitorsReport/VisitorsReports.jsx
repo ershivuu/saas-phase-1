@@ -209,7 +209,7 @@ function VisitorsReports() {
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
-                  <th scope="col">S.No.</th>
+                  <th scope="col">S No.</th>
                   <th scope="col">First Name</th>
                   <th scope="col">Last Name</th>
                   <th scope="col">Email</th>

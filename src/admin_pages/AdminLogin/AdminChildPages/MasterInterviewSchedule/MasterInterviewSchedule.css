@@ -40,6 +40,7 @@ td[style*="color: red"] {
   color: #901626;
   margin-top: 5%;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 .table-des {

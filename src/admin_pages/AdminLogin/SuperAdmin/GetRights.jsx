@@ -292,7 +292,7 @@ function GetRights() {
             <table className="table table-responsive">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
                 <tr>
-                  <th scope="col">ID</th>
+                  <th scope="col">S No.</th>
                   <th scope="col">Api Name</th>
                   <th scope="col">Api Type</th>
                   <th scope="col">Path</th>
