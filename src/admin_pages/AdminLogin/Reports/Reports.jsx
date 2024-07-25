@@ -223,7 +223,7 @@ function Reports() {
         alertSeverity={notificationSeverity}
       />
 
-      <div style={{ marginTop: "-15px" }}>
+      <div style={{ marginTop: "-30px" }}>
         <div className="admin-list">
           <div>
             {loading && (
@@ -242,70 +242,6 @@ function Reports() {
             <p className="SCA-heading" style={{ marginTop: "7%" }}>
               Reports
             </p>
-
-            {/* <div className="row">
-              <div className="col-md-4 ">
-                <label>Select Category:</label>
-                <select
-                  name="category_name"
-                  id="categoryDropdown"
-                  value={selectedCategory}
-                  className="form-control"
-                  onChange={(e) =>
-                    handleCategory("category_name", e.target.value)
-                  }
-                >
-                  <option value="">All</option>
-                  {jobCategories.map((category, index) => (
-                    <option key={index} value={category.category_name}>
-                      {category.category_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-1" style={{ width: "0px" }}>
-                <input
-                  className="form-control CategoryCount"
-                  disabled
-                  value={count?.CategoryCount || ""}
-                />
-              </div>
-
-              <div className="col-md-4 pl-0">
-                <label>Select Post:</label>
-                <select
-                  id="dropdown"
-                  name="post_name"
-                  className="form-control"
-                  onClick={() => {
-                    if (selectedCategory === "") {
-                      setNotificationMessage("Please select a category first");
-                      setNotificationSeverity("error");
-                      setShowNotification(true);
-                    }
-                  }}
-                  onChange={(e) => handlePost("post_name", e.target.value)}
-                >
-                  <option value="">All</option>
-                  {post.map((post, index) => (
-                    <option key={index} value={post}>
-                      {post}
-                    </option>
-                  ))}
-                </select>
-              </div>
-             
-              <div className="col-md-3 excel-btn">
-                <div >
-Download Excel Sheet:
-                </div>
-                <div style={{cursor:"pointer"}}>
-                <img onClick={()=>handleDownload()} style={{marginLeft:"10px"}} src={ExcelBtn} alt="excel"/>
-                </div>
-              
-
-              </div>
-            </div> */}
 
             <div className="row" style={{ marginBottom: "1rem" }}>
               <div className="col-md-4">
@@ -458,28 +394,27 @@ Download Excel Sheet:
                   ))}
                 </tbody>
               </table>
-              <div className="row">
-                <div className="col-md-4">
-                  <label>Row:</label>
-                  <input
-                    className="set-row-input "
-                    id="specific-input"
-                    type="number"
-                    value={itemsPerPage}
-                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                  />
-                </div>
-                <div className="col-md-4"></div>
-                <div className="col-md-4">
-                  <Pagination>
-                    <Pagination.Prev onClick={prevPage} />
-                    <Pagination.Item>{currentPage}</Pagination.Item>
-                    <Pagination.Next onClick={nextPage} />
-                  </Pagination>
-                </div>
+            </div>
+            <div className="row">
+              <div className="col-md-4">
+                <label>Row:</label>
+                <input
+                  className="set-row-input "
+                  id="specific-input"
+                  type="number"
+                  value={itemsPerPage}
+                  onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                />
+              </div>
+              <div className="col-md-4"></div>
+              <div className="col-md-4">
+                <Pagination>
+                  <Pagination.Prev onClick={prevPage} />
+                  <Pagination.Item>{currentPage}</Pagination.Item>
+                  <Pagination.Next onClick={nextPage} />
+                </Pagination>
               </div>
             </div>
-
             <Dialog open={!!selectedCandidate}>
               {loadingPopup && (
                 <div className="loaderPopupContainer">

@@ -70,7 +70,6 @@ const Sidenav = ({ isOpen, onToggle }) => {
       setSidebarOpen(true);
       onToggle();
     }
-    
   };
 
   const handleDropdownToggle = (item) => {
@@ -97,7 +96,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
             icon: <PollIcon />,
             subItems: [
               { text: "Edit Header", path: "/admin-dashboard/EditHeader" },
-              { text: "Edit Home Page", path: "/admin-dashboard/EditHeader" },
+              { text: "Edit Home Page", path: "/admin-dashboard/EditHomePage" },
               { text: "Home Section 1", path: "/admin-dashboard/Section1" },
               { text: "Home Section 2", path: "/admin-dashboard/Section2" },
               { text: "Home Section 3", path: "/admin-dashboard/Section3" },
@@ -300,7 +299,6 @@ const Sidenav = ({ isOpen, onToggle }) => {
       </nav>
       <main style={{ flexGrow: 1, padding: "24px" }}>
         <Toolbar />
-        {/* Your content goes here */}
       </main>
     </div>
   );

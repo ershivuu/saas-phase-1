@@ -153,7 +153,7 @@ function MasterInterviewSchedule() {
   return (
     <>
       <div className="admin-list">
-        <div style={{ marginTop: "30px" }} className="master-table ">
+        <div style={{ marginTop: "30px" }} className="master-table">
           <p className="SCA-heading">Master Interview Schedule </p>
           {/* <p className="table-des">A descriptive body text comes here</p> */}
           <div className="row sizeofrow">
@@ -254,25 +254,25 @@ function MasterInterviewSchedule() {
                 ))}
               </tbody>
             </table>
-            <div className="row">
-              <div className="col-md-4">
-                <label>Row:</label>
-                <input
-                  className="set-row-input "
-                  id="specific-input"
-                  type="number"
-                  value={itemsPerPage}
-                  onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                />
-              </div>
-              <div className="col-md-4"></div>
-              <div className="col-md-4">
-                <Pagination>
-                  <Pagination.Prev onClick={prevPage} />
-                  <Pagination.Item>{currentPage}</Pagination.Item>
-                  <Pagination.Next onClick={nextPage} />
-                </Pagination>
-              </div>
+          </div>
+          <div className="row">
+            <div className="col-md-4">
+              <label>Row:</label>
+              <input
+                className="set-row-input "
+                id="specific-input"
+                type="number"
+                value={itemsPerPage}
+                onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+              />
+            </div>
+            <div className="col-md-4"></div>
+            <div className="col-md-4">
+              <Pagination>
+                <Pagination.Prev onClick={prevPage} />
+                <Pagination.Item>{currentPage}</Pagination.Item>
+                <Pagination.Next onClick={nextPage} />
+              </Pagination>
             </div>
           </div>
         </div>

@@ -13,7 +13,6 @@ import updatebtn from "../../../../../assets/logos/update.png";
 import deletebtn from "../../../../../assets/logos/delete.png";
 
 function MasterTable() {
-
   const [counts, setCounts] = useState("");
   const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,12 +27,9 @@ function MasterTable() {
   const [jobPosts, setJobPosts] = useState([]);
   const [jobDepartment, setJobDepartment] = useState([]);
 
-
-
   const [categoryValue, setCategoryValue] = useState("");
   const [departValue, setDepartValue] = useState("");
   const [postValue, setPostValue] = useState("");
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +42,7 @@ function MasterTable() {
           postValue
         );
 
-        console.log(response, "<<<<<<<check data")
+        console.log(response, "<<<<<<<check data");
         setJobProfiles(response.jobprofileData);
         setCounts(response);
 
@@ -58,7 +54,7 @@ function MasterTable() {
     };
 
     fetchData();
-  }, [currentPage, itemsPerPage, categoryValue,postValue, departValue]);
+  }, [currentPage, itemsPerPage, categoryValue, postValue, departValue]);
 
   const fetchJobCategories = async () => {
     try {
@@ -90,14 +86,11 @@ function MasterTable() {
     }
   };
 
-
   useEffect(() => {
     fetchDepartments();
     fetchPosts();
     fetchJobCategories();
   }, []);
-
-
 
   const handleDelete = async (profileId) => {
     setProfileIdToDelete(profileId); // Set the profileId to delete
@@ -177,7 +170,7 @@ function MasterTable() {
       )}
 
       {!isEditFormOpen && (
-        <div className="master-table ">
+        <div className="master-table">
           <p className="SCA-heading" style={{ marginBottom: "15px" }}>
             Current Openings
           </p>
@@ -208,8 +201,6 @@ function MasterTable() {
             </div>
           </div>
 
-
-
           <div className="row mb-2">
             <div className="col-md-4 ">
               <label>Select Category:</label>
@@ -220,10 +211,10 @@ function MasterTable() {
               >
                 <option value="">All</option>
                 {jobCategories.map((category) => (
-            <option key={category.id} value={category.category_name}>
-              {category.category_name}
-            </option>
-          ))}
+                  <option key={category.id} value={category.category_name}>
+                    {category.category_name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-md-4">
@@ -231,14 +222,14 @@ function MasterTable() {
               <select
                 name="post_name"
                 className="form-control"
-                onChange={(e) => setPostValue(e.target.value)}               
+                onChange={(e) => setPostValue(e.target.value)}
               >
                 <option value="">All</option>
                 {jobPosts.map((post) => (
-            <option key={post.id} value={post.post_name}>
-              {post.post_name}
-            </option>
-          ))}
+                  <option key={post.id} value={post.post_name}>
+                    {post.post_name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-md-4">
@@ -250,14 +241,13 @@ function MasterTable() {
               >
                 <option value="">All</option>
                 {jobDepartment.map((depart) => (
-            <option key={depart.id} value={depart.dept_name}>
-              {depart.dept_name}
-            </option>
-          ))}
+                  <option key={depart.id} value={depart.dept_name}>
+                    {depart.dept_name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
-
 
           <div className="table-responsive fixe-table">
             <table className="table ">
@@ -295,7 +285,7 @@ function MasterTable() {
                       <button
                         type="button"
                         id="table-btns"
-                      // onClick={() => handleEditForm(data.id)}
+                        // onClick={() => handleEditForm(data.id)}
                       >
                         <Link
                           to={{
@@ -366,10 +356,7 @@ function MasterTable() {
           <button onClick={confirmDelete} className="submitbtn">
             Delete
           </button>
-          <button
-            onClick={handleCloseDeleteDialog}
-            className="canclebtn"
-          >
+          <button onClick={handleCloseDeleteDialog} className="canclebtn">
             Cancel
           </button>
         </DialogActions>

@@ -225,69 +225,6 @@ const AdminAuthRoutes = [
     ,
   </Route>,
   // ---------------------------------------------------
-
-  //    <Route
-  //    key="FrontendDashboard"
-  //    path="FrontendDashboard"
-  //    element={<AdminAuthGaurd component={<FrontendDashboard />} />}
-  //  >
-  //    <Route
-  //      key="EditHeader"
-  //      path="EditHeader"
-  //      element={<AdminAuthGaurd component={<EditHeader />} />}
-  //    ></Route>
-  //    <Route
-  //      key="EditHome"
-  //      path="EditHomePage"
-  //      element={<AdminAuthGaurd component={<EditHome />} />}
-  //    ></Route>
-  //    <Route
-  //      key="Section1"
-  //      path="Section1"
-  //      element={<AdminAuthGaurd component={<Section1 />} />}
-  //    ></Route>
-  //    <Route
-  //      key="Section2"
-  //      path="Section2"
-  //      element={<AdminAuthGaurd component={<Section2 />} />}
-  //    ></Route>
-  //    <Route
-  //      key="Section3"
-  //      path="Section3"
-  //      element={<AdminAuthGaurd component={<Section3 />} />}
-  //    ></Route>
-  //    <Route
-  //      key="Section4"
-  //      path="Section4"
-  //      element={<AdminAuthGaurd component={<Section4 />} />}
-  //    ></Route>
-  //    <Route
-  //      key="Section5"
-  //      path="Section5"
-  //      element={<AdminAuthGaurd component={<Section5 />} />}
-  //    ></Route>
-  //    <Route
-  //      key="FaqSection"
-  //      path="FaqSection"
-  //      element={<AdminAuthGaurd component={<FaqSection />} />}
-  //    ></Route>
-  //    <Route
-  //      key="EditInterviewSchedule"
-  //      path="EditInterviewSchedule"
-  //      element={<AdminAuthGaurd component={<EditInterviewSchedule />} />}
-  //    ></Route>
-  //    <Route
-  //      key="EditContact"
-  //      path="EditContact"
-  //      element={<AdminAuthGaurd component={<EditContact />} />}
-  //    ></Route>
-  //    <Route
-  //      key="EditFooter"
-  //      path="EditFooter"
-  //      element={<AdminAuthGaurd component={<EditFooter />} />}
-  //    ></Route>
-  //    ,
-  //  </Route>,
 ];
 
 export default AdminAuthRoutes;

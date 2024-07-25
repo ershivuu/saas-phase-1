@@ -273,7 +273,7 @@ function EditPersonalDetails({ token }) {
     const fetchImage = async () => {
       try {
         const imageUrl = await candidatesApiService.fetchCandidateImage();
-console.log("check format",imageUrl)
+        console.log("check format", imageUrl);
         if (imageUrl) {
           setSelectedImage(imageUrl);
         } else {
@@ -730,7 +730,7 @@ console.log("check format",imageUrl)
                   {/* *Alternate Contact Number  */}
                   <div className="UD-form-section">
                     <label className="UD-SetLabel-Name">
-                      <span>*</span>Alternate Contact Number
+                      <span>*</span>Alternate Number
                     </label>
 
                     <input

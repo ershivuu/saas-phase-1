@@ -1,19 +1,19 @@
-.up-del-btn{
-    width: 17px;
-    height:18px;
-  }
-  .table-cell {
-    min-width: 150px; /* Adjust the value as per your requirement */
-  }
-
-.container-1,.admin-list,.table-heading{
-padding-top: 0;
-margin-top: 0;
+.up-del-btn {
+  width: 17px;
+  height: 18px;
+}
+.table-cell {
+  min-width: 150px; /* Adjust the value as per your requirement */
 }
 
-
-.table .table-responsive{
+.container-1,
+.admin-list,
+.table-heading {
   padding-top: 0;
   margin-top: 0;
-  
-  }
+}
+
+.table .table-responsive {
+  padding-top: 0;
+  margin-top: 0;
+}
