@@ -34,7 +34,7 @@ function SuperLogin() {
         }
       );
 
-      console.log("API Response:", response);
+      console.log("API Response:", response); // Debugging API response
 
       if (response && response.data.token) {
         sessionStorage.setItem("Token", JSON.stringify(response.data.token));

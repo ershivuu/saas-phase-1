@@ -13,6 +13,7 @@ import {
   Divider,
   Typography,
   Collapse,
+  Button
 } from "@mui/material";
 import {
   Menu,
@@ -71,6 +72,10 @@ const SuperSideBar = ({ isOpen, onToggle }) => {
     sessionStorage.removeItem("isLoggedIn");
     navigate("/superadmin");
   };
+  const handlePlanUpgrade = () => {
+    navigate("/super-admin/plan-upgrade");
+  };
+  
 
   const drawer = (
     <div>
@@ -193,6 +198,8 @@ const SuperSideBar = ({ isOpen, onToggle }) => {
             <img className="new-admin-logo" src={corusview} alt="Logo" />
           </Typography>
 
+        
+
           <IconButton
             color="inherit"
             aria-label="logout"
@@ -201,6 +208,8 @@ const SuperSideBar = ({ isOpen, onToggle }) => {
           >
             <LogoutIcon />
           </IconButton>
+
+          
         </Toolbar>
       </AppBar>
       <nav>

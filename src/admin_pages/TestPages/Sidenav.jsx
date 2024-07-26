@@ -28,6 +28,7 @@ import {
 } from "@mui/icons-material";
 import "./Sidenav.css";
 import { getHeaderInfo } from "../../AdminFrontend/FrontendServices";
+import { Button } from "bootstrap";
 
 const Sidenav = ({ isOpen, onToggle }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -263,6 +264,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
           >
             <LogoutIcon />
           </IconButton>
+    
         </Toolbar>
       </AppBar>
       <nav>

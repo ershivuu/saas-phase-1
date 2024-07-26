@@ -10,9 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import SearchIcon from "@mui/icons-material/Search";
-import { Typography, InputBase ,Button} from "@mui/material";
-import { Padding } from "@mui/icons-material";
-
+import { Typography, InputBase, Button } from "@mui/material";
 
 function Management() {
   const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
@@ -22,10 +20,20 @@ function Management() {
   const handleGridLayout = () => setIsColumnLayout(false);
 
   const buttonStyle = (view) => ({
-    backgroundColor: !isColumnLayout && view === "grid" ? 'green' : (isColumnLayout && view === "column") ? 'green' : 'transparent',
-    color: !isColumnLayout && view === "grid" ? 'white' : (isColumnLayout && view === "column") ? 'white' : 'inherit',
-    borderRadius: '4px',
-    padding:"5px",
+    backgroundColor:
+      !isColumnLayout && view === "grid"
+        ? "green"
+        : isColumnLayout && view === "column"
+        ? "green"
+        : "transparent",
+    color:
+      !isColumnLayout && view === "grid"
+        ? "white"
+        : isColumnLayout && view === "column"
+        ? "white"
+        : "inherit",
+    borderRadius: "4px",
+    padding: "5px",
   });
 
   const companyListStyle = {
@@ -39,7 +47,6 @@ function Management() {
   return (
     <>
       <div className="page-header">
-     
         <div className="search-container">
           <InputBase
             placeholder="Search…"
@@ -50,21 +57,24 @@ function Management() {
           <SearchIcon className="search-icon" />
         </div>
         <div className="add-company-btn">
-          <Button variant="contained" color="success">Add Company</Button>
+          <Button variant="contained" color="success">
+            Add Company
+          </Button>
         </div>
         <div className="view-btns">
           <Typography>View</Typography>
         </div>
-      
+
         <div>
-          <IconButton  style={buttonStyle("grid")}
-            onClick={handleGridLayout} >
+          <IconButton style={buttonStyle("grid")} onClick={handleGridLayout}>
             <ViewModuleIcon />
           </IconButton>
-        </div>
+        </div>  
         <div>
-          <IconButton   style={buttonStyle("column")}
-            onClick={handleColumnLayout}>
+          <IconButton
+            style={buttonStyle("column")}
+            onClick={handleColumnLayout}
+          >
             <ViewListIcon />
           </IconButton>
         </div>

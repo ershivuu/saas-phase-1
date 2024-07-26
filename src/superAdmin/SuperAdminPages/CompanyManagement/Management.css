@@ -143,8 +143,8 @@
   align-items: center;
   background-color: white;
   border-radius: 4px;
-  /* padding: 0px; */
-  border: 1px solid #ccc; 
+  padding: 0px;
+  border: 1px solid #ccc;
   height: 36px;
 }
 
@@ -160,6 +160,6 @@
   margin-right: 5px;
 }
 
-.add-company-btn{
+.add-company-btn {
   margin-left: 15px;
 }
