@@ -216,6 +216,11 @@ const AdminAuthRoutes = [
       path="role-list"
       element={<AdminAuthGaurd component={<GetRole />} />}
     />
+    {/* <Route
+      key="email-template"
+      path="email-template"
+      element={<AdminAuthGaurd component={<EmailTemplate />} />}
+    /> */}
     <Route key="add-openings" path="add-openings" element={<AddOpenings />} />,
     <Route
       key="admin_register"

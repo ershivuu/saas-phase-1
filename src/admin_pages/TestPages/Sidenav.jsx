@@ -222,7 +222,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
 
   return (
     <div style={{ display: "flex" }}>
-      <CssBaseline />
+      <CssBaseline  />
       <AppBar
         position="fixed"
         sx={{
