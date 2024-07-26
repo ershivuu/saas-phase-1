@@ -4,13 +4,13 @@ import { SUPER_ADMIN_BASE_URL } from "../config/config";
 const getAuthToken = () => {
   let token = sessionStorage.getItem("Token");
   if (token.startsWith('"') && token.endsWith('"')) {
-    token = token.slice(1, -1); // Remove surrounding quotes if present
+    token = token.slice(1, -1);
   }
-  console.log("Cleaned Token:", token); // Verify cleaned token
+  console.log("Cleaned Token:", token);
   return token;
 };
 
-export const fetchCompanyData = async () => {
+export const getCompanyData = async () => {
   const token = getAuthToken();
   if (!token) {
     throw new Error("No authentication token found.");
@@ -21,7 +21,6 @@ export const fetchCompanyData = async () => {
       `${SUPER_ADMIN_BASE_URL}/superadmin/admins`,
       {
         headers: {
-          // Ensure the token is correctly formatted
           Authorization: `Bearer ${token}`,
         },
       }
@@ -36,7 +35,7 @@ export const fetchCompanyData = async () => {
   }
 };
 export const getCompanyCount = async () => {
-  const token = getAuthToken(); // Function to get the auth token
+  const token = getAuthToken();
   if (!token) {
     throw new Error("No authentication token found.");
   }
@@ -50,12 +49,12 @@ export const getCompanyCount = async () => {
         },
       }
     );
-    return response.data; // Make sure this contains the expected data
+    return response.data;
   } catch (error) {
     console.error(
       "Error fetching company data:",
       error.response ? error.response.data : error.message
     );
-    throw error; // Re-throw error to handle it further up the call stack if needed
+    throw error;
   }
 };

@@ -11,7 +11,7 @@ import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import SearchIcon from "@mui/icons-material/Search";
 import { Typography, InputBase, Button } from "@mui/material";
-import { fetchCompanyData } from "../../SuperAdminService";
+import { getCompanyData } from "../../SuperAdminService";
 
 function Management() {
   const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
@@ -52,7 +52,7 @@ function Management() {
   useEffect(() => {
     const loadCompanies = async () => {
       try {
-        const data = await fetchCompanyData();
+        const data = await getCompanyData();
         setCompanies(data);
       } catch (err) {
         setError(err.message);
@@ -197,6 +197,8 @@ function Management() {
               <div className="current-plan">
                 <p>{company.subscription_plan.plan_name}</p>
                 <p>Plan Name</p>
+                <p>{company.subscription_plan.duration}</p>
+                <p>Duration</p>
               </div>
             </div>
           ))}
