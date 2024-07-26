@@ -43,11 +43,11 @@ import EditFooter from "../AdminFrontend/FrontendPages/EditFooter/EditFooter.jsx
 import SuperDashboard from "../superAdmin/SuperAdminDashboard/SuperDashboard.jsx";
 import SuperDash from "../superAdmin/SuperAdminPages/SuperDash/SuperDash.jsx";
 import Management from "../superAdmin/SuperAdminPages/CompanyManagement/Management.jsx";
-import PlanAndPricing from "../superAdmin/SuperAdminPages/Plans/PlanAndPricing.jsx";
 import ServiceList from "../superAdmin/SuperAdminPages/ServiceList/ServiceList.jsx";
 import OfflinePayment from "../superAdmin/SuperAdminPages/OfflinePayment/OfflinePayment.jsx";
 import PaymentHistory from "../superAdmin/SuperAdminPages/PaymentHistory/PaymentHistory.jsx";
 import LoginLogs from "../superAdmin/SuperAdminPages/LoginLogs/LoginLogs.jsx";
+import PlanAndPricing from "../superAdmin/SuperAdminPages/Plans/PlanAndPricing.jsx";
 // console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
@@ -232,46 +232,38 @@ const AdminAuthRoutes = [
   </Route>,
 
   // ---------------------------------------------------
-  <Route
-    key="SuperDashboard"
-    path="/super-admin"
-    element={<AdminAuthGaurd component={<SuperDashboard />} />}
-  >
+  <Route key="SuperDashboard" path="/super-admin" element={<SuperDashboard />}>
     <Route
       key="SuperDash"
       path="super-dashboard"
-      element={<AdminAuthGaurd component={<SuperDash />} />}
+      element={<SuperDash />}
     ></Route>
     <Route
       key="Management"
       path="company-management"
-      element={<AdminAuthGaurd component={<Management />} />}
+      element={<Management />}
     ></Route>
     <Route
       key="PlanAndPricing"
       path="plan-and-pricing"
-      element={<AdminAuthGaurd component={<PlanAndPricing />} />}
+      element={<PlanAndPricing />}
     ></Route>
     <Route
       key="ServiceList"
       path="service-list"
-      element={<AdminAuthGaurd component={<ServiceList />} />}
+      element={<ServiceList />}
     ></Route>
     <Route
       key="OfflinePayment"
       path="offline-payments"
-      element={<AdminAuthGaurd component={<OfflinePayment />} />}
+      element={<OfflinePayment />}
     ></Route>
     <Route
       key="PaymentHistory"
       path="payment-history"
-      element={<AdminAuthGaurd component={<PaymentHistory />} />}
+      element={<PaymentHistory />}
     ></Route>
-    <Route
-      key="LoginLogs"
-      path="login-logs"
-      element={<AdminAuthGaurd component={<LoginLogs />} />}
-    ></Route>
+    <Route key="LoginLogs" path="login-logs" element={<LoginLogs />}></Route>
   </Route>,
 ];
 

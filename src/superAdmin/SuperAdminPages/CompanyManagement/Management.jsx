@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Management.css";
 import bluebag from "../../../assets/logos/superadmin/blue.png";
 import greenbag from "../../../assets/logos/superadmin/green.png";
@@ -9,23 +9,73 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import IconButton from "@mui/material/IconButton";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
-import { Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { Typography, InputBase, Button } from "@mui/material";
 
 function Management() {
+  const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
+  const [searchTerm, setSearchTerm] = useState(""); // State to manage search input
+
+  const handleColumnLayout = () => setIsColumnLayout(true);
+  const handleGridLayout = () => setIsColumnLayout(false);
+
+  const buttonStyle = (view) => ({
+    backgroundColor:
+      !isColumnLayout && view === "grid"
+        ? "green"
+        : isColumnLayout && view === "column"
+        ? "green"
+        : "transparent",
+    color:
+      !isColumnLayout && view === "grid"
+        ? "white"
+        : isColumnLayout && view === "column"
+        ? "white"
+        : "inherit",
+    borderRadius: "4px",
+    padding: "5px",
+  });
+
+  const companyListStyle = {
+    display: "flex",
+    flexDirection: isColumnLayout ? "column" : "row",
+    flexWrap: "wrap",
+    gap: "20px",
+    marginTop: "20px",
+  };
+
   return (
     <>
       <div className="page-header">
+        <div className="search-container">
+          <InputBase
+            placeholder="Search…"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <SearchIcon className="search-icon" />
+        </div>
+        <div className="add-company-btn">
+          <Button variant="contained" color="success">
+            Add Company
+          </Button>
+        </div>
         <div className="view-btns">
           <Typography>View</Typography>
         </div>
+
         <div>
-          <IconButton>
-            <ViewListIcon />
+          <IconButton style={buttonStyle("grid")} onClick={handleGridLayout}>
+            <ViewModuleIcon />
           </IconButton>
         </div>
         <div>
-          <IconButton>
-            <ViewModuleIcon />
+          <IconButton
+            style={buttonStyle("column")}
+            onClick={handleColumnLayout}
+          >
+            <ViewListIcon />
           </IconButton>
         </div>
       </div>
@@ -53,7 +103,7 @@ function Management() {
             <img src={redbag} alt="" />
           </div>
           <div>
-            <p>Incative Company</p>
+            <p>Inactive Company</p>
             <p>314</p>
           </div>
         </div>
@@ -67,7 +117,7 @@ function Management() {
           </div>
         </div>
       </div>
-      <div className="company-list">
+      <div className="company-list" style={companyListStyle}>
         <div className="company-details">
           <div className="all-details">
             <div className="company-logo">

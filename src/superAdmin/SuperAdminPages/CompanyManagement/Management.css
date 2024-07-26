@@ -49,6 +49,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 20px;
 }
 .company-logo {
@@ -114,7 +115,8 @@
   display: flex;
   justify-content: space-around;
   width: 255px;
-  margin-left: 19px;
+  left: 0;
+  margin-left: -30px;
   bottom: 0;
 }
 
@@ -134,4 +136,30 @@
   padding: 0px 10px;
   height: fit-content;
   margin-right: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 4px;
+  padding: 0px;
+  border: 1px solid #ccc;
+  height: 36px;
+}
+
+.search-input {
+  border: none;
+  padding: 5px 10px;
+  flex-grow: 1;
+  outline: none;
+}
+
+.search-icon {
+  color: #ccc;
+  margin-right: 5px;
+}
+
+.add-company-btn {
+  margin-left: 15px;
 }
