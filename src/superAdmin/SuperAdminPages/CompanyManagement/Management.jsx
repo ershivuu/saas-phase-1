@@ -10,8 +10,19 @@ import IconButton from "@mui/material/IconButton";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import SearchIcon from "@mui/icons-material/Search";
-import { Typography, InputBase, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
-import { fetchCompanyData } from "../../SuperAdminService";
+import {
+  Typography,
+  InputBase,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import { fetchCompanyData, getSubscriptionPlan, registerCompany } from "../../SuperAdminService";
 
 function Management() {
   const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
@@ -21,12 +32,13 @@ function Management() {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("all"); // State to manage filter
   const [open, setOpen] = useState(false);
+  const [subscriptionPlans, setSubscriptionPlans] = useState([]);
 
   const [formValues, setFormValues] = useState({
     company_name: "",
     email: "",
     password: "",
-    subscription_plan: 1,
+    subscription_plan: "",
   });
 
   const handleColumnLayout = () => setIsColumnLayout(true);
@@ -55,11 +67,23 @@ function Management() {
     });
   };
 
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log("Form submitted:", formValues);
-    setFormValues("");
-    handleClose();
+  const handleSubmit = async () => {
+    try {
+      await registerCompany(formValues);
+      console.log("Company registered successfully:", formValues);
+      setFormValues({
+        company_name: "",
+        email: "",
+        password: "",
+        subscription_plan: "",
+      });
+      handleClose();
+      // Optionally, you can reload company data here if needed
+      const data = await fetchCompanyData();
+      setCompanies(data);
+    } catch (err) {
+      console.error("Error registering company:", err);
+    }
   };
 
   const buttonStyle = (view) => ({
@@ -102,6 +126,19 @@ function Management() {
     loadCompanies();
   }, []);
 
+  useEffect(() => {
+    const loadSubscriptionPlans = async () => {
+      try {
+        const data = await getSubscriptionPlan();
+        setSubscriptionPlans(data); // Set subscription plans data
+      } catch (err) {
+        console.error("Error fetching subscription plans:", err);
+      }
+    };
+
+    loadSubscriptionPlans();
+  }, []);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -138,7 +175,7 @@ function Management() {
           <IconButton style={buttonStyle("grid")} onClick={handleGridLayout}>
             <ViewModuleIcon />
           </IconButton>
-        </div>  
+        </div>
         <div>
           <IconButton
             style={buttonStyle("column")}
@@ -243,55 +280,64 @@ function Management() {
       </div>
 
       <Dialog open={open} onClose={handleClose}>
-  <DialogTitle>Add Company</DialogTitle>
-  <DialogContent>
-    <DialogContentText>
-      Please fill out the form below to add a new company.
-    </DialogContentText>
-    <TextField
-      autoFocus
-      margin="dense"
-      label="Company Name"
-      type="text"
-      fullWidth
-      name="company_name"
-    
-      onChange={handleInputChange}
-    />
-    <TextField
-      margin="dense"
-      label="Email"
-      type="email"
-      fullWidth
-      name="email"
-  
-      onChange={handleInputChange}
-    />
-    <TextField
-      margin="dense"
-      label="Password"
-      type="password"
-      fullWidth
-      name="password"
-    
-      onChange={handleInputChange}
-    />
-    <TextField
-      margin="dense"
-      label="Subscription Plan"
-      type="number"
-      fullWidth
-      name="subscription_plan"
-    
-      onChange={handleInputChange}
-    />
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={handleClose}>Cancel</Button>
-    <Button onClick={handleSubmit}>Add Company</Button>
-  </DialogActions>
-</Dialog>
-
+        <DialogTitle>Add Company</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please fill out the form below to add a new company.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            name="company_name"
+            label="Company Name"
+            type="text"
+            fullWidth
+            value={formValues.company_name}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            name="email"
+            label="Email"
+            type="email"
+            fullWidth
+            value={formValues.email}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            name="password"
+            label="Password"
+            type="password"
+            fullWidth
+            value={formValues.password}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            name="subscription_plan"
+            label="Subscription Plan"
+            select
+            fullWidth
+            value={formValues.subscription_plan}
+            onChange={handleInputChange}
+          >
+            {subscriptionPlans.map((plan) => (
+              <MenuItem key={plan.id} value={plan.id}>
+                {plan.plan_name}
+              </MenuItem>
+            ))}
+          </TextField>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
