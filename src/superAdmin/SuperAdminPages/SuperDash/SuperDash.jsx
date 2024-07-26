@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "./SuperDash.css";
 import profilePhoto from "../../../assets/images/superadmin.png";
+import { getCompanyCount } from "../../SuperAdminService";
 
 function SuperDash() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [companyData, setCompanyData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        const data = await getCompanyCount();
+        setCompanyData(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchCompanyData();
+  }, []);
   useEffect(() => {
     // Update time every second
     const interval = setInterval(() => {
@@ -61,6 +78,10 @@ function SuperDash() {
     return strTime;
   };
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  if (!companyData) return <p>No data available.</p>;
   return (
     <>
       <div className="registered-companies">
@@ -88,20 +109,20 @@ function SuperDash() {
         <div className="total-company">
           <div className="super-card-head">
             <p>Total Company</p>
-            <p>314</p>
+            <p>{companyData.total_companies}</p>
           </div>
           <div className="super-card-details">
             <div>
               <p>Paid Companies</p>
-              <p>41</p>
+              <p>{companyData.paid_companies}</p>
             </div>
             <div>
-              <p>Unpaid companies</p>
-              <p>278</p>
+              <p>Unpaid Companies</p>
+              <p>{companyData.unpaid_companies}</p>
             </div>
             <div>
-              <p>Inactive companies</p>
-              <p>315</p>
+              <p>Inactive Companies</p>
+              <p>{companyData.inactive_companies}</p>
             </div>
           </div>
         </div>
