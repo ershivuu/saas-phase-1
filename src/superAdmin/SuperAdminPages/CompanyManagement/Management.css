@@ -14,6 +14,7 @@
   border-radius: 10px;
   padding: 10px 20px;
   cursor: pointer;
+  transition: scale 0.1s ease-in-out;
 }
 .status-card:active {
   border: 2px solid #86c224;
