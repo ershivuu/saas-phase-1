@@ -58,3 +58,52 @@ export const getCompanyCount = async () => {
     throw error;
   }
 };
+export const getSubscriptionPlan= async () => {
+  const token = getAuthToken(); // Function to get the auth token
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.get(
+      `${SUPER_ADMIN_BASE_URL}/subscription-plans/getSubscriptions`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data; // Make sure this contains the expected data
+  } catch (error) {
+    console.error(
+      "Error fetching company data:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // Re-throw error to handle it further up the call stack if needed
+  }
+};
+export const registerCompany = async (formValues) => {
+  const token = getAuthToken(); // Function to get the auth token
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.post(
+      `${SUPER_ADMIN_BASE_URL}/admin/register`,
+      formValues, // Include form values in the request body
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data; // Make sure this contains the expected data
+  } catch (error) {
+    console.error(
+      "Error registering company data:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // Re-throw error to handle it further up the call stack if needed
+  }
+};

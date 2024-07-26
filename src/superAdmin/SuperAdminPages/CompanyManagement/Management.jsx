@@ -20,8 +20,9 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  MenuItem,
 } from "@mui/material";
-import { getCompanyData } from "../../SuperAdminService";
+import { getCompanyData, getSubscriptionPlan, registerCompany } from "../../SuperAdminService";
 
 function Management() {
   const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
@@ -31,12 +32,13 @@ function Management() {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("all"); // State to manage filter
   const [open, setOpen] = useState(false);
+  const [subscriptionPlans, setSubscriptionPlans] = useState([]);
 
   const [formValues, setFormValues] = useState({
     company_name: "",
     email: "",
     password: "",
-    subscription_plan: 1,
+    subscription_plan: "",
   });
 
   const handleColumnLayout = () => setIsColumnLayout(true);
@@ -65,11 +67,23 @@ function Management() {
     });
   };
 
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log("Form submitted:", formValues);
-    setFormValues("");
-    handleClose();
+  const handleSubmit = async () => {
+    try {
+      await registerCompany(formValues);
+      console.log("Company registered successfully:", formValues);
+      setFormValues({
+        company_name: "",
+        email: "",
+        password: "",
+        subscription_plan: "",
+      });
+      handleClose();
+      // Optionally, you can reload company data here if needed
+      const data = await getCompanyData();
+      setCompanies(data);
+    } catch (err) {
+      console.error("Error registering company:", err);
+    }
   };
 
   const buttonStyle = (view) => ({
@@ -110,6 +124,19 @@ function Management() {
     };
 
     loadCompanies();
+  }, []);
+
+  useEffect(() => {
+    const loadSubscriptionPlans = async () => {
+      try {
+        const data = await getSubscriptionPlan();
+        setSubscriptionPlans(data); // Set subscription plans data
+      } catch (err) {
+        console.error("Error fetching subscription plans:", err);
+      }
+    };
+
+    loadSubscriptionPlans();
   }, []);
 
   if (loading) return <p>Loading...</p>;
@@ -261,40 +288,54 @@ function Management() {
           <TextField
             autoFocus
             margin="dense"
+            name="company_name"
             label="Company Name"
             type="text"
             fullWidth
-            name="company_name"
+            value={formValues.company_name}
             onChange={handleInputChange}
           />
           <TextField
             margin="dense"
+            name="email"
             label="Email"
             type="email"
             fullWidth
-            name="email"
+            value={formValues.email}
             onChange={handleInputChange}
           />
           <TextField
             margin="dense"
+            name="password"
             label="Password"
             type="password"
             fullWidth
-            name="password"
+            value={formValues.password}
             onChange={handleInputChange}
           />
           <TextField
             margin="dense"
-            label="Subscription Plan"
-            type="number"
-            fullWidth
             name="subscription_plan"
+            label="Subscription Plan"
+            select
+            fullWidth
+            value={formValues.subscription_plan}
             onChange={handleInputChange}
-          />
+          >
+            {subscriptionPlans.map((plan) => (
+              <MenuItem key={plan.id} value={plan.id}>
+                {plan.plan_name}
+              </MenuItem>
+            ))}
+          </TextField>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Add Company</Button>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            Submit
+          </Button>
         </DialogActions>
       </Dialog>
     </>
