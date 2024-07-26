@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import SearchIcon from "@mui/icons-material/Search";
-import { Typography, InputBase, Button } from "@mui/material";
+import { Typography, InputBase, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { fetchCompanyData } from "../../SuperAdminService";
 
 function Management() {
@@ -20,9 +20,47 @@ function Management() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("all"); // State to manage filter
+  const [open, setOpen] = useState(false);
+
+  const [formValues, setFormValues] = useState({
+    company_name: "",
+    email: "",
+    password: "",
+    subscription_plan: 1,
+  });
 
   const handleColumnLayout = () => setIsColumnLayout(true);
   const handleGridLayout = () => setIsColumnLayout(false);
+
+  const handleClickOpen = () => {
+    setFormValues({
+      company_name: "",
+      email: "",
+      password: "",
+      subscription_plan: "",
+    });
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setFormValues("");
+    setOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = () => {
+    // Handle form submission logic here
+    console.log("Form submitted:", formValues);
+    setFormValues("");
+    handleClose();
+  };
 
   const buttonStyle = (view) => ({
     backgroundColor:
@@ -88,7 +126,7 @@ function Management() {
           <SearchIcon className="search-icon" />
         </div>
         <div className="add-company-btn">
-          <Button variant="contained" color="success">
+          <Button variant="contained" color="success" onClick={handleClickOpen}>
             Add Company
           </Button>
         </div>
@@ -197,10 +235,63 @@ function Management() {
               <div className="current-plan">
                 <p>{company.subscription_plan.plan_name}</p>
                 <p>Plan Name</p>
+                <p>{company.subscription_plan.duration}</p>
+                <p>Duration</p>
               </div>
             </div>
           ))}
       </div>
+
+      <Dialog open={open} onClose={handleClose}>
+  <DialogTitle>Add Company</DialogTitle>
+  <DialogContent>
+    <DialogContentText>
+      Please fill out the form below to add a new company.
+    </DialogContentText>
+    <TextField
+      autoFocus
+      margin="dense"
+      label="Company Name"
+      type="text"
+      fullWidth
+      name="company_name"
+    
+      onChange={handleInputChange}
+    />
+    <TextField
+      margin="dense"
+      label="Email"
+      type="email"
+      fullWidth
+      name="email"
+  
+      onChange={handleInputChange}
+    />
+    <TextField
+      margin="dense"
+      label="Password"
+      type="password"
+      fullWidth
+      name="password"
+    
+      onChange={handleInputChange}
+    />
+    <TextField
+      margin="dense"
+      label="Subscription Plan"
+      type="number"
+      fullWidth
+      name="subscription_plan"
+    
+      onChange={handleInputChange}
+    />
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleClose}>Cancel</Button>
+    <Button onClick={handleSubmit}>Add Company</Button>
+  </DialogActions>
+</Dialog>
+
     </>
   );
 }
