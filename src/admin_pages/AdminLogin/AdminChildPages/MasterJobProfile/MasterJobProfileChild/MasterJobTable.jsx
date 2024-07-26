@@ -13,7 +13,6 @@ import updatebtn from "../../../../../assets/logos/update.png";
 import deletebtn from "../../../../../assets/logos/delete.png";
 
 function MasterJobTable() {
-
   const [counts, setCounts] = useState("");
   const [jobProfiles, setJobProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,12 +27,9 @@ function MasterJobTable() {
   const [jobPosts, setJobPosts] = useState([]);
   const [jobDepartment, setJobDepartment] = useState([]);
 
-
-
   const [categoryValue, setCategoryValue] = useState("");
   const [departValue, setDepartValue] = useState("");
   const [postValue, setPostValue] = useState("");
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +42,7 @@ function MasterJobTable() {
           postValue
         );
 
-        console.log(response, "<<<<<<<check data")
+        console.log(response, "<<<<<<<check data");
         setJobProfiles(response.jobprofileData);
         setCounts(response);
 
@@ -58,7 +54,7 @@ function MasterJobTable() {
     };
 
     fetchData();
-  }, [currentPage, itemsPerPage, categoryValue,postValue, departValue]);
+  }, [currentPage, itemsPerPage, categoryValue, postValue, departValue]);
 
   const fetchJobCategories = async () => {
     try {
@@ -90,14 +86,11 @@ function MasterJobTable() {
     }
   };
 
-
   useEffect(() => {
     fetchDepartments();
     fetchPosts();
     fetchJobCategories();
   }, []);
-
-
 
   const handleDelete = async (profileId) => {
     setProfileIdToDelete(profileId); // Set the profileId to delete
@@ -179,12 +172,8 @@ function MasterJobTable() {
       {!isEditFormOpen && (
         <div className="master-table ">
           <p className="SCA-heading" style={{ marginBottom: "15px" }}>
-         Update Job Profiles
+            Update Job Profiles
           </p>
-
-
-
-
           <div className="row mb-2">
             <div className="col-md-4 ">
               <label>Select Category:</label>
@@ -195,10 +184,10 @@ function MasterJobTable() {
               >
                 <option value="">All</option>
                 {jobCategories.map((category) => (
-            <option key={category.id} value={category.category_name}>
-              {category.category_name}
-            </option>
-          ))}
+                  <option key={category.id} value={category.category_name}>
+                    {category.category_name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-md-4">
@@ -206,14 +195,14 @@ function MasterJobTable() {
               <select
                 name="post_name"
                 className="form-control"
-                onChange={(e) => setPostValue(e.target.value)}               
+                onChange={(e) => setPostValue(e.target.value)}
               >
                 <option value="">All</option>
                 {jobPosts.map((post) => (
-            <option key={post.id} value={post.post_name}>
-              {post.post_name}
-            </option>
-          ))}
+                  <option key={post.id} value={post.post_name}>
+                    {post.post_name}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="col-md-4">
@@ -225,15 +214,13 @@ function MasterJobTable() {
               >
                 <option value="">All</option>
                 {jobDepartment.map((depart) => (
-            <option key={depart.id} value={depart.dept_name}>
-              {depart.dept_name}
-            </option>
-          ))}
+                  <option key={depart.id} value={depart.dept_name}>
+                    {depart.dept_name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
-
-
           <div className="table-responsive fixe-table">
             <table className="table ">
               <thead style={{ color: "rgba(0, 0, 0, 0.63)" }} className="thead">
@@ -242,13 +229,12 @@ function MasterJobTable() {
                   <th scope="col">Department</th>
                   <th scope="col">Designation</th>
                   <th scope="col">Category</th>
-                
-              
+
                   {/* <th scope="col">Last Date</th>
                   <th scope="col">List to Publish Profile</th>
                   <th scope="col">List to Current Opening</th>
                   <th scope="col">List to Interview Schedule</th> */}
-                  
+
                   <th scope="col">Qualification and experience</th>
                   <th scope="col">Highly desirable</th>
                   <th scope="col">Edit</th>
@@ -257,11 +243,9 @@ function MasterJobTable() {
                 </tr>
               </thead>
               <tbody>
-              {console.log(jobProfilesData,"??")}
+                {console.log(jobProfilesData, "??")}
                 {jobProfilesData.map((data, index) => (
-               
                   <tr key={index}>
-                    
                     <td>
                       <b>{(currentPage - 1) * itemsPerPage + index + 1}</b>
                     </td>
@@ -270,8 +254,7 @@ function MasterJobTable() {
                     <td>{data.job_category_master?.category_name || "N/A"}</td>
                     <td>{data.education_require || "N/A"}</td>
                     <td>{data.qualification_require || "N/A"}</td>
-                  
-                  
+
                     {/* <td>
                       {formatDateForInput(data.last_date_to_apply) || "N/A"}
                     </td> */}
@@ -282,7 +265,7 @@ function MasterJobTable() {
                       <button
                         type="button"
                         id="table-btns"
-                      // onClick={() => handleEditForm(data.id)}
+                        // onClick={() => handleEditForm(data.id)}
                       >
                         <Link
                           to={{
@@ -321,25 +304,26 @@ function MasterJobTable() {
                 ))}
               </tbody>
             </table>
-            <div className="row">
-              <div className="col-md-4">
-                <label>Row:</label>
-                <input
-                  className="set-row-input "
-                  id="specific-input"
-                  type="number"
-                  value={itemsPerPage}
-                  onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                />
-              </div>
-              <div className="col-md-4"></div>
-              <div className="col-md-4">
-                <Pagination>
-                  <Pagination.Prev onClick={prevPage} />
-                  <Pagination.Item>{currentPage}</Pagination.Item>
-                  <Pagination.Next onClick={nextPage} />
-                </Pagination>
-              </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-4">
+              <label>Row:</label>
+              <input
+                className="set-row-input "
+                id="specific-input"
+                type="number"
+                value={itemsPerPage}
+                onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+              />
+            </div>
+            <div className="col-md-4"></div>
+            <div className="col-md-4">
+              <Pagination>
+                <Pagination.Prev onClick={prevPage} />
+                <Pagination.Item>{currentPage}</Pagination.Item>
+                <Pagination.Next onClick={nextPage} />
+              </Pagination>
             </div>
           </div>
         </div>
@@ -353,10 +337,7 @@ function MasterJobTable() {
           <button onClick={confirmDelete} className="submitbtn">
             Delete
           </button>
-          <button
-            onClick={handleCloseDeleteDialog}
-            className="canclebtn"
-          >
+          <button onClick={handleCloseDeleteDialog} className="canclebtn">
             Cancel
           </button>
         </DialogActions>

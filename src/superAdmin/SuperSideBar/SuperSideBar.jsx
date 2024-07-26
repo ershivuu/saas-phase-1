@@ -23,33 +23,23 @@ import {
   Report as ReportIcon,
   ImportExport as ImportExportIcon,
   ExpandLess,
+  BusinessCenterIcon as bag,
   ExpandMore,
   Logout as LogoutIcon,
 } from "@mui/icons-material";
-import "./Sidenav.css";
-import { getHeaderInfo } from "../../AdminFrontend/FrontendServices";
+import "./Sidebar.css";
+import corusview from "../../assets/logos/corusview.png";
 
-const Sidenav = ({ isOpen, onToggle }) => {
+const SuperSideBar = ({ isOpen, onToggle }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [openDropdown, setOpenDropdown] = useState("");
 
   const [imageUrl, setImageUrl] = useState("");
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { image_url } = await getHeaderInfo();
-        setImageUrl(image_url || "");
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (!sidebarOpen) {
-      setOpenDropdown(""); // Close all dropdowns when the sidebar is closed
+      setOpenDropdown("");
     }
   }, [sidebarOpen]);
 
@@ -79,7 +69,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
   const handleLogout = () => {
     sessionStorage.removeItem("Token");
     sessionStorage.removeItem("isLoggedIn");
-    navigate("/admin-login");
+    navigate("/superadmin");
   };
 
   const drawer = (
@@ -89,87 +79,34 @@ const Sidenav = ({ isOpen, onToggle }) => {
           {
             text: "Dashboard",
             icon: <DashboardIcon />,
-            path: "/admin-dashboard/dashboard",
+            path: "/super-admin/super-dashboard",
           },
+
           {
-            text: "White Label",
-            icon: <PollIcon />,
-            subItems: [
-              { text: "Edit Header", path: "/admin-dashboard/EditHeader" },
-              { text: "Edit Home Page", path: "/admin-dashboard/EditHomePage" },
-              { text: "Home Section 1", path: "/admin-dashboard/Section1" },
-              { text: "Home Section 2", path: "/admin-dashboard/Section2" },
-              { text: "Home Section 3", path: "/admin-dashboard/Section3" },
-              { text: "Home Section 4", path: "/admin-dashboard/Section4" },
-              { text: "Home Section 5", path: "/admin-dashboard/Section5" },
-              { text: "Edit Faq's", path: "/admin-dashboard/FaqSection" },
-              {
-                text: "Edit Interview Schedule",
-                path: "/admin-dashboard/EditInterviewSchedule",
-              },
-              { text: "Edit Contact", path: "/admin-dashboard/EditContact" },
-              { text: "Edit Footer", path: "/admin-dashboard/EditFooter" },
-            ],
-          },
-          {
-            text: "Master Current Opening",
+            text: "Company Management",
             icon: <PeopleIcon />,
-            path: "/admin-dashboard/current-openings",
+            path: "/super-admin/company-management",
           },
           {
-            text: "Update Job Profiles",
-            icon: <LocationOnIcon />,
-            path: "/admin-dashboard/job-profile",
-          },
-          {
-            text: "Master Interview Schedule",
-            icon: <ReportIcon />,
-            path: "/admin-dashboard/interview-schedule",
-          },
-          {
-            text: "Reports",
-            icon: <PollIcon />,
-            subItems: [
-              { text: "Applied Candidates", path: "/admin-dashboard/reports" },
-            ],
-          },
-          {
-            text: "Visitors Report",
-            icon: <ImportExportIcon />,
-            path: "/admin-dashboard/admin_visitors_reports",
-          },
-          {
-            text: "Master List",
+            text: "Plan Management",
             icon: <PollIcon />,
             subItems: [
               {
-                text: "Post Applied For",
-                path: "/admin-dashboard/add-post-applied",
+                text: "Plan & Pricing",
+                path: "/super-admin/plan-and-pricing",
               },
+              { text: "Services List", path: "/super-admin/service-list" },
               {
-                text: "Sub Post Applied For",
-                path: "/admin-dashboard/add-sub-post-applied",
+                text: "Offline Payment",
+                path: "/super-admin/offline-payments",
               },
-              { text: "Departments", path: "/admin-dashboard/add-departments" },
-              { text: "Exam Type", path: "/admin-dashboard/add-exam-type" },
-              { text: "Degree", path: "/admin-dashboard/add-degree" },
-              { text: "Categories", path: "/admin-dashboard/add-categories" },
-              { text: "Add Subject", path: "/admin-dashboard/add-subjects" },
+              { text: "Payment History", path: "/super-admin/payment-history" },
             ],
           },
           {
-            text: "Register Admin",
-            icon: <ImportExportIcon />,
-            path: "/admin-dashboard/admin_register",
-          },
-          {
-            text: "Super Admin",
-            icon: <PollIcon />,
-            subItems: [
-              { text: "Admin list", path: "/admin-dashboard/admin-list" },
-              { text: "Rights List", path: "/admin-dashboard/right-list" },
-              { text: "Role List", path: "/admin-dashboard/role-list" },
-            ],
+            text: "Login Logs",
+            icon: <DashboardIcon />,
+            path: "/super-admin/login-logs",
           },
         ].map((item, index) => (
           <div key={item.text}>
@@ -222,7 +159,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
 
   return (
     <div style={{ display: "flex" }}>
-      <CssBaseline  />
+      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -234,7 +171,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
       >
         {isOpen ? "" : ""}
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
@@ -242,19 +179,20 @@ const Sidenav = ({ isOpen, onToggle }) => {
             sx={{ mr: 2, display: { sm: "none" } }}
           >
             <Menu />
-          </IconButton>
+          </IconButton> */}
           <IconButton
             color="inherit"
             aria-label="toggle sidebar"
             edge="start"
             onClick={handleSidebarToggle}
-            sx={{ display: { xs: "none", sm: "block" } }}
+            // sx={{ display: { xs: "none", sm: "block" } }}
           >
             <Menu />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            <img className="new-admin-logo" src={imageUrl} alt="Logo" />
+            <img className="new-admin-logo" src={corusview} alt="Logo" />
           </Typography>
+
           <IconButton
             color="inherit"
             aria-label="logout"
@@ -277,7 +215,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: sidebarOpen ? 240 : 60,
+              width: sidebarOpen ? 250 : 60,
             },
           }}
         >
@@ -289,7 +227,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: sidebarOpen ? 240 : 60,
+              width: sidebarOpen ? 250 : 60,
             },
           }}
           open
@@ -304,4 +242,4 @@ const Sidenav = ({ isOpen, onToggle }) => {
   );
 };
 
-export default Sidenav;
+export default SuperSideBar;

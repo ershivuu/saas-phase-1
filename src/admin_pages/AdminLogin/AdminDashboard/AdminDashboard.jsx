@@ -1,69 +1,60 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
-import Sidenav from "../../TestPages/Sidenav";
+import { Outlet, Link, useLocation } from "react-router-dom";
+import SideBar from "../SideBar/SideBar";
 import "./AdminDashboard.css";
 
-function AdminDashboard() {
-  // State to manage sidebar visibility
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+import AdminHeader from "../admin_header/AdminHeader";
+import Dashboard from "./Dashboard";
+import Sidenav from "../../TestPages/Sidenav";
 
-  // Toggle sidebar visibility
+function AdminDashboard() {
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter((x) => x);
+
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+    setSidebarOpen((prevState) => !prevState);
   };
-  
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          margin: 0,
-          padding: 0,
-        }}
-      >
+      <div>
         <div
           style={{
             display: "flex",
             flexGrow: 1,
             position: "relative",
             margin: 0,
-            height: "85vh",
+            height: "100vh",
             width: "100%",
           }}
         >
           <div
             style={{
-              maxWidth: isSidebarOpen ? "30%" : "0%",
+              maxWidth: "30%",
               flexShrink: 0,
               textAlign: "left",
               overflowY: "auto",
               overflowX: "hidden",
-              transition: "max-width 0.3s ease", // Smooth transition
             }}
           >
-            <Sidenav isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+            <Sidenav isOpen={isSidebarOpen} onToggle={toggleSidebar} />
           </div>
 
           <div
             style={{
               flexGrow: 1,
               overflowY: "auto",
-              marginLeft: isSidebarOpen ? "150px" : "0px", // Apply margin based on sidebar state
-              transition: "margin-left 0.3s ease", // Smooth transition
+              marginLeft: isSidebarOpen ? "0px" : "150px",
+              transition: "margin-left 0.3s ease",
+              marginTop: "50px",
             }}
           >
             <Outlet />
           </div>
         </div>
-
-        {/* Button to toggle sidebar visibility */}
-        <button onClick={toggleSidebar}>
-          {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
-        </button>
       </div>
     </>
   );
 }
-
 export default AdminDashboard;

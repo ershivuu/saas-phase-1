@@ -32,8 +32,6 @@ td[style*="color: red"] {
   /* padding: 3% 10% 1% 10%; */
 }
 
-
-
 .SCA-heading {
   font-size: 25px;
   font-family: "Open Sans", sans-serif;
@@ -57,15 +55,15 @@ td[style*="color: red"] {
 }
 
 .table-responsive {
-  max-height: 386px;
+  max-height: 400px;
   overflow-y: scroll !important;
+  overflow-x: scroll !important;
 }
 
 .thead {
   position: sticky;
   top: -1px;
   z-index: 11;
- 
 }
 
 .fixe-table {

@@ -4,9 +4,9 @@ import "./EditOpenings.css";
 import adminApiService from "../../../../adminApiService";
 import { useParams } from "react-router-dom";
 import Notification from "../../../../../Notification/Notification";
-import close from "../../../../../assets/logos/close.png"
+import close from "../../../../../assets/logos/close.png";
 
-import {  DialogActions } from "@mui/material";
+import { DialogActions } from "@mui/material";
 function EditOpenings() {
   const navigate = useNavigate();
   // console.log("Profile ID:", profileId);
@@ -14,7 +14,7 @@ function EditOpenings() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [departmant, setDepartmant] = useState([]);
   const [jobCategories, setJobCategories] = useState([]);
-  
+
   const [selectedPost, setSelectedPost] = useState("");
   const [subPost, setSubPost] = useState([]);
   const [selectedSubPost, setSelectedSubPost] = useState("");
@@ -23,11 +23,9 @@ function EditOpenings() {
   const [interviewSchedule, setInterviewSchedule] = useState(false);
   const [publishToJobProfile, setPublishToJobProfile] = useState(false);
 
-
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationSeverity, setNotificationSeverity] = useState("info");
-  
 
   const [formValues, setFormValues] = useState({});
   const [updateField, setUpdateField] = useState({});
@@ -188,7 +186,6 @@ function EditOpenings() {
     }));
   };
 
-  
   const handleCheckboxChange = (fieldName, value) => {
     let updatedValue = !value; // Toggle the value
     setFormValues((prevValues) => ({
@@ -255,8 +252,8 @@ function EditOpenings() {
     } catch (error) {
       console.error("Error updating job profile:", error);
       setNotificationOpen(true);
-    setNotificationSeverity("error");
-    setNotificationMessage("Error submitting form. Please try again later.");
+      setNotificationSeverity("error");
+      setNotificationMessage("Error submitting form. Please try again later.");
     }
   };
 
@@ -268,20 +265,18 @@ function EditOpenings() {
     return `${year}-${month}-${day}`;
   };
 
-
-
   const handleFormCloseAndShowTable = () => {
-    navigate('/admin-dashboard/current-openings');
+    navigate("/admin-dashboard/current-openings");
   };
 
   return (
     <>
       <Notification
-  open={notificationOpen}
-  handleClose={() => setNotificationOpen(false)}
-  alertMessage={notificationMessage}
-  alertSeverity={notificationSeverity}
-/>
+        open={notificationOpen}
+        handleClose={() => setNotificationOpen(false)}
+        alertMessage={notificationMessage}
+        alertSeverity={notificationSeverity}
+      />
       <div className="new-openings">
         <img
           onClick={handleFormCloseAndShowTable}
@@ -297,7 +292,6 @@ function EditOpenings() {
         )}
         <p className="master-heading">Edit-Openings Data</p>
         <div className="new-openings-form">
-      
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-6">
@@ -325,11 +319,8 @@ function EditOpenings() {
                   }
                 >
                   <option value="">Select a category</option>
-                  {jobCategories.map((category,index) => (
-                    <option
-                      key={index}
-                      value={category.category_name}
-                    >
+                  {jobCategories.map((category, index) => (
+                    <option key={index} value={category.category_name}>
                       {category.category_name}
                     </option>
                   ))}
@@ -348,7 +339,7 @@ function EditOpenings() {
                   }
                 >
                   <option value="">Select Department</option>
-                  {departmant.map((department,index) => (
+                  {departmant.map((department, index) => (
                     <option key={index} value={department.dept_name}>
                       {department.dept_name}
                     </option>
@@ -364,7 +355,7 @@ function EditOpenings() {
                   // value={selectedPost}
                 >
                   <option value="">{selectedPost} </option>
-                  {post.map((post,index) => (
+                  {post.map((post, index) => (
                     <option key={index} value={post}>
                       {post}
                     </option>
@@ -385,7 +376,7 @@ function EditOpenings() {
                   }
                 >
                   <option value="">{selectedSubPost}</option>
-                  {subPost.map((subpost,index) => (
+                  {subPost.map((subpost, index) => (
                     <option key={index} value={subpost}>
                       {subpost}
                     </option>
@@ -469,7 +460,11 @@ function EditOpenings() {
                   type="date"
                   placeholder="dd/mm/yyyy"
                   name="schedule_interview_date_1"
-                  value={formValues.schedule_interview_date_1 ? formatDateForInput(formValues.schedule_interview_date_1) : ""}
+                  value={
+                    formValues.schedule_interview_date_1
+                      ? formatDateForInput(formValues.schedule_interview_date_1)
+                      : ""
+                  }
                   onChange={(e) =>
                     handleInputChange(
                       "schedule_interview_date_1",
@@ -484,8 +479,12 @@ function EditOpenings() {
                   type="date"
                   name="schedule_interview_date_2"
                   placeholder="dd/mm/yyyy"
-                  value={formValues.schedule_interview_date_2 ? formatDateForInput(formValues.schedule_interview_date_2) : ""}
-                    onChange={(e) =>
+                  value={
+                    formValues.schedule_interview_date_2
+                      ? formatDateForInput(formValues.schedule_interview_date_2)
+                      : ""
+                  }
+                  onChange={(e) =>
                     handleInputChange(
                       "schedule_interview_date_2",
                       e.target.value
@@ -499,7 +498,11 @@ function EditOpenings() {
                   type="date"
                   name="schedule_interview_date_3"
                   placeholder="dd/mm/yyyy"
-                  value={formValues.schedule_interview_date_3 ? formatDateForInput(formValues.schedule_interview_date_3) : ""}
+                  value={
+                    formValues.schedule_interview_date_3
+                      ? formatDateForInput(formValues.schedule_interview_date_3)
+                      : ""
+                  }
                   onChange={(e) =>
                     handleInputChange(
                       "schedule_interview_date_3",
@@ -567,16 +570,18 @@ function EditOpenings() {
               {/* <button type="submit"  id="add-job">
                 SUBMIT
               </button> */}
-               <DialogActions>
-                  <button  className="submitbtn"  type="submit">
+              <DialogActions>
+                <button className="submitbtn" type="submit">
                   SUBMIT
-                        </button>
-                        <button    onClick={handleFormCloseAndShowTable} className="canclebtn" >
-                            Cancle
-                        </button>
-                        </DialogActions>
+                </button>
+                <button
+                  onClick={handleFormCloseAndShowTable}
+                  className="canclebtn"
+                >
+                  Cancle
+                </button>
+              </DialogActions>
             </div>
- 
           </form>
         </div>
       </div>
