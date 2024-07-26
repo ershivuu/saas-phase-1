@@ -282,9 +282,7 @@ function Management() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Company</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please fill out the form below to add a new company.
-          </DialogContentText>
+        
           <TextField
             autoFocus
             margin="dense"

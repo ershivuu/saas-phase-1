@@ -67,7 +67,7 @@ export const getSubscriptionPlan= async () => {
 
   try {
     const response = await axios.get(
-      `${SUPER_ADMIN_BASE_URL}/subscription-plans/getSubscriptions`,
+      `${SUPER_ADMIN_BASE_URL}/subscriptions/active`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
