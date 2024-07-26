@@ -10,7 +10,7 @@
   width: 250px;
   height: 100px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 10px;
   padding: 10px 20px;
   cursor: pointer;
@@ -22,7 +22,8 @@
 .company-status {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 80px;
   padding: 10px;
 }
 .status-card p:nth-child(1) {
@@ -37,11 +38,12 @@
 .company-details {
   width: 400px;
   height: 300px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
 }
+
 .company-list {
   padding: 10px;
   display: flex;
@@ -75,6 +77,7 @@
   color: grey;
 }
 .all-details {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -99,4 +102,36 @@
   font-size: 16px;
   color: rgba(245, 245, 245, 0.74);
   font-weight: 500;
+}
+.del-buttons button {
+  background-color: transparent;
+  border: none;
+}
+
+.del-buttons {
+  position: absolute;
+  border-top: 1.5px solid rgba(172, 163, 163, 0.74);
+  display: flex;
+  justify-content: space-around;
+  width: 255px;
+  margin-left: 19px;
+  bottom: 0;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: end;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.view-btns {
+  border-right: 1px solid;
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+  height: fit-content;
+  margin-right: 10px;
 }
