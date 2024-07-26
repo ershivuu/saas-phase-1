@@ -18,7 +18,6 @@ import {
   Menu,
   Dashboard as DashboardIcon,
   Poll as PollIcon,
-
   People as PeopleIcon,
   LocationOn as LocationOnIcon,
   Report as ReportIcon,
@@ -27,7 +26,6 @@ import {
   ExpandMore,
   Logout as LogoutIcon,
 } from "@mui/icons-material";
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import "./Sidenav.css";
 import { getHeaderInfo } from "../../AdminFrontend/FrontendServices";
 
@@ -48,6 +46,13 @@ const Sidenav = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!sidebarOpen) {
+      setOpenDropdown(""); // Close all dropdowns when the sidebar is closed
+    }
+  }, [sidebarOpen]);
+
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
@@ -132,7 +137,7 @@ const Sidenav = () => {
           },
           {
             text: "Master List",
-            icon: <ListAltIcon />,
+            icon: <PollIcon />,
             subItems: [
               {
                 text: "Post Applied For",
@@ -161,7 +166,6 @@ const Sidenav = () => {
               { text: "Admin list", path: "/admin-dashboard/admin-list" },
               { text: "Rights List", path: "/admin-dashboard/right-list" },
               { text: "Role List", path: "/admin-dashboard/role-list" },
-              { text: "Email Template", path: "/admin-dashboard/email-template" },
             ],
           },
         ].map((item, index) => (
@@ -215,7 +219,7 @@ const Sidenav = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      <CssBaseline />
+      <CssBaseline  />
       <AppBar
         position="fixed"
         sx={{
@@ -223,7 +227,6 @@ const Sidenav = () => {
           backgroundColor: "white",
           color: "black",
         }}
-        
       >
         <Toolbar>
           <IconButton
@@ -291,7 +294,6 @@ const Sidenav = () => {
       </nav>
       <main style={{ flexGrow: 1, padding: "24px" }}>
         <Toolbar />
-        {/* Your content goes here */}
       </main>
     </div>
   );
