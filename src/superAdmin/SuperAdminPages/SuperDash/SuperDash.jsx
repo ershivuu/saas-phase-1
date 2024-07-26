@@ -9,7 +9,7 @@ function SuperDash() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
-    const fetchCompanyData = async () => {
+    const companyCount = async () => {
       try {
         const data = await getCompanyCount();
         setCompanyData(data);
@@ -20,7 +20,7 @@ function SuperDash() {
       }
     };
 
-    fetchCompanyData();
+    companyCount();
   }, []);
   useEffect(() => {
     // Update time every second

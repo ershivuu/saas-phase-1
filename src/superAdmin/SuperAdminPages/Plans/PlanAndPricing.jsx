@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./PlanAndPricing.css";
 import {
   Table,
@@ -10,55 +10,68 @@ import {
   TableContainer,
   Paper,
 } from "@mui/material";
+import { getSubscriptionPlan } from "../../SuperAdminService"; // Adjust the path as needed
 
 function PlanAndPricing() {
-  // Sample data (you can replace this with actual data from your application)
-  const plans = [
-    { id: 1, planName: "Plan A", duration: 30, status: "Active" },
-    { id: 2, planName: "Plan B", duration: 60, status: "Inactive" },
-    { id: 3, planName: "Plan C", duration: 90, status: "Active" },
-  ];
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const data = await getSubscriptionPlan();
+        setPlans(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <>
-      <div className="pricing-table">
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Sr. No</TableCell>
-                <TableCell>Plan Name</TableCell>
-                <TableCell>Duration (Days)</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Actions</TableCell>
+    <div className="pricing-table">
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Sr. No</TableCell>
+              <TableCell>Plan Name</TableCell>
+              <TableCell>Duration (Days)</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {plans.map((plan, index) => (
+              <TableRow key={plan.id}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{plan.plan_name}</TableCell>
+                <TableCell>{plan.duration} days</TableCell>
+                <TableCell>
+                  <span
+                    style={{
+                      color: plan.plan_status === 0 ? "green" : "red",
+                    }}
+                  >
+                    {plan.plan_status === 0 ? "Active" : "Inactive"}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <Button variant="outlined">Edit</Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {plans.map((plan, index) => (
-                <TableRow key={plan.id}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{plan.planName}</TableCell>
-                  <TableCell>{plan.duration} days</TableCell>
-                  <TableCell>
-                    {/* Apply conditional styles based on plan status */}
-                    <span
-                      style={{
-                        color: plan.status === "Active" ? "green" : "red",
-                      }}
-                    >
-                      {plan.status}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="outlined">Edit</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-    </>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }
 

@@ -22,7 +22,7 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import { fetchCompanyData, getSubscriptionPlan, registerCompany } from "../../SuperAdminService";
+import { getCompanyData, getSubscriptionPlan, registerCompany } from "../../SuperAdminService";
 
 function Management() {
   const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
@@ -79,7 +79,7 @@ function Management() {
       });
       handleClose();
       // Optionally, you can reload company data here if needed
-      const data = await fetchCompanyData();
+      const data = await getCompanyData();
       setCompanies(data);
     } catch (err) {
       console.error("Error registering company:", err);
@@ -114,7 +114,7 @@ function Management() {
   useEffect(() => {
     const loadCompanies = async () => {
       try {
-        const data = await fetchCompanyData();
+        const data = await getCompanyData();
         setCompanies(data);
       } catch (err) {
         setError(err.message);
