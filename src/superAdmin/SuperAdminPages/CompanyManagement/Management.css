@@ -1,0 +1,102 @@
+.status-img img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.status-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 250px;
+  height: 100px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.status-card:active {
+  border: 2px solid #86c224;
+  scale: 0.98;
+}
+.company-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+.status-card p:nth-child(1) {
+  font-size: 16px;
+  color: grey;
+  font-weight: 500;
+}
+.status-card p:nth-child(2) {
+  font-size: 20px;
+  font-weight: bold;
+}
+.company-details {
+  width: 400px;
+  height: 300px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.company-list {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.company-logo {
+  width: 80px;
+  height: 80px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.company-logo img {
+  width: 50px;
+  height: 50px;
+
+  object-fit: contain;
+}
+.company-other-details p:nth-child(1) {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+.company-other-details p {
+  font-size: 12px;
+  color: grey;
+}
+.all-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+  text-align: center;
+  line-height: 1;
+}
+.current-plan {
+  background-color: #86c224;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  text-align: center;
+  padding: 20px 30px 0px 30px;
+}
+.current-plan p:nth-child(1) {
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+}
+.current-plan p:nth-child(2) {
+  font-size: 16px;
+  color: rgba(245, 245, 245, 0.74);
+  font-weight: 500;
+}

@@ -18,14 +18,7 @@ function AdminDashboard() {
   };
   return (
     <>
-      <div
-      // style={{
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   margin: 0,
-      //   padding: 0,
-      // }}
-      >
+      <div>
         <div
           style={{
             display: "flex",

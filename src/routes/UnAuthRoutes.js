@@ -46,6 +46,7 @@ import TestPages from "../admin_pages/TestPages/TestPages";
 import Footers from "../components/Footer/Footers";
 import EditInterviewSchedule from "../AdminFrontend/FrontendPages/EditInterviewSchedule/EditInterviewSchedule";
 import FaqSection from "../AdminFrontend/FrontendPages/FaqSection/FaqSection";
+import SuperLogin from "../superAdmin/SuperLogin/SuperLogin";
 
 // console.log("inside UnAuthRoutes");
 const UnAuthRoutes = [
@@ -166,74 +167,16 @@ const UnAuthRoutes = [
     path="process"
     element={<UnAuthGuards component={<Process />} />}
   ></Route>,
-<Route    
- key="FrontEndPanel"
+  <Route
+    key="FrontEndPanel"
     path="FrontEndPanel"
-    element={<UnAuthGuards component={<FrontEndPanel />} />}>
-  
-</Route>,
-  // <Route
-  //   key="FrontEndPanel"
-  //   path="FrontEndPanel"
-  //   element={<UnAuthGuards component={<FrontEndPanel />} />}
-  // >
-  //   <Route
-  //     key="EditHeader"
-  //     path="EditHeader"
-  //     element={<UnAuthGuards component={<EditHeader />} />}
-  //   ></Route>
-  //   <Route
-  //     key="EditHome"
-  //     path="EditHomePage"
-  //     element={<UnAuthGuards component={<EditHome />} />}
-  //   ></Route>
-  //   <Route
-  //     key="Section1"
-  //     path="Section1"
-  //     element={<UnAuthGuards component={<Section1 />} />}
-  //   ></Route>
-  //   <Route
-  //     key="Section2"
-  //     path="Section2"
-  //     element={<UnAuthGuards component={<Section2 />} />}
-  //   ></Route>
-  //   <Route
-  //     key="Section3"
-  //     path="Section3"
-  //     element={<UnAuthGuards component={<Section3 />} />}
-  //   ></Route>
-  //   <Route
-  //     key="Section4"
-  //     path="Section4"
-  //     element={<UnAuthGuards component={<Section4 />} />}
-  //   ></Route>
-  //   <Route
-  //     key="Section5"
-  //     path="Section5"
-  //     element={<UnAuthGuards component={<Section5 />} />}
-  //   ></Route>
-  //   <Route
-  //     key="FaqSection"
-  //     path="FaqSection"
-  //     element={<UnAuthGuards component={<FaqSection />} />}
-  //   ></Route>
-  //   <Route
-  //     key="EditInterviewSchedule"
-  //     path="EditInterviewSchedule"
-  //     element={<UnAuthGuards component={<EditInterviewSchedule />} />}
-  //   ></Route>
-  //   <Route
-  //     key="EditContact"
-  //     path="EditContact"
-  //     element={<UnAuthGuards component={<EditContact />} />}
-  //   ></Route>
-  //   <Route
-  //     key="EditFooter"
-  //     path="EditFooter"
-  //     element={<UnAuthGuards component={<EditFooter />} />}
-  //   ></Route>
-  //   ,
-  // </Route>,
+    element={<UnAuthGuards component={<FrontEndPanel />} />}
+  ></Route>,
+  <Route
+    key="SuperLogin"
+    path="superadmin"
+    element={<UnAuthGuards component={<SuperLogin />} />}
+  ></Route>,
 
   <Route
     key="PageNotFound"
