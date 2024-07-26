@@ -35,3 +35,27 @@ export const fetchCompanyData = async () => {
     throw error;
   }
 };
+export const getCompanyCount = async () => {
+  const token = getAuthToken(); // Function to get the auth token
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.get(
+      `${SUPER_ADMIN_BASE_URL}/superadmin/company-counts`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data; // Make sure this contains the expected data
+  } catch (error) {
+    console.error(
+      "Error fetching company data:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // Re-throw error to handle it further up the call stack if needed
+  }
+};
