@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import SearchIcon from "@mui/icons-material/Search";
+import Notification from "../../../Notification/Notification";
 import {
   Typography,
   InputBase,
@@ -47,6 +48,13 @@ function Management() {
     subscription_plan: "",
   });
 
+  const [formErrors, setFormErrors] = useState({});
+  const [notification, setNotification] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
   const handleColumnLayout = () => setIsColumnLayout(true);
   const handleGridLayout = () => setIsColumnLayout(false);
 
@@ -57,6 +65,7 @@ function Management() {
       password: "",
       subscription_plan: "",
     });
+    setFormErrors({});
     setOpen(true);
   };
 
@@ -67,6 +76,7 @@ function Management() {
       password: "",
       subscription_plan: "",
     });
+    setFormErrors({});
     setOpen(false);
   };
 
@@ -76,11 +86,36 @@ function Management() {
       ...formValues,
       [name]: value,
     });
+
+    // Remove error message when user starts typing
+    if (formErrors[name]) {
+      setFormErrors({
+        ...formErrors,
+        [name]: "",
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formValues.company_name)
+      errors.company_name = "This field is required";
+    if (!formValues.email) errors.email = "This field is required";
+    if (!formValues.password) errors.password = "This field is required";
+    if (!formValues.subscription_plan)
+      errors.subscription_plan = "This field is required";
+    return errors;
   };
 
   const handleSubmit = async () => {
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
     try {
-      await registerCompany(formValues);
+      const response = await registerCompany(formValues);
       console.log("Company registered successfully:", formValues);
       setFormValues({
         company_name: "",
@@ -91,8 +126,18 @@ function Management() {
       handleClose();
       const data = await getCompanyData();
       setCompanies(data);
+      setNotification({
+        open: true,
+        message: response.message,
+        severity: "success",
+      });
     } catch (err) {
       console.error("Error registering company:", err);
+      setNotification({
+        open: true,
+        message: "Error registering company",
+        severity: "error",
+      });
     }
   };
 
@@ -186,6 +231,13 @@ function Management() {
 
   return (
     <>
+      <Notification
+        open={notification.open}
+        handleClose={() => setNotification({ ...notification, open: false })}
+        alertMessage={notification.message}
+        alertSeverity={notification.severity}
+      />
+
       <div className="page-header">
         <div className="search-container">
           <InputBase
@@ -320,9 +372,6 @@ function Management() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Company</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Please fill out the form below to add a new company.
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -332,6 +381,8 @@ function Management() {
             fullWidth
             value={formValues.company_name}
             onChange={handleInputChange}
+            error={!!formErrors.company_name}
+            helperText={formErrors.company_name}
           />
           <TextField
             margin="dense"
@@ -341,6 +392,8 @@ function Management() {
             fullWidth
             value={formValues.email}
             onChange={handleInputChange}
+            error={!!formErrors.email}
+            helperText={formErrors.email}
           />
           <TextField
             margin="dense"
@@ -350,6 +403,8 @@ function Management() {
             fullWidth
             value={formValues.password}
             onChange={handleInputChange}
+            error={!!formErrors.password}
+            helperText={formErrors.password}
           />
           <TextField
             margin="dense"
@@ -359,6 +414,8 @@ function Management() {
             fullWidth
             value={formValues.subscription_plan}
             onChange={handleInputChange}
+            error={!!formErrors.subscription_plan}
+            helperText={formErrors.subscription_plan}
           >
             {subscriptionPlans.map((plan) => (
               <MenuItem key={plan.id} value={plan.id}>
