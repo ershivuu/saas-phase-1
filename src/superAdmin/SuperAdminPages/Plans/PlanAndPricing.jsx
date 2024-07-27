@@ -161,7 +161,12 @@ function PlanAndPricing() {
 
   return (
     <div className="pricing-table">
-      <Button variant="contained" color="success" onClick={handleCreateOpen} className="create-plan-btn">
+      <Button
+        variant="contained"
+        color="success"
+        onClick={handleCreateOpen}
+        className="create-plan-btn"
+      >
         Create Plan
       </Button>
       <TableContainer component={Paper}>
@@ -206,7 +211,7 @@ function PlanAndPricing() {
                   <Button
                     variant="outlined"
                     onClick={() => handleEditOpen(plan)}
-                    disabled={plan.plan_status === 1} // Disable button if status is Active
+                    disabled={plan.plan_status === 1}
                   >
                     Edit
                   </Button>

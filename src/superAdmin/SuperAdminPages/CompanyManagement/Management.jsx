@@ -22,17 +22,23 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import { getCompanyData, getActivePlan, registerCompany } from "../../SuperAdminService";
+import {
+  getCompanyData,
+  getActivePlan,
+  registerCompany,
+} from "../../SuperAdminService";
 
 function Management() {
-  const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
-  const [searchTerm, setSearchTerm] = useState(""); // State to manage search input
+  const [isColumnLayout, setIsColumnLayout] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState("all"); // State to manage filter
+  const [filter, setFilter] = useState("all");
   const [open, setOpen] = useState(false);
   const [subscriptionPlans, setSubscriptionPlans] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
 
   const [formValues, setFormValues] = useState({
     company_name: "",
@@ -55,7 +61,12 @@ function Management() {
   };
 
   const handleClose = () => {
-    setFormValues("");
+    setFormValues({
+      company_name: "",
+      email: "",
+      password: "",
+      subscription_plan: "",
+    });
     setOpen(false);
   };
 
@@ -78,12 +89,16 @@ function Management() {
         subscription_plan: "",
       });
       handleClose();
-      // Optionally, you can reload company data here if needed
       const data = await getCompanyData();
       setCompanies(data);
     } catch (err) {
       console.error("Error registering company:", err);
     }
+  };
+
+  const handleViewDetails = (company) => {
+    setSelectedCompany(company);
+    setDetailsDialogOpen(true);
   };
 
   const buttonStyle = (view) => ({
@@ -130,7 +145,7 @@ function Management() {
     const loadSubscriptionPlans = async () => {
       try {
         const data = await getActivePlan();
-        setSubscriptionPlans(data); // Set subscription plans data
+        setSubscriptionPlans(data);
       } catch (err) {
         console.error("Error fetching subscription plans:", err);
       }
@@ -149,6 +164,25 @@ function Management() {
     if (filter === "paid") return company.is_paid;
     return true;
   });
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+
+    // Date formatting
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString().slice(2);
+
+    // Time formatting in 12-hour format with AM/PM
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "pm" : "am";
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+
+    return `${day}-${month}-${year}, Time: ${hours}:${minutes} ${ampm}`;
+  };
 
   return (
     <>
@@ -264,7 +298,11 @@ function Management() {
                   <IconButton color="error" aria-label="delete">
                     <DeleteIcon />
                   </IconButton>
-                  <IconButton color="primary" aria-label="view">
+                  <IconButton
+                    color="primary"
+                    aria-label="view"
+                    onClick={() => handleViewDetails(company)}
+                  >
                     <VisibilityIcon />
                   </IconButton>
                 </div>
@@ -272,8 +310,8 @@ function Management() {
               <div className="current-plan">
                 <p>{company.subscription_plan.plan_name}</p>
                 <p>Plan Name</p>
-                <p>{company.subscription_plan.duration}</p>
-                <p>Duration</p>
+                <p>{company.days_remaining}</p>
+                <p>Days Remaining</p>
               </div>
             </div>
           ))}
@@ -335,6 +373,69 @@ function Management() {
           </Button>
           <Button onClick={handleSubmit} color="primary">
             Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={detailsDialogOpen}
+        onClose={() => setDetailsDialogOpen(false)}
+      >
+        <DialogTitle>Company Details</DialogTitle>
+        <DialogContent>
+          {selectedCompany && (
+            <>
+              <Typography>
+                Company Name: {selectedCompany.company_name}
+              </Typography>
+              <Typography>
+                Subdomain: {selectedCompany.subdomain || "N/A"}
+              </Typography>
+              <Typography>Email: {selectedCompany.email}</Typography>
+              <Typography>Password: {selectedCompany.password}</Typography>
+
+              <Typography>
+                Is Paid: {selectedCompany.is_paid ? "Yes" : "No"}
+              </Typography>
+              <Typography>
+                Is Active: {selectedCompany.is_active ? "Yes" : "No"}
+              </Typography>
+              <Typography>
+                Last Login: {formatDate(selectedCompany.last_login)}
+              </Typography>
+              <Typography>
+                Subscription Plan:
+                <ul>
+                  <li>
+                    Plan Name: {selectedCompany.subscription_plan.plan_name}
+                  </li>
+                  <li>Price: ${selectedCompany.subscription_plan.price}</li>
+
+                  <li>Days Remaining: {selectedCompany.days_remaining} days</li>
+                  <li>Time Remaining: {selectedCompany.time_remaining} </li>
+                  <li>
+                    Start Date:{" "}
+                    {new Date(
+                      selectedCompany.subscription_plan.start_date
+                    ).toLocaleDateString()}
+                  </li>
+                  <li>
+                    End Date:{" "}
+                    {new Date(
+                      selectedCompany.subscription_plan.end_date
+                    ).toLocaleDateString()}
+                  </li>
+                  <li>
+                    Details: {selectedCompany.subscription_plan.plan_details}
+                  </li>
+                </ul>
+              </Typography>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDetailsDialogOpen(false)} color="primary">
+            Close
           </Button>
         </DialogActions>
       </Dialog>
