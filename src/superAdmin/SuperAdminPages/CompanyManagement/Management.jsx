@@ -414,7 +414,7 @@ function Management() {
                   <li>Days Remaining: {selectedCompany.days_remaining} days</li>
                   <li>Time Remaining: {selectedCompany.time_remaining} </li>
                   <li>
-                    Start Date:{" "}
+                    Start Date:
                     {new Date(
                       selectedCompany.subscription_plan.start_date
                     ).toLocaleDateString()}
