@@ -22,7 +22,7 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import { getCompanyData, getSubscriptionPlan, registerCompany } from "../../SuperAdminService";
+import { getCompanyData, getActivePlan, registerCompany } from "../../SuperAdminService";
 
 function Management() {
   const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
@@ -129,7 +129,7 @@ function Management() {
   useEffect(() => {
     const loadSubscriptionPlans = async () => {
       try {
-        const data = await getSubscriptionPlan();
+        const data = await getActivePlan();
         setSubscriptionPlans(data); // Set subscription plans data
       } catch (err) {
         console.error("Error fetching subscription plans:", err);

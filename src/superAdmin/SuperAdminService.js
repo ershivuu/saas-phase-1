@@ -58,8 +58,32 @@ export const getCompanyCount = async () => {
     throw error;
   }
 };
-export const getSubscriptionPlan= async () => {
-  const token = getAuthToken(); // Function to get the auth token
+export const getActivePlan = async () => {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.get(
+      `${SUPER_ADMIN_BASE_URL}/subscriptions/active`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data; // Make sure this contains the expected data
+  } catch (error) {
+    console.error(
+      "Error fetching company data:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // Re-throw error to handle it further up the call stack if needed
+  }
+};
+export const getSubscriptionPlan = async () => {
+  const token = getAuthToken();
   if (!token) {
     throw new Error("No authentication token found.");
   }
@@ -105,5 +129,58 @@ export const registerCompany = async (formValues) => {
       error.response ? error.response.data : error.message
     );
     throw error; // Re-throw error to handle it further up the call stack if needed
+  }
+};
+export const updatePlanStatus = async (planId, status) => {
+  const token = getAuthToken(); // Function to get the auth token
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    await axios.patch(
+      `${SUPER_ADMIN_BASE_URL}/subscriptions/update/${planId}`,
+      { plan_status: status },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error(
+      "Error updating plan status:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};
+export const updatePlan = async (id, planData) => {
+  const token = getAuthToken(); // Function to get the auth token
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.put(
+      `${SUPER_ADMIN_BASE_URL}/subscription-plans/subscriptions/edit/${id}`,
+      planData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error updating plan:",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      `Error updating plan: ${
+        error.response ? error.response.data : error.message
+      }`
+    );
   }
 };
