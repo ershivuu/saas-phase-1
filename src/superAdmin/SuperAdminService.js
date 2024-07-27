@@ -213,3 +213,28 @@ export const createPlan = async (planData) => {
     );
   }
 };
+
+export const getLoginLogs = async () => {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.get(
+      `${SUPER_ADMIN_BASE_URL}/superadmin/login-logs`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error fetching login logs:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
+  }
+};
