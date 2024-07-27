@@ -184,3 +184,32 @@ export const updatePlan = async (id, planData) => {
     );
   }
 };
+export const createPlan = async (planData) => {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.post(
+      `${SUPER_ADMIN_BASE_URL}/subscription-plans/create`,
+      planData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error creating plan:",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      `Error creating plan: ${
+        error.response ? error.response.data : error.message
+      }`
+    );
+  }
+};
