@@ -22,15 +22,15 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import { getCompanyData, getSubscriptionPlan, registerCompany } from "../../SuperAdminService";
+import { getCompanyData, getActivePlan, registerCompany } from "../../SuperAdminService";
 
 function Management() {
-  const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
-  const [searchTerm, setSearchTerm] = useState(""); // State to manage search input
+  const [isColumnLayout, setIsColumnLayout] = useState(false); 
+  const [searchTerm, setSearchTerm] = useState(""); 
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState("all"); // State to manage filter
+  const [filter, setFilter] = useState("all"); 
   const [open, setOpen] = useState(false);
   const [subscriptionPlans, setSubscriptionPlans] = useState([]);
 
@@ -78,7 +78,7 @@ function Management() {
         subscription_plan: "",
       });
       handleClose();
-      // Optionally, you can reload company data here if needed
+     
       const data = await getCompanyData();
       setCompanies(data);
     } catch (err) {
@@ -129,8 +129,8 @@ function Management() {
   useEffect(() => {
     const loadSubscriptionPlans = async () => {
       try {
-        const data = await getSubscriptionPlan();
-        setSubscriptionPlans(data); // Set subscription plans data
+        const data = await getActivePlan();
+        setSubscriptionPlans(data); 
       } catch (err) {
         console.error("Error fetching subscription plans:", err);
       }
