@@ -19,7 +19,6 @@ import {
   getSubscriptionPlan,
   updatePlanStatus,
   updatePlan,
-  createPlan,
 } from "../../SuperAdminService"; // Adjust the path as needed
 
 function PlanAndPricing() {
@@ -30,17 +29,9 @@ function PlanAndPricing() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [viewOpen, setViewOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [createOpen, setCreateOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [status, setStatus] = useState("");
   const [editForm, setEditForm] = useState({
-    plan_name: "",
-    slug_name: "",
-    plan_details: "",
-    price: "",
-    duration: "",
-  });
-  const [newPlan, setNewPlan] = useState({
     plan_name: "",
     slug_name: "",
     plan_details: "",
@@ -86,20 +77,11 @@ function PlanAndPricing() {
     setEditOpen(true);
   };
 
-  const handleCreateOpen = () => {
-    setCreateOpen(true);
-  };
-
-  const handleCreateClose = () => {
-    setCreateOpen(false);
-  };
-
   const handleClose = () => {
     setOpen(false);
     setConfirmOpen(false);
     setViewOpen(false);
     setEditOpen(false);
-    setCreateOpen(false);
     setSelectedPlan(null);
   };
 
@@ -144,26 +126,12 @@ function PlanAndPricing() {
     }
   };
 
-  const handleCreateSubmit = async () => {
-    try {
-      await createPlan(newPlan);
-      // Refresh the plans after creating a new one
-      const updatedPlans = await getSubscriptionPlan();
-      setPlans(updatedPlans);
-      handleCreateClose();
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="pricing-table">
-      <Button variant="contained" color="success" onClick={handleCreateOpen} className="create-plan-btn">
-        Create Plan
-      </Button>
+      <Button variant="outlined">Create Plan</Button>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -368,78 +336,6 @@ function PlanAndPricing() {
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleEditSubmit} color="primary">
             Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Create Plan Dialog */}
-      <Dialog open={createOpen} onClose={handleCreateClose}>
-        <DialogTitle>Create New Plan</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            name="plan_name"
-            label="Plan Name"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={newPlan.plan_name}
-            onChange={(e) =>
-              setNewPlan({ ...newPlan, plan_name: e.target.value })
-            }
-          />
-          <TextField
-            margin="dense"
-            name="slug_name"
-            label="Slug Name"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={newPlan.slug_name}
-            onChange={(e) =>
-              setNewPlan({ ...newPlan, slug_name: e.target.value })
-            }
-          />
-          <TextField
-            margin="dense"
-            name="plan_details"
-            label="Plan Details"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={newPlan.plan_details}
-            onChange={(e) =>
-              setNewPlan({ ...newPlan, plan_details: e.target.value })
-            }
-          />
-          <TextField
-            margin="dense"
-            name="price"
-            label="Price"
-            type="number"
-            fullWidth
-            variant="standard"
-            value={newPlan.price}
-            onChange={(e) => setNewPlan({ ...newPlan, price: e.target.value })}
-          />
-          <TextField
-            margin="dense"
-            name="duration"
-            label="Duration (Days)"
-            type="number"
-            fullWidth
-            variant="standard"
-            value={newPlan.duration}
-            onChange={(e) =>
-              setNewPlan({ ...newPlan, duration: e.target.value })
-            }
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCreateClose}>Cancel</Button>
-          <Button onClick={handleCreateSubmit} color="primary">
-            Create
           </Button>
         </DialogActions>
       </Dialog>

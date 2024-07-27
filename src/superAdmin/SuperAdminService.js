@@ -73,13 +73,13 @@ export const getActivePlan = async () => {
         },
       }
     );
-    return response.data; 
+    return response.data; // Make sure this contains the expected data
   } catch (error) {
     console.error(
       "Error fetching company data:",
       error.response ? error.response.data : error.message
     );
-    throw error; 
+    throw error; // Re-throw error to handle it further up the call stack if needed
   }
 };
 export const getSubscriptionPlan = async () => {
@@ -153,5 +153,63 @@ export const updatePlanStatus = async (planId, status) => {
       error.response ? error.response.data : error.message
     );
     throw error;
+  }
+};
+export const updatePlan = async (id, planData) => {
+  const token = getAuthToken(); // Function to get the auth token
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.put(
+      `${SUPER_ADMIN_BASE_URL}/subscription-plans/subscriptions/edit/${id}`,
+      planData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error updating plan:",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      `Error updating plan: ${
+        error.response ? error.response.data : error.message
+      }`
+    );
+  }
+};
+export const createPlan = async (planData) => {
+  const token = getAuthToken();
+  if (!token) {
+    throw new Error("No authentication token found.");
+  }
+
+  try {
+    const response = await axios.post(
+      `${SUPER_ADMIN_BASE_URL}/subscription-plans/create`,
+      planData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error creating plan:",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      `Error creating plan: ${
+        error.response ? error.response.data : error.message
+      }`
+    );
   }
 };

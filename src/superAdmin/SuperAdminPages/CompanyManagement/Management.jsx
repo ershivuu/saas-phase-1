@@ -130,7 +130,7 @@ function Management() {
     const loadSubscriptionPlans = async () => {
       try {
         const data = await getActivePlan();
-        setSubscriptionPlans(data); 
+        setSubscriptionPlans(data); // Set subscription plans data
       } catch (err) {
         console.error("Error fetching subscription plans:", err);
       }
