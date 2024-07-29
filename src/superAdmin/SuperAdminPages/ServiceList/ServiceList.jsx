@@ -45,7 +45,7 @@ function ServiceList() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Sr. No</TableCell>
+                <TableCell>S No.</TableCell>
                 <TableCell>Service Name</TableCell>
                 <TableCell>Service Type</TableCell>
                 <TableCell>Description</TableCell>
