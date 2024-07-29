@@ -362,8 +362,23 @@ function Management() {
               <div className="current-plan">
                 <p>{company.subscription_plan.plan_name}</p>
                 <p>Plan Name</p>
-                <p>{company.days_remaining}</p>
-                <p>Days Remaining</p>
+                <div>
+                  {company.days_remaining > 0 ? (
+                    <div>
+                      <p>{company.days_remaining}</p>
+                      <p>Days Remaining</p>
+                    </div>
+                  ) : company.time_remaining > 0 ? (
+                    <div>
+                      <p>{company.time_remaining}</p>
+                      <p>Time Remaining</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p>Plan Expired</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}

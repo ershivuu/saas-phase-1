@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Notification from "../../Notification/Notification";
 import axios from "axios";
+
 import { SUPER_ADMIN_BASE_URL } from "../../config/config";
 import { useNavigate } from "react-router-dom";
 import corusviewLogo from "../../assets/logos/corusview.png";
@@ -20,31 +22,6 @@ function SuperLogin() {
 
   const navigate = useNavigate();
 
-  // Function to check token expiration
-  const checkTokenExpiration = () => {
-    const tokenExpiration =
-      JSON.parse(sessionStorage.getItem("TokenExpiration")) ||
-      JSON.parse(localStorage.getItem("TokenExpiration"));
-
-    if (tokenExpiration && Date.now() > tokenExpiration) {
-      // Token has expired
-      sessionStorage.removeItem("Token");
-      sessionStorage.removeItem("TokenExpiration");
-      localStorage.removeItem("Token");
-      localStorage.removeItem("TokenExpiration");
-      navigate("/superadmin"); // Redirect to login page
-    }
-  };
-
-  // Use effect to check token expiration on component mount and set up periodic check
-  useEffect(() => {
-    checkTokenExpiration(); // Check on mount
-
-    const interval = setInterval(checkTokenExpiration, 60000); // Check every minute
-
-    return () => clearInterval(interval); // Clean up interval on component unmount
-  }, [navigate]);
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -57,24 +34,18 @@ function SuperLogin() {
         }
       );
 
+      console.log("API Response:", response);
+
       if (response && response.data.token) {
-        const token = response.data.token;
-        const expirationTime = Date.now() + 59 * 60 * 1000; // Set expiration time for 59 minutes
-
-        sessionStorage.setItem("Token", JSON.stringify(token));
-        sessionStorage.setItem(
-          "TokenExpiration",
-          JSON.stringify(expirationTime)
-        );
-        localStorage.setItem("Token", JSON.stringify(token));
-        localStorage.setItem("TokenExpiration", JSON.stringify(expirationTime));
-
+        sessionStorage.setItem("Token", JSON.stringify(response.data.token));
+        localStorage.setItem("Token", JSON.stringify(response.data.token));
         navigate(`/super-admin/super-dashboard`);
         setErrorNotification({
           open: true,
           message: "Login Successful",
         });
       } else {
+        // If response does not contain token (invalid credentials)
         setErrorMessage("Invalid credentials");
         setErrorNotification({
           open: true,
@@ -85,6 +56,7 @@ function SuperLogin() {
     } catch (error) {
       console.error("Error during login:", error);
       if (error.response && error.response.status === 400) {
+        // If status code is 400 (Bad Request), it indicates invalid credentials
         setErrorMessage(error.response.data.message || "Invalid credentials");
         setErrorNotification({
           open: true,
@@ -92,6 +64,7 @@ function SuperLogin() {
         });
         setErrorCount((prevCount) => prevCount + 1); // Increment error count
       } else {
+        // If any other error occurs, display a generic error message
         setErrorMessage("An error occurred during login");
         setErrorNotification({
           open: true,

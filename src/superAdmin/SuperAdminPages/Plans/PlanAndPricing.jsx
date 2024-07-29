@@ -335,33 +335,34 @@ function PlanAndPricing() {
               <p>
                 <strong>Plan Name:</strong> {selectedPlan.plan_name}
               </p>
-              <p>
-                <strong>Details:</strong> {selectedPlan.plan_details}
-              </p>
+
               <p>
                 <strong>Price:</strong> ${selectedPlan.price}
               </p>
               <p>
                 <strong>Duration:</strong> {selectedPlan.duration} days
               </p>
-              <p>
+              {/* <p>
                 <strong>Start Date:</strong>{" "}
                 {new Date(selectedPlan.start_date).toLocaleDateString()}
               </p>
               <p>
                 <strong>End Date:</strong>{" "}
                 {new Date(selectedPlan.end_date).toLocaleDateString()}
-              </p>
+              </p> */}
               <p>
                 <strong>Status:</strong>{" "}
                 {selectedPlan.plan_status === 1 ? "Active" : "Inactive"}
               </p>
-              <p>
+              {/* <p>
                 <strong>Days Remaining:</strong> {selectedPlan.days_remaining}{" "}
                 days
-              </p>
-              <p>
+              </p> */}
+              {/* <p>
                 <strong>Time Remaining:</strong> {selectedPlan.time_remaining}
+              </p> */}
+              <p>
+                <strong>Details:</strong> {selectedPlan.plan_details}
               </p>
             </div>
           )}
