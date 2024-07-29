@@ -68,7 +68,7 @@ function PaymentHistory() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Sr. No</TableCell>
+              <TableCell>S No.</TableCell>
               <TableCell>Payment Invoice</TableCell>
               <TableCell>Amount</TableCell>
               <TableCell>Date</TableCell>

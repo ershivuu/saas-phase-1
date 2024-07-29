@@ -237,7 +237,7 @@ function PlanAndPricing() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Sr. No</TableCell>
+              <TableCell>S No.</TableCell>
               <TableCell>Plan Name</TableCell>
               <TableCell>Duration (Days)</TableCell>
               <TableCell>Status</TableCell>
