@@ -11,14 +11,14 @@ function Notification({ open, handleClose, alertMessage, alertSeverity }) {
       open={open}
       autoHideDuration={3000}
       onClose={handleClose}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }} // Positioning at top right
+      anchorOrigin={{ vertical: "top", horizontal: "right" }} 
       // sx={{ width: "25%" }}
       sx={{
         width: "25%",
         marginTop: "3.5em",
-        "@media (max-width: 600px)": { // Media query for phones (max-width: 600px)
-          width: "95%", // Set width to 100% for phones
-          maxWidth: "95%" // Set maximum width to 100% for phones
+        "@media (max-width: 600px)": { 
+          width: "95%", 
+          maxWidth: "95%" 
         }
       }}
       variant="filled"
