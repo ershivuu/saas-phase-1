@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Management.css";
 import bluebag from "../../../assets/logos/superadmin/blue.png";
 import greenbag from "../../../assets/logos/superadmin/green.png";
@@ -11,10 +11,74 @@ import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import SearchIcon from "@mui/icons-material/Search";
 import { Typography, InputBase, Button } from "@mui/material";
+import { getCompanyData } from "../../SuperAdminService";
 
 function Management() {
-  const [isColumnLayout, setIsColumnLayout] = useState(false); // State to manage layout
-  const [searchTerm, setSearchTerm] = useState(""); // State to manage search input
+  const [isColumnLayout, setIsColumnLayout] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [companies, setCompanies] = useState([]);
+  const [filteredCompanies, setFilteredCompanies] = useState([]);
+  const [filter, setFilter] = useState("all");
+
+  // State to store remaining time for each company
+  const [timeRemaining, setTimeRemaining] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getCompanyData();
+        setCompanies(data.admins);
+        setFilteredCompanies(data.admins);
+        // Initialize time remaining for each company
+        const initialTimeRemaining = {};
+        data.admins.forEach((company) => {
+          initialTimeRemaining[company.id] = calculateTimeRemaining(
+            company.end_date
+          );
+        });
+        setTimeRemaining(initialTimeRemaining);
+      } catch (error) {
+        console.error("Error fetching company data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    let filtered = [...companies];
+    const now = new Date();
+
+    if (filter === "active") {
+      filtered = filtered.filter((company) => company.is_active);
+    } else if (filter === "inactive") {
+      filtered = filtered.filter(
+        (company) =>
+          !company.is_active &&
+          new Date(company.last_login) <
+            new Date(now.setDate(now.getDate() - 15))
+      );
+    } else if (filter === "paid") {
+      filtered = filtered.filter((company) => company.is_paid);
+    }
+
+    setFilteredCompanies(filtered);
+  }, [filter, companies]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const updatedTimeRemaining = {};
+      filteredCompanies.forEach((company) => {
+        updatedTimeRemaining[company.id] = calculateTimeRemaining(
+          company.end_date
+        );
+      });
+      setTimeRemaining(updatedTimeRemaining);
+    }, 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [filteredCompanies]);
 
   const handleColumnLayout = () => setIsColumnLayout(true);
   const handleGridLayout = () => setIsColumnLayout(false);
@@ -44,6 +108,33 @@ function Management() {
     marginTop: "20px",
   };
 
+  const totalCompanies = companies.length;
+  const activeCompanies = companies.filter(
+    (company) => company.is_active
+  ).length;
+  const inactiveCompanies = companies.filter(
+    (company) => !company.is_active
+  ).length;
+  const paidCompanies = companies.filter((company) => company.is_paid).length;
+
+  // Function to calculate time remaining
+  const calculateTimeRemaining = (endDate) => {
+    const now = new Date();
+    const end = new Date(endDate);
+    const difference = end - now;
+
+    if (difference <= 0) return "Expired";
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  };
+
   return (
     <>
       <div className="page-header">
@@ -64,7 +155,6 @@ function Management() {
         <div className="view-btns">
           <Typography>View</Typography>
         </div>
-
         <div>
           <IconButton style={buttonStyle("grid")} onClick={handleGridLayout}>
             <ViewModuleIcon />
@@ -80,134 +170,92 @@ function Management() {
         </div>
       </div>
       <div className="company-status">
-        <div className="status-card">
+        <div className="status-card" onClick={() => setFilter("all")}>
           <div className="status-img">
             <img src={bluebag} alt="" />
           </div>
           <div>
             <p>Total Company</p>
-            <p>314</p>
+            <p>{totalCompanies}</p>
           </div>
         </div>
-        <div className="status-card">
+        <div className="status-card" onClick={() => setFilter("active")}>
           <div className="status-img">
             <img src={greenbag} alt="" />
           </div>
           <div>
             <p>Active Company</p>
-            <p>314</p>
+            <p>{activeCompanies}</p>
           </div>
         </div>
-        <div className="status-card">
+        <div className="status-card" onClick={() => setFilter("inactive")}>
           <div className="status-img">
             <img src={redbag} alt="" />
           </div>
           <div>
             <p>Inactive Company</p>
-            <p>314</p>
+            <p>{inactiveCompanies}</p>
           </div>
         </div>
-        <div className="status-card">
+        <div className="status-card" onClick={() => setFilter("paid")}>
           <div className="status-img">
             <img src={yellowbag} alt="" />
           </div>
           <div>
             <p>Paid Company</p>
-            <p>314</p>
+            <p>{paidCompanies}</p>
           </div>
         </div>
       </div>
       <div className="company-list" style={companyListStyle}>
-        <div className="company-details">
-          <div className="all-details">
-            <div className="company-logo">
-              <img src={bluebag} alt="" />
+        {filteredCompanies.map((company) => (
+          <div className="company-details" key={company.id}>
+            <div className="all-details">
+              <div className="company-logo">
+                <img src={bluebag} alt="" />
+              </div>
+              <div className="company-other-details">
+                <p>Name : {company.company_name}</p>
+                <p>Subdomain : {company.subdomain}</p>
+                <p>
+                  Duration: <span>{company.subscription_plan.duration}</span>
+                </p>
+                <p>
+                  Reg.Date: <span>{company.reg_date}</span>
+                </p>
+              </div>
+              <div className="del-buttons">
+                <IconButton color="error" aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton color="primary" aria-label="view">
+                  <VisibilityIcon />
+                </IconButton>
+              </div>
             </div>
-            <div className="company-other-details">
-              <p>Corusview IT Services</p>
-              <p>Product based company</p>
-              <p>
-                Reg.Date: <span>19-july-2024</span>
-              </p>
-              <p>
-                Plan Expiry Date: <span>19-july-2024</span>
-              </p>
-            </div>
-            <div className="del-buttons">
-              <IconButton color="error" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-
-              <IconButton color="primary" aria-label="view">
-                <VisibilityIcon />
-              </IconButton>
-            </div>
-          </div>
-          <div className="current-plan">
-            <p>Premium</p>
-            <p>Plan Name</p>
-          </div>
-        </div>
-        <div className="company-details">
-          <div className="all-details">
-            <div className="company-logo">
-              <img src={bluebag} alt="" />
-            </div>
-            <div className="company-other-details">
-              <p>Corusview IT Services</p>
-              <p>Product based company</p>
-              <p>
-                Reg.Date: <span>19-july-2024</span>
-              </p>
-              <p>
-                Plan Expiry Date: <span>19-july-2024</span>
-              </p>
-            </div>
-            <div className="del-buttons">
-              <IconButton color="error" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-
-              <IconButton color="primary" aria-label="view">
-                <VisibilityIcon />
-              </IconButton>
+            <div className="current-plan">
+              <div>
+                {company.subscription_plan.name ? (
+                  <>
+                    <p>{company.subscription_plan.name}</p>
+                    <p>Plan Name</p>
+                    <div>
+                      <p>
+                        {timeRemaining[company.id] ||
+                          calculateTimeRemaining(company.end_date)}
+                      </p>
+                      <p>Time Remaining</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p>No Plan</p>
+                  </>
+                )}
+              </div>
             </div>
           </div>
-          <div className="current-plan">
-            <p>Premium</p>
-            <p>Plan Name</p>
-          </div>
-        </div>
-        <div className="company-details">
-          <div className="all-details">
-            <div className="company-logo">
-              <img src={bluebag} alt="" />
-            </div>
-            <div className="company-other-details">
-              <p>Corusview IT Services</p>
-              <p>Product based company</p>
-              <p>
-                Reg.Date: <span>19-july-2024</span>
-              </p>
-              <p>
-                Plan Expiry Date: <span>19-july-2024</span>
-              </p>
-            </div>
-            <div className="del-buttons">
-              <IconButton color="error" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-
-              <IconButton color="primary" aria-label="view">
-                <VisibilityIcon />
-              </IconButton>
-            </div>
-          </div>
-          <div className="current-plan">
-            <p>Premium</p>
-            <p>Plan Name</p>
-          </div>
-        </div>
+        ))}
       </div>
     </>
   );
