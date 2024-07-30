@@ -101,11 +101,9 @@ function AdminList() {
   //     const confirmDelete = window.confirm(
   //       "Are you sure you want to delete this admin?"
   //     );
-  //     if (!confirmDelete) return; 
-
+  //     if (!confirmDelete) return;
 
   //     await adminApiService.deleteAdminById(adminId);
-
 
   //     setAdmins(admins.filter((admin) => admin.id !== adminId));
   //   } catch (error) {
@@ -181,90 +179,84 @@ function AdminList() {
 
   return (
     <>
-
-
-
-<Dialog
-          open={open}
-          onClose={handleCloseModal}
-          PaperProps={{ style: { width: "100%" } }}
-        >
-          <DialogContent>
+      <Dialog
+        open={open}
+        onClose={handleCloseModal}
+        PaperProps={{ style: { width: "100%" } }}
+      >
+        <DialogContent>
           <form onSubmit={handleSubmit}>
-            
-              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                First Name
-              </label>
-              <input
-                type="text"
-                id="categoryInput"
-                name="first_name"
-                value={selectedAdmin ? selectedAdmin.first_name : ""}
-                placeholder="Name"
-                className="Ac-set-input"
-                onChange={(e) =>
-                  handleFieldChange("first_name", e.target.value)
-                }
-              />
-              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                Email
-              </label>
-              <input
-                type="text"
-                id="emailInput"
-                name="email"
-                value={selectedAdmin ? selectedAdmin.email : ""}
-                className="Ac-set-input"
-                placeholder="Email"
-                onChange={(e) => handleFieldChange("email", e.target.value)}
-              />
-              <label className="AC-SetLabel-Name" htmlFor="categoryInput">
-                Contact
-              </label>
-              <input
-                type="text"
-                id="contact_1Input"
-                name="contact_1"
-                value={selectedAdmin ? selectedAdmin.contact_1 : ""}
-                className="Ac-set-input"
-                placeholder="Contact"
-                onChange={(e) => handleFieldChange("contact_1", e.target.value)}
-              />
+            <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+              First Name
+            </label>
+            <input
+              type="text"
+              id="categoryInput"
+              name="first_name"
+              value={selectedAdmin ? selectedAdmin.first_name : ""}
+              placeholder="Name"
+              className="Ac-set-input"
+              onChange={(e) => handleFieldChange("first_name", e.target.value)}
+            />
+            <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+              Email
+            </label>
+            <input
+              type="text"
+              id="emailInput"
+              name="email"
+              value={selectedAdmin ? selectedAdmin.email : ""}
+              className="Ac-set-input"
+              placeholder="Email"
+              onChange={(e) => handleFieldChange("email", e.target.value)}
+            />
+            <label className="AC-SetLabel-Name" htmlFor="categoryInput">
+              Contact
+            </label>
+            <input
+              type="text"
+              id="contact_1Input"
+              name="contact_1"
+              value={selectedAdmin ? selectedAdmin.contact_1 : ""}
+              className="Ac-set-input"
+              placeholder="Contact"
+              onChange={(e) => handleFieldChange("contact_1", e.target.value)}
+            />
 
-              <label className="AC-SetLabel-Name">Select Role Type</label>
-              <select
-                id="roleTypeInput"
-                name="role_type_master_id"
-                // value={selectedAdmin["role_types_master.role_type_name"]}
-                className="Ac-set-input"
-                onChange={(e) =>
-                  handleFieldChange("role_type_id", e.target.value)
-                }
+            <label className="AC-SetLabel-Name">Select Role Type</label>
+            <select
+              id="roleTypeInput"
+              name="role_type_master_id"
+              // value={selectedAdmin["role_types_master.role_type_name"]}
+              className="Ac-set-input"
+              onChange={(e) =>
+                handleFieldChange("role_type_id", e.target.value)
+              }
+            >
+              <option value="">Select Role Type</option>
+              {role.map((role, index) => (
+                <option key={index} value={role.id}>
+                  {role.role_type_name}
+                </option>
+              ))}
+            </select>
+            <DialogActions>
+              <button
+                className="submitbtn"
+                type="submit"
+                onClick={handleSubmit}
               >
-                <option value="">Select Role Type</option>
-                {role.map((role, index) => (
-                  <option key={index} value={role.id}>
-                    {role.role_type_name}
-                  </option>
-                ))}
-              </select>
-              <DialogActions>
-                <button  className="submitbtn" type="submit" onClick={handleSubmit}>
-                  UPDATE NOW
-                </button>
-                <button       onClick={handleCloseModal} className="canclebtn">
-                  Cancle
-                </button>
-              </DialogActions>
-           
-            </form>
-            
-       
-          </DialogContent>
-        </Dialog>
+                UPDATE NOW
+              </button>
+              <button onClick={handleCloseModal} className="canclebtn">
+                Cancle
+              </button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+      </Dialog>
 
-
-      <div className="admin-list ">
+      <div className="admin-list">
         <p className="SCA-heading">List Of Admins</p>
         <div className="table-responsive fixe-table">
           <table className="table table-responsive">
@@ -319,11 +311,18 @@ function AdminList() {
                   Are you sure you want to delete this admin?
                 </DialogContent>
                 <DialogActions>
-
-                  <button className="submitbtn" onClick={() => handleDeleteAdmin(adminToDeleteId)} >
+                  <button
+                    className="submitbtn"
+                    onClick={() => handleDeleteAdmin(adminToDeleteId)}
+                  >
                     Delete
                   </button>
-                  <button className="canclebtn" onClick={handleCloseDeleteConfirmation}>Cancel</button>
+                  <button
+                    className="canclebtn"
+                    onClick={handleCloseDeleteConfirmation}
+                  >
+                    Cancel
+                  </button>
                 </DialogActions>
               </Dialog>
             </tbody>
@@ -349,12 +348,7 @@ function AdminList() {
           )}
           <Pagination.Next onClick={nextPage} />
         </Pagination>
-
-
-
       </div>
-
-
     </>
   );
 }

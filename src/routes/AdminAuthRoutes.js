@@ -40,14 +40,8 @@ import FaqSection from "../AdminFrontend/FrontendPages/FaqSection/FaqSection.jsx
 import EditInterviewSchedule from "../AdminFrontend/FrontendPages/EditInterviewSchedule/EditInterviewSchedule.jsx";
 import EditContact from "../AdminFrontend/FrontendPages/EditHome/HomeSubPages/EditContact.jsx";
 import EditFooter from "../AdminFrontend/FrontendPages/EditFooter/EditFooter.jsx";
-import SuperDashboard from "../superAdmin/SuperAdminDashboard/SuperDashboard.jsx";
-import SuperDash from "../superAdmin/SuperAdminPages/SuperDash/SuperDash.jsx";
-import Management from "../superAdmin/SuperAdminPages/CompanyManagement/Management.jsx";
-import ServiceList from "../superAdmin/SuperAdminPages/ServiceList/ServiceList.jsx";
-import OfflinePayment from "../superAdmin/SuperAdminPages/OfflinePayment/OfflinePayment.jsx";
-import PaymentHistory from "../superAdmin/SuperAdminPages/PaymentHistory/PaymentHistory.jsx";
-import LoginLogs from "../superAdmin/SuperAdminPages/LoginLogs/LoginLogs.jsx";
-import PlanAndPricing from "../superAdmin/SuperAdminPages/Plans/PlanAndPricing.jsx";
+import EmailTemplate from "../admin_pages/AdminLogin/SuperAdmin/EmailTemplate.jsx";
+
 // console.log("inside Candidate-Auth Routes");
 const AdminAuthRoutes = [
   // <Route path="adminpanel" element= {<AdminAuthGaurd component ={<Adminpanel />} />}></Route>,
@@ -216,11 +210,11 @@ const AdminAuthRoutes = [
       path="role-list"
       element={<AdminAuthGaurd component={<GetRole />} />}
     />
-    {/* <Route
+    <Route
       key="email-template"
       path="email-template"
       element={<AdminAuthGaurd component={<EmailTemplate />} />}
-    /> */}
+    />
     <Route key="add-openings" path="add-openings" element={<AddOpenings />} />,
     <Route
       key="admin_register"
@@ -234,41 +228,6 @@ const AdminAuthRoutes = [
       element={<AdminAuthGaurd component={<VisitorsReports />} />}
     ></Route>
     ,
-  </Route>,
-
-  // ---------------------------------------------------
-  <Route key="SuperDashboard" path="/super-admin" element={<SuperDashboard />}>
-    <Route
-      key="SuperDash"
-      path="super-dashboard"
-      element={<SuperDash />}
-    ></Route>
-    <Route
-      key="Management"
-      path="company-management"
-      element={<Management />}
-    ></Route>
-    <Route
-      key="PlanAndPricing"
-      path="plan-and-pricing"
-      element={<PlanAndPricing />}
-    ></Route>
-    <Route
-      key="ServiceList"
-      path="service-list"
-      element={<ServiceList />}
-    ></Route>
-    <Route
-      key="OfflinePayment"
-      path="offline-payments"
-      element={<OfflinePayment />}
-    ></Route>
-    <Route
-      key="PaymentHistory"
-      path="payment-history"
-      element={<PaymentHistory />}
-    ></Route>
-    <Route key="LoginLogs" path="login-logs" element={<LoginLogs />}></Route>
   </Route>,
 ];
 

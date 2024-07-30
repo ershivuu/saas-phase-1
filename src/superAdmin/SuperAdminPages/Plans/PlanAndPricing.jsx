@@ -20,7 +20,7 @@ import {
   updatePlanStatus,
   updatePlan,
   createPlan,
-} from "../../SuperAdminService"; // Adjust the path as needed
+} from "../../SuperAdminService";
 import Notification from "../../../Notification/Notification";
 
 function PlanAndPricing() {
@@ -73,7 +73,7 @@ function PlanAndPricing() {
 
   const handleClickOpen = (plan) => {
     setSelectedPlan(plan);
-    setStatus(plan.plan_status === 1 ? "Active" : "Inactive"); // Correctly set the status based on the current plan status
+    setStatus(plan.plan_status === 1 ? "Active" : "Inactive");
     setOpen(true);
   };
 
@@ -118,7 +118,7 @@ function PlanAndPricing() {
 
   const handleStatusChange = async () => {
     try {
-      const updatedStatus = status === "Active" ? 1 : 0; // Correctly map status to 1 (Active) and 0 (Inactive)
+      const updatedStatus = status === "Active" ? 1 : 0;
       if (selectedPlan) {
         const response = await updatePlanStatus(selectedPlan.id, updatedStatus);
         // Refresh the plans after update
@@ -190,8 +190,6 @@ function PlanAndPricing() {
       ...newPlan,
       [name]: value,
     });
-
-    // Clear the specific error when user types
     setNewPlanErrors({
       ...newPlanErrors,
       [name]: "",

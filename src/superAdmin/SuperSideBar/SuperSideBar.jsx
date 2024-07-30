@@ -13,7 +13,7 @@ import {
   Divider,
   Typography,
   Collapse,
-  Button
+  Button,
 } from "@mui/material";
 import {
   Menu,
@@ -28,6 +28,7 @@ import {
   ExpandMore,
   Logout as LogoutIcon,
 } from "@mui/icons-material";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import "./Sidebar.css";
 import corusview from "../../assets/logos/corusview.png";
 
@@ -70,12 +71,11 @@ const SuperSideBar = ({ isOpen, onToggle }) => {
   const handleLogout = () => {
     sessionStorage.removeItem("Token");
     sessionStorage.removeItem("isLoggedIn");
-    navigate("/superadmin");
+    navigate("/");
   };
   const handlePlanUpgrade = () => {
     navigate("/super-admin/plan-upgrade");
   };
-  
 
   const drawer = (
     <div>
@@ -89,7 +89,7 @@ const SuperSideBar = ({ isOpen, onToggle }) => {
 
           {
             text: "Company Management",
-            icon: <PeopleIcon />,
+            icon: <ManageAccountsIcon />,
             path: "/super-admin/company-management",
           },
           {
@@ -198,8 +198,6 @@ const SuperSideBar = ({ isOpen, onToggle }) => {
             <img className="new-admin-logo" src={corusview} alt="Logo" />
           </Typography>
 
-        
-
           <IconButton
             color="inherit"
             aria-label="logout"
@@ -208,8 +206,6 @@ const SuperSideBar = ({ isOpen, onToggle }) => {
           >
             <LogoutIcon />
           </IconButton>
-
-          
         </Toolbar>
       </AppBar>
       <nav>

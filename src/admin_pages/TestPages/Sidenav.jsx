@@ -170,6 +170,7 @@ const Sidenav = ({ isOpen, onToggle }) => {
               { text: "Admin list", path: "/admin-dashboard/admin-list" },
               { text: "Rights List", path: "/admin-dashboard/right-list" },
               { text: "Role List", path: "/admin-dashboard/role-list" },
+              { text: "Email Template", path: "/admin-dashboard/email-template" },
             ],
           },
         ].map((item, index) => (

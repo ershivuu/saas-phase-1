@@ -337,6 +337,12 @@ function SideBar() {
                         >
                           <span>Role List</span>
                         </Link>
+                        <Link
+                          to="/admin-dashboard/email-template"
+                          className="dropdown-item "
+                        >
+                          <span>Email Template</span>
+                        </Link>
                       </div>
                     </div>
                   </div>

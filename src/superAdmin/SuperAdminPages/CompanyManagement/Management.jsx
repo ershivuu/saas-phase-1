@@ -86,8 +86,6 @@ function Management() {
       ...formValues,
       [name]: value,
     });
-
-    // Remove error message when user starts typing
     if (formErrors[name]) {
       setFormErrors({
         ...formErrors,
@@ -362,8 +360,23 @@ function Management() {
               <div className="current-plan">
                 <p>{company.subscription_plan.plan_name}</p>
                 <p>Plan Name</p>
-                <p>{company.days_remaining}</p>
-                <p>Days Remaining</p>
+                <div>
+                  {company.days_remaining > 0 ? (
+                    <div>
+                      <p>{company.days_remaining}</p>
+                      <p>Days Remaining</p>
+                    </div>
+                  ) : company.time_remaining > 0 ? (
+                    <div>
+                      <p>{company.time_remaining}</p>
+                      <p>Time Remaining</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p>Plan Expired</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -471,7 +484,7 @@ function Management() {
                   <li>Days Remaining: {selectedCompany.days_remaining} days</li>
                   <li>Time Remaining: {selectedCompany.time_remaining} </li>
                   <li>
-                    Start Date:{" "}
+                    Start Date:
                     {new Date(
                       selectedCompany.subscription_plan.start_date
                     ).toLocaleDateString()}

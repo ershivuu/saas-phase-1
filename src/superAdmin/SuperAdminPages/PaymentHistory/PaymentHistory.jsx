@@ -80,7 +80,7 @@ function PaymentHistory() {
               <TableRow key={payment.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{payment.invoice}</TableCell>
-                <TableCell>&#8377;{payment.amount}</TableCell>
+                <TableCell>${payment.amount}</TableCell>
                 <TableCell>{formatDate(payment.date)}</TableCell>
                 <TableCell>
                   <span
