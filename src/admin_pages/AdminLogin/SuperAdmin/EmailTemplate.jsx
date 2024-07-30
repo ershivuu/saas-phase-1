@@ -131,7 +131,7 @@ const EmailTemplatesList = () => {
                 <th scope="col">Template Text 3</th>
                 <th scope="col">Template Text 4</th>
                 <th scope="col">Template Text 5</th>
-                <th scope="col">EDIT</th>
+                <th scope="col">Edit</th>
               </tr>
             </thead>
             <tbody>
