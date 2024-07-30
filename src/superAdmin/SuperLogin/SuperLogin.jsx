@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import Notification from "../../Notification/Notification";
-import axios from "axios";
-
-import { SUPER_ADMIN_BASE_URL } from "../../config/config";
 import { useNavigate } from "react-router-dom";
 import corusviewLogo from "../../assets/logos/corusview.png";
-
+import { loginSuperAdmin } from "../SuperAdminService";
 function SuperLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
@@ -26,13 +22,7 @@ function SuperLogin() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `${SUPER_ADMIN_BASE_URL}/superadmin/login`,
-        {
-          email: username,
-          password: password,
-        }
-      );
+      const response = await loginSuperAdmin(username, password); // Use the API function
 
       console.log("API Response:", response);
 
@@ -45,7 +35,6 @@ function SuperLogin() {
           message: "Login Successful",
         });
       } else {
-        // If response does not contain token (invalid credentials)
         setErrorMessage("Invalid credentials");
         setErrorNotification({
           open: true,
@@ -56,7 +45,6 @@ function SuperLogin() {
     } catch (error) {
       console.error("Error during login:", error);
       if (error.response && error.response.status === 400) {
-        // If status code is 400 (Bad Request), it indicates invalid credentials
         setErrorMessage(error.response.data.message || "Invalid credentials");
         setErrorNotification({
           open: true,
@@ -64,7 +52,6 @@ function SuperLogin() {
         });
         setErrorCount((prevCount) => prevCount + 1); // Increment error count
       } else {
-        // If any other error occurs, display a generic error message
         setErrorMessage("An error occurred during login");
         setErrorNotification({
           open: true,

@@ -37,7 +37,7 @@ function Home() {
       const data = await getBannerInfo();
 
       setBannerData(data.bannerContent);
-      
+
       setBannerImg(data);
     } catch (error) {
       console.error("Error fetching banner data:", error);
