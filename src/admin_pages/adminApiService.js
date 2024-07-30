@@ -103,7 +103,6 @@ const adminApiService = {
   },
   updateDegree: async (payload) => {
     try {
-
       await axios.put(`${ADMIN_BASE_URL}/degreeTypeMaster`, payload, {
         headers: {
           "access-token": getAccessToken(),
@@ -366,7 +365,7 @@ const adminApiService = {
     } catch (error) {
       Notification({
         open: true,
-        handleClose: () => { }, // Define handleClose function if needed
+        handleClose: () => {}, // Define handleClose function if needed
         alertMessage: `Error posting job profile: ${error.message}`,
         alertSeverity: "error",
       });
@@ -685,7 +684,7 @@ const adminApiService = {
       const response = await axios.get(
         `${ADMIN_BASE_URL}/candidateAppliedPost/getCandidatesAppliedPostExcel?category=${selectedCategory}&appliedPost=${selectedPost}`,
         {
-          responseType: 'blob',
+          responseType: "blob",
           headers: {
             "access-token": getAccessToken(),
           },
@@ -697,7 +696,7 @@ const adminApiService = {
       throw error;
     }
   },
-  getAllInterview: async (currentPage, itemsPerPage ) => {
+  getAllInterview: async (currentPage, itemsPerPage) => {
     try {
       const response = await axios.get(
         `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}`,
@@ -713,7 +712,13 @@ const adminApiService = {
       throw error;
     }
   },
-  getMasterviewAllInterview: async (currentPage,itemsPerPage,categoryValue,departValue,PostValue) => {
+  getMasterviewAllInterview: async (
+    currentPage,
+    itemsPerPage,
+    categoryValue,
+    departValue,
+    PostValue
+  ) => {
     try {
       const response = await axios.get(
         `${ADMIN_BASE_URL}/jobProfileMaster/getJobProfilePaginatedNSorted?limit=${itemsPerPage}&page=${currentPage}&category_name=${categoryValue}&dept_name=${departValue}&post_name=${PostValue}`,
@@ -804,9 +809,9 @@ const adminApiService = {
         `${ADMIN_BASE_URL}/visitor/removeVisitor`,
         {
           headers: {
-            "access-token": getAccessToken()
+            "access-token": getAccessToken(),
           },
-          data: payloadData
+          data: payloadData,
         }
       );
       console.log("Save Changes Response:", response);
@@ -817,20 +822,21 @@ const adminApiService = {
     }
   },
 
-
   getAllCounts: async () => {
     try {
-      const response = await axios.get(`${ADMIN_BASE_URL}/reports/getCountReport`, {
-        headers: {
-          "access-token": getAccessToken(),
-        },
-      });
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/reports/getCountReport`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
-
 
   getJobProfileByCnD: async (departmentName) => {
     try {
@@ -849,6 +855,50 @@ const adminApiService = {
     }
   },
 
+  getEmailTemplates: async () => {
+    try {
+      const response = await axios.get(
+        `${ADMIN_BASE_URL}/emailTemplates/getTemplatesList`
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error("Error fetching posts:", error);
+    }
+  },
+
+  addTemplate: async (templateData) => {
+    try {
+      const response = await axios.post(
+        `${ADMIN_BASE_URL}/emailTemplates/addTemplate`,
+        templateData,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error adding template: ${error.message}`);
+    }
+  },
+
+  updateEmailTemplate: async (templateId, data) => {
+    try {
+      const response = await axios.put(
+        `${ADMIN_BASE_URL}/emailTemplates/updateTemplate`,
+        { ...data, template_id: templateId },
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error updating email template: ${error.message}`);
+    }
+  },
 };
 
 function getAccessToken() {
