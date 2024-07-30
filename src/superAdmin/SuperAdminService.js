@@ -1,6 +1,17 @@
 import axios from "axios";
 import { SUPER_ADMIN_BASE_URL } from "../config/config";
 
+export const loginSuperAdmin = async (email, password) => {
+  try {
+    const response = await axios.post(
+      `${SUPER_ADMIN_BASE_URL}/superadmin/login`,
+      { email, password }
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 const getAuthToken = () => {
   let token = sessionStorage.getItem("Token");
   if (token.startsWith('"') && token.endsWith('"')) {
@@ -18,7 +29,7 @@ export const getCompanyData = async () => {
 
   try {
     const response = await axios.get(
-      `${SUPER_ADMIN_BASE_URL}/superadmin/admins`,
+      `${SUPER_ADMIN_BASE_URL}/superadmin/all-admins`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -106,7 +117,7 @@ export const getSubscriptionPlan = async () => {
     throw error; // Re-throw error to handle it further up the call stack if needed
   }
 };
-export const registerCompany = async (formValues) => {
+export const createAdmin = async (formValues) => {
   const token = getAuthToken(); // Function to get the auth token
   if (!token) {
     throw new Error("No authentication token found.");
@@ -114,7 +125,7 @@ export const registerCompany = async (formValues) => {
 
   try {
     const response = await axios.post(
-      `${SUPER_ADMIN_BASE_URL}/admin/register`,
+      `${SUPER_ADMIN_BASE_URL}/superadmin/create-admin`,
       formValues, // Include form values in the request body
       {
         headers: {

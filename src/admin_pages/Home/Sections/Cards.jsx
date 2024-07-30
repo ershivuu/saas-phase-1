@@ -42,30 +42,43 @@ function Cards() {
       </div>
 
       <div className="cards">
-        <div className="card" onClick={() => handleCategoryClick('')}>
+        <div className="card" onClick={() => handleCategoryClick("")}>
           <img alt="" src={logo1} />
           <p>ACADEMICS</p>
-          <a href="#">View Vacancies</a>
+          <a href="#" target="_top">
+            View Vacancies
+          </a>
         </div>
-        <div className="card" onClick={() => handleCategoryClick('UAS')}>
+        <div className="card" onClick={() => handleCategoryClick("UAS")}>
           <img alt="" src={logo2} />
           <p>UAS</p>
-          <a href="#">View Vacancies</a>
+          <a href="#" target="_top">
+            View Vacancies
+          </a>
         </div>
-        <div className="card" onClick={() => handleCategoryClick('Research')}>
+        <div className="card" onClick={() => handleCategoryClick("Research")}>
           <img alt="" src={logo2} />
           <p>RESEARCH</p>
-          <a href="#">View Vacancies</a>
+          <a href="#" target="_top">
+            View Vacancies
+          </a>
         </div>
-        <div className="card" onClick={() => handleCategoryClick('Administrative')}>
+        <div
+          className="card"
+          onClick={() => handleCategoryClick("Administrative")}
+        >
           <img alt="" src={logo3} />
           <p>ADMINISTRATION</p>
-          <a href="#">View Vacancies</a>
+          <a href="#" target="_top">
+            View Vacancies
+          </a>
         </div>
-        <div className="card" onClick={() => handleCategoryClick('Technical')}>
+        <div className="card" onClick={() => handleCategoryClick("Technical")}>
           <img alt="" src={logo3} />
           <p>TECHNICAL</p>
-          <a href="#">View Vacancies</a>
+          <a href="#" target="_top">
+            View Vacancies
+          </a>
         </div>
       </div>
     </div>

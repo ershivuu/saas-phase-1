@@ -71,7 +71,7 @@ function SuperDash() {
     let seconds = date.getSeconds();
     const ampm = hours >= 12 ? "pm" : "am";
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
     const strTime = hours + ":" + minutes + ":" + seconds + " " + ampm;
@@ -109,20 +109,20 @@ function SuperDash() {
         <div className="total-company">
           <div className="super-card-head">
             <p>Total Company</p>
-            <p>{companyData.total_companies}</p>
+            <p>{companyData.totalCompanies}</p>
           </div>
           <div className="super-card-details">
             <div>
               <p>Paid Companies</p>
-              <p>{companyData.paid_companies}</p>
+              <p>{companyData.paidCompanies}</p>
             </div>
             <div>
               <p>Unpaid Companies</p>
-              <p>{companyData.unpaid_companies}</p>
+              <p>{companyData.unpaidCompanies}</p>
             </div>
             <div>
               <p>Inactive Companies</p>
-              <p>{companyData.inactive_companies}</p>
+              <p>{companyData.inactiveCompanies}</p>
             </div>
           </div>
         </div>

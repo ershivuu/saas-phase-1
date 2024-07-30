@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import logo from "../../assets/logos/medi-logo.png";
 import user from "../../assets/logos/user.png";
 import { Outlet, Link } from "react-router-dom";
+import axios from "axios";
 import "./Header.css";
 import { getHeaderInfo } from "../../AdminFrontend/FrontendServices";
 
@@ -67,7 +67,7 @@ function Header() {
                       to="/current-opening"
                       className="nav-link active"
                       aria-current="page"
-                      //target="_top"
+                      target="_top"
                     >
                       Current Opening
                     </Link>
@@ -77,7 +77,7 @@ function Header() {
                       to="/job-profiles"
                       className="nav-link active"
                       aria-current="page"
-                      //target="_top"
+                      target="_top"
                     >
                       Job Profiles
                     </Link>
@@ -87,44 +87,28 @@ function Header() {
                     <Link
                       to="/interview-schedule"
                       className="nav-link"
-                      //target="_top"
+                      target="_top"
                     >
                       Interview Schedule
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      to="/faq-section"
-                      className="nav-link"
-                      // target="_top"
-                    >
+                    <Link to="/faq-section" className="nav-link" target="_top">
                       FAQ's
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      to="/drop-cv"
-                      className="nav-link"
-                      // target="_top"
-                    >
+                    <Link to="/drop-cv" className="nav-link" target="_top">
                       Drop CV
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      to="/contact-us"
-                      className="nav-link"
-                      // target="_top"
-                    >
+                    <Link to="/contact-us" className="nav-link" target="_top">
                       Contact Us
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      to="/process"
-                      className="nav-link"
-                      // target="_top"
-                    >
+                    <Link to="/process" className="nav-link" target="_top">
                       Process
                     </Link>
                   </li>
@@ -132,7 +116,7 @@ function Header() {
                     <Link
                       to="/candidate-login"
                       className="nav-link user-link"
-                      //target="_top"
+                      target="_top"
                     >
                       <img src={user} id="userlogo" alt="University-Logo" />
                     </Link>
