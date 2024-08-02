@@ -858,13 +858,20 @@ const adminApiService = {
   getEmailTemplates: async () => {
     try {
       const response = await axios.get(
-        `${ADMIN_BASE_URL}/emailTemplates/getTemplatesList`
+        `${ADMIN_BASE_URL}/emailTemplates/getTemplatesList`,
+        {
+          headers: {
+            "access-token": getAccessToken(),
+          },
+        }
       );
       return response.data;
     } catch (error) {
-      throw new Error("Error fetching posts:", error);
+      throw new Error(`Error fetching data: ${error.message}`);
     }
   },
+
+
 
   addTemplate: async (templateData) => {
     try {
